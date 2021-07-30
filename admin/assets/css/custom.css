@@ -1,0 +1,27 @@
+/*custom css for admin page. example : position:  fixed*/
+.header {
+    position: fixed;
+    z-index: 2000;
+}
+
+.menu-toggle .nk-sidebar{
+    position: fixed !important;
+}
+
+.nav-header{
+    position: fixed;
+}
+
+.nk-sidebar{
+    position: fixed;
+}
+
+.content-body {
+    margin-top: 6rem;
+}
+
+li.nav-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #6464dc !important;
+}

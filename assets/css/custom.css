@@ -79,3 +79,12 @@ input:focus, textarea:focus{
     background: #fafafa;
      padding: 0px; 
 }
+
+.empty-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-height: 500px;
+    font-size: 25px;
+}

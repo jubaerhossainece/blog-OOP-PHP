@@ -1,10 +1,10 @@
 <div class="col-lg-3 sidebar ftco-animate bg-light pt-5">
   <div class="sidebar-box pt-md-2">
-    <form action="#" class="search-form">
-      <div class="form-group">
-        <span class="icon icon-search"></span>
-        <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
-      </div>
+      <form action="search.php" method="GET"> 
+        <div class="form-group">
+          <input type="text" name="search" class="form-control" placeholder="Search here">
+          <button type="submit" class="btn btn-primary px-3 py-2 mt-2">Search</button>
+        </div>              
     </form>
   </div>
   <div class="sidebar-box ftco-animate">
@@ -12,21 +12,23 @@
   	<?php
   		$query = "SELECT * FROM tbl_categories";
   		$categories = $db->select($query);
-  	?>
-    <ul class="categories">
-    	<?php
+  
       if($categories){
-
-      	while($category = $categories->fetch_object()){
-      		$query = "SELECT COUNT(*) as id FROM tbl_posts WHERE category_id = $category->id";
-      		$count = $db->select($query)->fetch_object();
-      	?>
-        <li><a href="posts.php?category_id=<?php echo $category->id ?>" > <?php echo $category->name; ?> <span>(<?php echo $count->id; ?>)</span></a></li>
-      <?php
-        } 
+        ?>
+      <ul class="categories">
+        <?php
+        	while($category = $categories->fetch_object()){
+        		$query = "SELECT COUNT(*) as id FROM tbl_posts WHERE category_id = $category->id";
+        		$count = $db->select($query)->fetch_object();
+        	?>
+          <li><a href="posts.php?category_id=<?php echo $category->id ?>" > <?php echo $category->name; ?> <span>(<?php echo $count->id; ?>)</span></a></li>
+        <?php
+          } 
+        ?>
+      </ul>
+    <?php 
       } 
       ?>
-    </ul>
   </div>
 
   <!-- <div class="sidebar-box ftco-animate">
