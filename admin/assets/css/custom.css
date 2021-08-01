@@ -25,3 +25,14 @@ li.nav-label {
     font-size: 14px;
     color: #6464dc !important;
 }
+
+h1,h2,h3,h4,h5,h6{
+    color: #757679;
+}
+
+/*card header style*/
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+}

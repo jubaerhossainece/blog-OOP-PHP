@@ -31,5 +31,15 @@
 				return false;
 			}
 		}
+
+		// insert data to database
+		public function insert($query){
+			$insert_row = $this->link->query($query) or die($this->link->error.__LINE__);
+			if($insert_row){
+
+			}else{
+				die("Error : (".$this->link->errno.")".$this->link->error);
+			}
+		}
 	}
 ?>

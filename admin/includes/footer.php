@@ -1,4 +1,4 @@
-<script src="assets/library/plugins/common/common.min.js"></script>
+    <script src="assets/library/plugins/common/common.min.js"></script>
     <script src="assets/library/js/custom.min.js"></script>
     <script src="assets/library/js/settings.js"></script>
     <script src="assets/library/js/gleek.js"></script>
@@ -24,7 +24,7 @@
 
 
 
-    <script src="assets/library/js/dashboard/dashboard-1.js"></script>
+    <script src="ets/library/js/dashboard/dashboard-1.js"></script>
 
 </body>
 

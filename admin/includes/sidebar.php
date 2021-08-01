@@ -11,9 +11,22 @@
                     <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                 </ul>
             </li>
+            
+            <li>
+                <a href="users.php">
+                    <i class="fas fa-users"></i><span>Users</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="posts.php">
+                    <i class="fas fa-blog"></i><span>Posts</span>
+                </a>
+            </li>
+            
             <li class="mega-menu mega-menu-sm">
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Layouts</span>
+                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Users</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="./layout-blank.html">Blank</a></li>

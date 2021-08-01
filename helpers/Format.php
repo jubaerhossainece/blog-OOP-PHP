@@ -1,6 +1,6 @@
 <?php
-class Format {
 
+class Format {
 	//static method to format date
 	public static function formatDate($date){
 		$object = new DateTime($date);
@@ -20,6 +20,14 @@ class Format {
 		} else{
 			return $text;
 		}
+	}
+
+
+	public static function validation($data){
+		$data = trim($data);
+		$data = stripcslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
 	}
 }
 ?>
