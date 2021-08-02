@@ -36,9 +36,29 @@
 		public function insert($query){
 			$insert_row = $this->link->query($query) or die($this->link->error.__LINE__);
 			if($insert_row){
-
+				return $insert_row;
 			}else{
-				die("Error : (".$this->link->errno.")".$this->link->error);
+				return false;
+			}
+		}
+
+		// update data in database
+		public function update($query){
+			$update_row = $this->link->query($query) or die($this->link->error.__LINE__);
+			if($update_row){
+				return $update_row;
+			}else{
+				return false;
+			}
+		}
+
+		// delete data from database
+		public function delete($query){
+			$delete_row = $this->link->query($query) or die($this->link->error.__LINE__);
+			if($delete_row){
+				return $delete_row;
+			}else{
+				return false;
 			}
 		}
 	}

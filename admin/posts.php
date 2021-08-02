@@ -1,13 +1,13 @@
 <?php 
     include "includes/header.php";
-
-    /*pagination detail goes below*/ 
+    
+   /*pagination detail goes below*/ 
     $per_page = 2;
 
-    $query = "SELECT COUNT(id) as total FROM tbl_users";
+    $query = "SELECT COUNT(id) as total FROM tbl_posts";
     $result = $db->select($query)->fetch_object();
     $total_pages = ceil($result->total/$per_page); 
-    $page_url = "users.php?";
+    $page_url = "posts.php?";
 
     if(isset($_GET['page'])){
         $page = $_GET['page'];
@@ -17,8 +17,8 @@
 
     $from = ($page-1) * $per_page;
 
-    $query = "SELECT * FROM tbl_users LIMIT $from, $per_page";
-    $users = $db->select($query);
+    $query = "SELECT * FROM tbl_posts LIMIT $from, $per_page";
+    $posts = $db->select($query);
  ?>
 
         
@@ -46,32 +46,33 @@
                     <div class="col-md-12">                    
                         <div class="card">
                             <div class="card-header page-header">
-                                <h3>Users Page</h3>
-                                <a href="user-create.php" class="btn btn-primary">Add user</a>
+                                <h3>Posts Page</h3>
+                                <a href="user-create.php" class="btn btn-primary">Add post</a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>
                                         <th class="text-center">Serial</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Title</th>
+                                        <th class="text-center">Body</th>
                                         <th class="text-center">Action</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                     <?php 
-                                        if(mysqli_num_rows($users) > 0){
-                                            while ($user = $users->fetch_object()) {
+                                        if(mysqli_num_rows($posts) > 0){
+                                            
+                                            while ($post = $posts->fetch_object()) {
                                             $from++;
                                      ?>
                                       <tr>
                                         <td class="text-center"><?php echo $from ?></td>
-                                        <td class="text-center"><?php echo $user->name ?></td>
-                                        <td class="text-center"><?php echo $user->email ?></td>
+                                        <td class="text-center"><?php echo $post->title ?></td>
+                                        <td class="text-center"><?php echo Format::textShorten($post->body,100) ?></td>
                                         <td class="text-center">
-                                            <a href="controllers/userController.php?action=update&user_id=<?php $user->id ?>" class="btn btn-success">Edit</a>
-                                            <a href="controllers/userController.php?action=delete&user_id=<?php $user->id ?>" class="btn btn-danger">Delete</a>
+                                            <a href="user-edit.php?post_id=<?php echo $post->id ?>" class="btn btn-success mb-2">Edit</a>
+                                            <a href="user-delete.php?post_id=<?php echo $post->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>
                                       <?php 
@@ -85,6 +86,7 @@
                             </div>
                             <div class="card-footer">
                                 <?php 
+
                                     include "includes/pagination.php";
                                  ?>
                             </div>

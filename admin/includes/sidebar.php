@@ -19,21 +19,17 @@
             </li>
 
             <li>
+                <a href="categories.php">
+                    <i class="fas fa-layer-group"></i><span>Categories</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="posts.php">
                     <i class="fas fa-blog"></i><span>Posts</span>
                 </a>
             </li>
             
-            <li class="mega-menu mega-menu-sm">
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Users</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="./layout-blank.html">Blank</a></li>
-                    <li><a href="./layout-one-column.html">One Column</a></li>
-                    <li><a href="./layout-two-column.html">Two column</a></li>
-                </ul>
-            </li>
             <li class="nav-label">Apps</li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">

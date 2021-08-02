@@ -28,6 +28,14 @@ class Session{
 		session_destroy();
 		header("Location:login.php");
 	}
+
+	public static function unsetSession($key){
+		if (isset($_SESSION[$key])) {
+			unset($_SESSION[$key]);
+		}else{
+			return false;
+		}
+	}
 }
 
  ?>
