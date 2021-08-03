@@ -2,7 +2,7 @@
 	include '../../config/Config.php';
 	include '../../library/Database.php';
 	include '../../library/Session.php';
-	include '../../helpers/Format.php';
+	include "../../helpers/Validation.php";
 
 	Session::checkSession();
 	$db = new Database;
@@ -14,22 +14,22 @@
  	$author_id = Session::get('auth_id');
 	//user input validation
     $title = $_POST['title'];
-    $title = Format::validation($title);
+    $title = Validation::sanitize($title);
 
     $category = $_POST['category'];
-    $category = Format::validation($category);
+    $category = Validation::sanitize($category);
 
     $body = $_POST['body'];
-    $body = Format::validation($body);
+    $body = Validation::sanitize($body);
 
     $photo = $_POST['photo'];
-    $photo = Format::validation($photo);
+    $photo = Validation::sanitize($photo);
 
-    $error1 = Format::emptyValue($title);
-    $error2 = Format::emptyValue($body);
-    $error3 = Format::emptyValue($category);
+    $error1 = Validation::required($title, 'Title');
+    $error2 = Validation::required($body, 'Body');
+    $error3 = Validation::required($category, 'Category');
 
-    $error4 = Format::min($title, 5, 'Title');
+    $error4 = Validation::min($title, 5, 'Title');
 
     if($nameLen || $passwordLen){
     	header("Location:../user-create.php");
@@ -64,27 +64,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 
 	//user input validation
     $name = $_POST['name'];
-    $name = Format::validation($name);
+    $name = Validation::sanitize($name);
 
     $email = $_POST['email'];
-    $email = Format::validation($email);
+    $email = Validation::sanitize($email);
 
     $about = $_POST['about'];
-    $about = Format::validation($about);
+    $about = Validation::sanitize($about);
 
     $password = $_POST['password'];
-    $password = Format::validation($password);
+    $password = Validation::sanitize($password);
 
-    if(empty($name)){
-        Session::set('error-name', 'User name can not be empty!');
-    }
-    
-    if (empty($email)) {
-        Session::set('error-email', 'User email can not be empty!');
-    }
+    $error1 = Validation::required($name, 'Name');
+    $error2 = Validation::required($email, 'Email');
 
-    $nameLen = Format::min($name, 4, 'Name');
-    $passwordLen = Format::min($password, 4, 'Password');
+    $error3 = Validation::min($name, 4, 'Name');
+    $error4 = Validation::min($password, 4, 'Password');
 
     if($nameLen || $passwordLen){
     	header("Location:../user-edit.php?user_id=$user_id");

@@ -156,3 +156,8 @@
     <?php 
         include "includes/footer.php";
      ?>
+     <script>
+        $('#photo').change(function(){
+            $(this).next('label').text($(this).val());
+        })
+     </script>

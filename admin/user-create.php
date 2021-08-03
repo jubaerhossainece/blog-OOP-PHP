@@ -45,7 +45,7 @@
                                      <?php    
                                     } 
                                  ?>
-                                <form action="controllers/userController.php?action=insert" method="POST">
+                                <form action="controllers/userController.php?action=insert" method="POST" enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control" id="name" value="<?php if(Session::get('name')){ echo Session::get('name'); } ?>">
@@ -147,6 +147,8 @@
         include "includes/footer.php";
      ?>
 
-     <script>
-        $('.custom-file-label').html = $('#photo').value;
+    <script>
+        $('#photo').change(function(){
+            $(this).next('label').text($(this).val());
+        })
      </script>

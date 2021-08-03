@@ -1,16 +1,17 @@
 <?php 
     include '../../config/Config.php';
-    include "../../helpers/Format.php";
     include "../../library/Session.php";
     include "../../library/Database.php";
+    include "../../helpers/Validation.php";
 
     Session::init();
  ?>
 <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $db = new Database;
-        $email = Format::validation($_POST['email']);
+        $email = Validation::sanitize($_POST['email']);
         $password = $_POST['password'];
+        $password = Validation::sanitize($password);
 
         $query = "SELECT * FROM tbl_users WHERE email = '$email'";
         $result = $db->select($query);

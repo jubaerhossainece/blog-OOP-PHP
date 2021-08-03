@@ -3,44 +3,49 @@
 	include '../../library/Database.php';
 	include '../../library/Session.php';
 	include '../../helpers/Format.php';
+	include '../../helpers/Validation.php';
 
 	Session::checkSession();
 	$db = new Database;
 ?>
 
 <?php 
- //inserting category in database
+ //inserting user data in database
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'insert'){
+
 	//user input validation
     $name = $_POST['name'];
-    $name = Format::validation($name);
+    $name = Validation::sanitize($name);
 
     $email = $_POST['email'];
-    $email = Format::validation($email);
+    $email = Validation::sanitize($email);
 
     $about = $_POST['about'];
-    $about = Format::validation($about);
+    $about = Validation::sanitize($about);
 
     $password = $_POST['password'];
-    $password = Format::validation($password);
+    $password = Validation::sanitize($password);
+
+    $photo = $_FILES['photo'];
+    $error7 = Validation::image($photo,'photo');
+    echo Session::get('error-photo');
+    return;
+    $picture_filename = pathinfo($photo['name'], PATHINFO_FILENAME);
+    echo $picture_filename;
+    return
 
     Session::set('name', $name);
     Session::set('email', $email);
     Session::set('about', $about);
 
-    $error1 = Format::min($name, 4, 'Name');
-    $error2 = Format::min($password, 4, 'Password');
+    $error1 = Validation::min($name, 4, 'Name');
+    $error2 = Validation::min($password, 4, 'Password');
 
-    $error3 = Format::emptyValue($name, 'Name');
-    $error4 = Format::emptyValue($email, 'Email');
-    $error5 = Format::emptyValue($password, 'Password');
+    $error3 = Validation::required($name, 'Name');
+    $error4 = Validation::required($email, 'Email');
+    $error5 = Validation::required($password, 'Password');
 
-    if(!Format::emptyValue($email, 'Email')){
-	    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-	    	Session::set('error-email', 'Please write a valid email address!');
-	    	$error6 = true;
-	    }	
-    }
+    $error6 = Validation::email($email);
 
     if ($error1 || $error2 || $error3 || $error3 || $error4 || $error5 || $error6){
         header("Location:../user-create.php");
@@ -76,28 +81,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 		header("Location:../users.php");
 	}
 
-		//user input validation
+	//user input validation
     $name = $_POST['name'];
-    $name = Format::validation($name);
+    $name = Validation::sanitize($name);
 
     $email = $_POST['email'];
-    $email = Format::validation($email);
+    $email = Validation::sanitize($email);
 
     $about = $_POST['about'];
-    $about = Format::validation($about);
+    $about = Validation::sanitize($about);
 
     $password = $_POST['password'];
-    $password = Format::validation($password);
+    $password = Validation::sanitize($password);
 
-    $error1 = Format::min($name, 4, 'Name');
+    $error1 = Validation::min($name, 4, 'Name');
 
     if(!empty($password)){
-	    $error2 = Format::min($password, 4, 'Password');    	
+	    $error2 = Validation::min($password, 4, 'Password');    	
     }
 
     
-    $error3 = Format::emptyValue($name, 'Name');
-    $error4 = Format::emptyValue($email, 'Email');
+    $error3 = Validation::required($name, 'Name');
+    $error4 = Validation::required($email, 'Email');
     
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
     	Session::set('error-email', 'Please write a valid email address!');
@@ -146,7 +151,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
     } 
 }
 
-    //deleting category from database
+    //deleting user data from database
     if(isset($_GET['action']) && $_GET['action'] == 'delete'){
     	if (isset($_GET['user_id'])) {
 				$user_id = $_GET['user_id'];

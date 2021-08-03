@@ -12,7 +12,11 @@
 			$this->connectDB();
 		}
 
-		//create connections with database
+		/**
+		*make connection with database
+		*
+		*/
+
 		private function connectDB(){
 			$this->link = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
 
@@ -22,7 +26,12 @@
 			}
 		}
 
-		//read data from database
+		/**
+		*Fetch data from database
+		*
+		* @param  string  $query
+	  * @return bool or string
+		*/
 		public function select($query){
 			$result = $this->link->query($query) or die($this->link->error.__LINE__);
 			if($result->num_rows > 0){
@@ -31,8 +40,13 @@
 				return false;
 			}
 		}
-
-		// insert data to database
+ 
+		/**
+		*Insert data to the database
+		*
+		* @param  string  $query
+	  * @return bool or string
+		*/
 		public function insert($query){
 			$insert_row = $this->link->query($query) or die($this->link->error.__LINE__);
 			if($insert_row){
@@ -42,7 +56,12 @@
 			}
 		}
 
-		// update data in database
+		/**
+		*Update data in the database table
+		*
+		* @param  string  $query
+	  * @return bool or string
+		*/
 		public function update($query){
 			$update_row = $this->link->query($query) or die($this->link->error.__LINE__);
 			if($update_row){
@@ -52,7 +71,13 @@
 			}
 		}
 
-		// delete data from database
+
+		/**
+		*Insert data to the database
+		*
+		* @param  string  $query
+	  * @return bool or string
+		*/
 		public function delete($query){
 			$delete_row = $this->link->query($query) or die($this->link->error.__LINE__);
 			if($delete_row){
