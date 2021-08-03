@@ -47,7 +47,7 @@
                         <div class="card">
                             <div class="card-header page-header">
                                 <h3>Posts Page</h3>
-                                <a href="user-create.php" class="btn btn-primary">Add post</a>
+                                <a href="post-create.php" class="btn btn-primary">Add post</a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-hover">
@@ -71,8 +71,8 @@
                                         <td class="text-center"><?php echo $post->title ?></td>
                                         <td class="text-center"><?php echo Format::textShorten($post->body,100) ?></td>
                                         <td class="text-center">
-                                            <a href="user-edit.php?post_id=<?php echo $post->id ?>" class="btn btn-success mb-2">Edit</a>
-                                            <a href="user-delete.php?post_id=<?php echo $post->id ?>" class="btn btn-danger">Delete</a>
+                                            <a href="post-edit.php?post_id=<?php echo $post->id ?>" class="btn btn-success mb-2">Edit</a>
+                                            <a href="controllers/postController.php?action=delete&post_id=<?php echo $post->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>
                                       <?php 

@@ -13,7 +13,6 @@
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'insert'){
         $name = $_POST['name'];
         $name = Format::validation($name);
-        $name = mysqli_real_escape_string($db->link, $name);
 
         if(empty($name)){
             Session::set('empty', 'Category name can not be empty string!');
@@ -37,6 +36,7 @@
     	if(isset($_GET['cat_id'])){
     		$cat_id = $_GET['cat_id'];
     		$name = $_POST['name'];
+        $name = Format::validation($name);
 
     		if(empty($name)){
     			Session::set('empty', 'Category name can not be empty!');

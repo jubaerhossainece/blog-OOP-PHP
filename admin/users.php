@@ -50,6 +50,23 @@
                                 <a href="user-create.php" class="btn btn-primary">Add user</a>
                             </div>
                             <div class="card-body">
+
+                                <?php 
+                                    if (Session::get('msg')) {
+                                        ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?php echo Session::get('msg'); 
+                                            Session::unsetSession('msg');
+                                            ?>
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                <?php        
+                                    }
+                                 ?>
+
+
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>
@@ -70,8 +87,8 @@
                                         <td class="text-center"><?php echo $user->name ?></td>
                                         <td class="text-center"><?php echo $user->email ?></td>
                                         <td class="text-center">
-                                            <a href="controllers/userController.php?action=update&user_id=<?php $user->id ?>" class="btn btn-success">Edit</a>
-                                            <a href="controllers/userController.php?action=delete&user_id=<?php $user->id ?>" class="btn btn-danger">Delete</a>
+                                            <a href="user-edit.php?action=update&user_id=<?php echo $user->id ?>" class="btn btn-success">Edit</a>
+                                            <a href="controllers/userController.php?action=delete&user_id=<?php echo $user->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>
                                       <?php 

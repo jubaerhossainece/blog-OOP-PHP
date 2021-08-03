@@ -7,42 +7,11 @@
     include '../helpers/Format.php';
     $db = new Database;
  ?>
-
- <?php 
+<?php 
     if(Session::get('login') == true){
         header("Location:index.php");
     }
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $username = Format::validation($_POST['email']);
-        $password = Format::validation($_POST['password']);
-
-        $username = mysqli_real_escape_string($db->link, $username);
-        $password = mysqli_real_escape_string($db->link, $password);
-
-        $query = "SELECT * FROM tbl_users WHERE email = '$username' AND password = '$password'";
-        $result = $db->select($query);
-
-        if($result !=false){
-            $row = mysqli_num_rows($result);
-            if($row > 0){
-                Session::set('login', true);
-                $user = $result->fetch_object();
-                Session::set('username', $user->email);
-                Session::set('name', $user->name);
-                Session::set('about', $user->about);
-
-                header("Location:index.php");
-            }else{
-                Session::set('failed', 'No login data found!');
-                header('Location:login.php');
-            }
-        }else{
-            Session::set('failed', 'Credentials did not match!');
-            header('Location:login.php');
-        }
-    }
-  ?>
+ ?>
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
@@ -55,6 +24,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="assets/library/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
     
 </head>
 
@@ -81,26 +51,46 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
-                                 <h4>Rosella</h4>
-                                <?php if (Session::get('failed')) {
-                                  ?>
-                                <div class="bg-danger text-center text-white p-3 bg-lighten-xl">
-                                    <?php echo Session::get('failed'); ?>
-                                </div>
-                                <?php 
-                                } 
-                                ?>
+                                 <h4 class="text-center">Login to your account</h4>
         
-                                <form class="mt-5 mb-5 login-input" method="POST" action="login.php">
-                                    <div class="form-group">
-                                        <input type="email" name="email" class="form-control" placeholder="Email">
+                                <form class="mt-5 mb-5 login-input" method="POST" action="controllers/loginController.php">
+                                    <div class="form-group mb-4">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" value="<?php if(Session::get('email')){ echo  Session::get('email'); } ?>">
+                                        <?php 
+                                            if(Session::get('error-email')){
+                                        ?>       
+                                            <div class="text-danger mt-2">
+                                                <strong>                                 
+                                                    <?php 
+                                                     echo Session::get('error-email');
+                                                     Session::unsetSession('error-email');
+                                                     ?>
+                                                </strong>
+                                            </div>
+                                        <?php        
+                                            }
+                                         ?>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-4">
                                         <input type="password" name="password" class="form-control" placeholder="Password">
+                                        <?php 
+                                            if(Session::get('error-password')){
+                                        ?>       
+                                            <div class="text-danger mt-2">
+                                                <strong>                                 
+                                                    <?php 
+                                                     echo Session::get('error-password');
+                                                     Session::unsetSession('error-password');
+                                                     ?>
+                                                </strong>
+                                            </div>
+                                        <?php        
+                                            }
+                                         ?>
                                     </div>
                                     <button class="btn login-form__btn submit w-100">Sign In</button>
                                 </form>
-                                <p class="mt-5 login-form__footer">Dont have account? <a href="register.php" class="text-primary">Sign Up</a> now</p>
+                                <p class="mt-5 login-form__footer">Don't have account? <a href="register.php" class="text-primary">Sign Up</a> now</p>
                             </div>
                         </div>
                     </div>

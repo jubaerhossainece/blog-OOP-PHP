@@ -24,10 +24,42 @@ class Format {
 
 
 	public static function validation($data){
+		$db = new Database;
 		$data = trim($data);
 		$data = stripcslashes($data);
 		$data = htmlspecialchars($data);
+		$data = mysqli_real_escape_string($db->link, $data);
 		return $data;
+	}
+
+
+	//to check if input data is empty
+	public static function emptyValue($data, $field){
+		$message = $field. " can not be empty!";
+		$field = strtolower($field);
+		$error = "error-".$field;
+
+		if(empty($data)){
+			Session::Set($error, $message);
+			return true;
+		}else{
+			return false;
+		}
+	} 
+
+
+	public static function min($data, $length, $field){
+		$string = strlen($data);
+		$message = $field. " can not be less than ".$length." characters!";
+		$field = strtolower($field);
+		$error = "error-".$field;
+	
+		if ($string < $length) {
+			Session::set($error, $message);
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
 ?>
