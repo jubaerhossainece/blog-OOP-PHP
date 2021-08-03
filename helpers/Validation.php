@@ -87,6 +87,35 @@
 			}
 		}
 
+		/**
+		*Determine if file size is within a max filesize(MegaByte)
+		*
+		* @param  file  $file
+		* @param  integer $length
+		* @param  string $field
+    * @return bool
+		*/
+		public static function maxFileSize($file, $length, $field){
+			$filesize = $file['size'];
+			$sizeLimit = $length*1024;
+
+			if(!self::image($file, $field)){
+				if($filesize <= $sizeLimit){
+					return false;
+				}else{			
+					//set message for warning 
+					$field = strtolower($field);
+					$error = "error-".$field;
+					$field = ucfirst($field);
+					$message = $field." must be less than ".$length."MB";
+					Session::set($error, $message);
+					return true;
+				}
+			}else{
+				return false;
+			}
+		}
+
 
 		/**
 		*chech if input value has a mimnimum length of characters
