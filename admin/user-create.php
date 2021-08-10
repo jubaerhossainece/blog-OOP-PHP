@@ -45,7 +45,7 @@
                                      <?php    
                                     } 
                                  ?>
-                                <form action="controllers/userController.php?action=insert" method="POST" enctype="multipart/form-data">
+                                <form action="controllers/UserController.php?action=insert" method="POST" enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control" id="name" value="<?php if(Session::get('name')){ echo Session::get('name'); } ?>">
@@ -87,8 +87,8 @@
                                   <div class="form-group">
                                       <label for="photo">Profile photo</label>
                                       <div class="custom-file">
-                                        <input type="file" name="photo" class="custom-file-input" id="photo" value="<?php if(Session::get('photo')){ echo Session::get('photo'); } ?>">
-                                        <label class="custom-file-label" for="customFile"><?php if(Session::get('photo')){ echo Session::get('photo'); }else{ echo 'Choose file'; } ?></label>
+                                        <input type="file" name="photo" class="custom-file-input" id="photo">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
                                       </div>
                                       <div class="text-danger mt-2">
                                           <strong>                            

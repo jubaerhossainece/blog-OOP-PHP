@@ -49,7 +49,7 @@
                                      <?php    
                                     } 
                                  ?>
-                                <form action="controllers/categoryController.php?action=update&cat_id=<?php echo $category->id ?>" method="POST">
+                                <form action="controllers/CategoryController.php?action=update&cat_id=<?php echo $category->id ?>" method="POST">
                                   <div class="form-group">
                                     <label for="name">Category Name:</label>
                                     <input type="text" name="name" value="<?php if($category){ echo $category->name; } ?>" class="form-control" id="name">

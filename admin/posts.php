@@ -72,7 +72,7 @@
                                         <td class="text-center"><?php echo Format::textShorten($post->body,100) ?></td>
                                         <td class="text-center">
                                             <a href="post-edit.php?post_id=<?php echo $post->id ?>" class="btn btn-success mb-2">Edit</a>
-                                            <a href="controllers/postController.php?action=delete&post_id=<?php echo $post->id ?>" class="btn btn-danger">Delete</a>
+                                            <a href="controllers/PostController.php?action=delete&post_id=<?php echo $post->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>
                                       <?php 

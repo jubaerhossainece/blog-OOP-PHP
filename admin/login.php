@@ -53,7 +53,7 @@
                             <div class="card-body pt-5">
                                  <h4 class="text-center">Login to your account</h4>
         
-                                <form class="mt-5 mb-5 login-input" method="POST" action="controllers/loginController.php">
+                                <form class="mt-5 mb-5 login-input" method="POST" action="controllers/LoginController.php">
                                     <div class="form-group mb-4">
                                         <input type="email" name="email" class="form-control" placeholder="Email" value="<?php if(Session::get('email')){ echo  Session::get('email'); } ?>">
                                         <?php 

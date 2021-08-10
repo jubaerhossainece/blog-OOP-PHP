@@ -84,7 +84,7 @@
                                         <td class="text-center"><?php echo $category->name ?></td>
                                         <td class="text-center">
                                             <a href="categories-edit.php?category_id=<?php echo $category->id ?>" class="btn btn-success">Edit</a>
-                                            <a href="controllers/categoryController.php?action=delete&category_id=<?php echo $category->id ?>" class="btn btn-danger">Delete</a>
+                                            <a href="controllers/CategoryController.php?action=delete&category_id=<?php echo $category->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>
                                       <?php 

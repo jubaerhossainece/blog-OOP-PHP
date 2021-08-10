@@ -45,7 +45,7 @@
                                      <?php    
                                     } 
                                  ?>
-                                <form action="controllers/categoryController.php?action=insert" method="POST">
+                                <form action="controllers/CategoryController.php?action=insert" method="POST">
                                   <div class="form-group">
                                     <label for="name">Category Name:</label>
                                     <input type="text" name="name" class="form-control" id="name">

@@ -46,7 +46,7 @@
                                      <?php    
                                     } 
                                  ?>
-                                <form action="controllers/postController.php?action=insert" method="POST" enctype="multipart/form-data">
+                                <form action="controllers/PostController.php?action=insert" method="POST" enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="title">Title</label>
                                     <input type="text" name="title" class="form-control" id="title">

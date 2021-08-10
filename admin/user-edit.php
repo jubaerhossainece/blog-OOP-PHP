@@ -56,7 +56,10 @@
                                     if(mysqli_num_rows($users) > 0){
                                         while($user = $users->fetch_object()){
                                   ?>
-                                    <form action="controllers/userController.php?action=update&user_id=<?php echo $user->id ?>" method="POST">
+                                    <form action="controllers/UserController.php?action=update&user_id=<?php echo $user->id ?>" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden" name="user_id" value="<?php echo  $user_id ?>">
+                                        </div>
                                       <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" name="name" class="form-control" id="name" value="<?php echo $user->name ?>">
@@ -97,7 +100,9 @@
                                           <label for="photo">Profile photo</label>
                                           <div class="custom-file">
                                             <input type="file" name="photo" class="custom-file-input" id="photo">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <label class="custom-file-label" for="customFile"><?php if ($user->image) {
+                                                echo $user->image;
+                                            }else{ echo 'Choose file'; } ?></label>
                                           </div>
                                       </div>
 
@@ -156,3 +161,9 @@
     <?php 
         include "includes/footer.php";
      ?>
+     
+    <script>
+        $('#photo').change(function(){
+            $(this).next('label').text($(this).val());
+        })
+     </script>

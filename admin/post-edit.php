@@ -43,7 +43,7 @@
                                      <?php    
                                     } 
                                  ?>
-                                <form action="controllers/userController.php?action=insert" method="POST" enctype="multipart/form-data">
+                                <form action="controllers/PostController.php?action=insert" method="POST" enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control" id="name">
