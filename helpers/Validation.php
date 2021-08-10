@@ -76,14 +76,16 @@
 			$field = strtolower($field);
 			$error = "error-".$field;
 			$field = ucfirst($field);
-			$message = $field." is not an image. Please upload an image file!";
+			$message = "This file is not an image. Please upload an image file!";
 
 			//check file extension is in the extension type array
 			if(in_array($extension, $type)){
 				return false;
 			}else{
-				Session::set($error, $message);
-				return true;	
+				if ($file['name'] != "") {
+					Session::set($error, $message);					
+					return true;	
+				}
 			}
 		}
 
@@ -97,19 +99,21 @@
 		*/
 		public static function maxFileSize($file, $length, $field){
 			$filesize = $file['size'];
-			$sizeLimit = $length*1024;
+			$sizeLimit = $length*1024*1024;
 
 			if(!self::image($file, $field)){
 				if($filesize <= $sizeLimit){
 					return false;
-				}else{			
-					//set message for warning 
-					$field = strtolower($field);
-					$error = "error-".$field;
-					$field = ucfirst($field);
-					$message = $field." must be less than ".$length."MB";
-					Session::set($error, $message);
-					return true;
+				}else{		
+				if ($file['name'] != "") {					
+						//set message for warning 
+						$field = strtolower($field);
+						$error = "error-".$field;
+						$field = ucfirst($field);
+						$message = $field." must be less than ".$length."MB";
+						Session::set($error, $message);
+						return true;
+					}	
 				}
 			}else{
 				return false;

@@ -90,6 +90,16 @@
                                         <input type="file" name="photo" class="custom-file-input" id="photo" value="<?php if(Session::get('photo')){ echo Session::get('photo'); } ?>">
                                         <label class="custom-file-label" for="customFile"><?php if(Session::get('photo')){ echo Session::get('photo'); }else{ echo 'Choose file'; } ?></label>
                                       </div>
+                                      <div class="text-danger mt-2">
+                                          <strong>                            
+                                              <?php 
+                                                if (Session::get('error-photo')) {
+                                                    echo Session::get('error-photo');
+                                                    Session::unsetSession('error-photo');
+                                                }
+                                               ?>  
+                                          </strong>
+                                      </div>
                                   </div>
 
                                   <div class="form-group">

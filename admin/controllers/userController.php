@@ -12,7 +12,6 @@
 <?php 
  //inserting user data in database
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'insert'){
-
 	//user input validation
     $name = $_POST['name'];
     $name = Validation::sanitize($name);
@@ -28,12 +27,12 @@
 
     //photo upload and unique filename 
     $photo = $_FILES['photo'];
+
     $file_temp = $photo['tmp_name'];
     $destination = "../images/users/";
 
     $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
     $filename = microtime().".".$file_ext;
-    $upload = move_uploaded_file($file_temp, $destination.$filename);
 
     Session::set('name', $name);
     Session::set('email', $email);
@@ -48,8 +47,7 @@
     $error6 = Validation::email($email);
 
     $error7 = Validation::image($photo, 'photo');
-    $error8 = Validation::maxFileSize($photo, 1, 'photo');
-    
+    $error8 = Validation::maxFileSize($photo, 1, 'photo');    
 
     if ($error1 || $error2 || $error3 || $error3 || $error4 || $error5 || $error6 || $error7 || $error8){
         header("Location:../user-create.php");
@@ -61,8 +59,11 @@
 
 		$password = password_hash($password, PASSWORD_BCRYPT, $options);
 
-        $query = "INSERT INTO tbl_users(name, email, about, password, photo) VALUES('$name', '$email', '$about', '$password', '$filename')";
+        $query = "INSERT INTO tbl_users(name, email, about, password, image) VALUES('$name', '$email', '$about', '$password', '$filename')";
         $insert = $db->insert($query);
+
+	    $upload = move_uploaded_file($file_temp, $destination.$filename);
+    
         if ($insert) {
             Session::set('msg', 'User created successfully!');
             header("Location:../users.php");
