@@ -56,7 +56,7 @@
                                     if(mysqli_num_rows($users) > 0){
                                         while($user = $users->fetch_object()){
                                   ?>
-                                    <form action="controllers/UserController.php?action=update&user_id=<?php echo $user->id ?>" method="POST">
+                                    <form action="controllers/UserController.php?action=update&user_id=<?php echo $user->id ?>" method="POST" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <input type="hidden" name="user_id" value="<?php echo  $user_id ?>">
                                         </div>
@@ -103,6 +103,17 @@
                                             <label class="custom-file-label" for="customFile"><?php if ($user->image) {
                                                 echo $user->image;
                                             }else{ echo 'Choose file'; } ?></label>
+                                          </div>
+
+                                          <div class="text-danger mt-2">
+                                              <strong>                            
+                                                  <?php 
+                                                    if (Session::get('error-photo')) {
+                                                        echo Session::get('error-photo');
+                                                        Session::unsetSession('error-photo');
+                                                    }
+                                                   ?>  
+                                              </strong>
                                           </div>
                                       </div>
 
@@ -161,7 +172,7 @@
     <?php 
         include "includes/footer.php";
      ?>
-     
+
     <script>
         $('#photo').change(function(){
             $(this).next('label').text($(this).val());

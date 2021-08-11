@@ -3,7 +3,7 @@
 	include '../../library/Database.php';
 	include '../../library/Session.php';
 	include '../../helpers/Format.php';
-	include '../../helpers/Validation.php';
+	include '../../helpers/Request.php';
 
 	Session::checkSession();
 	$db = new Database;
@@ -13,37 +13,23 @@
  //inserting user data in database
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'insert'){
 	//user input validation
-    $name = $_POST['name'];
-    $name = Validation::sanitize($name);
-
-    $email = $_POST['email'];
-    $email = Validation::sanitize($email);
-
-    $about = $_POST['about'];
-    $about = Validation::sanitize($about);
-
-    $password = $_POST['password'];
-    $password = Validation::sanitize($password);
+	$obj = new Request;
+	$request = (object)$obj->inputValidate($_POST);	
 
     $photo = $_FILES['photo'];
-
     $destination = "../images/users/";
 
-    Session::set('name', $name);
-    Session::set('email', $email);
-    Session::set('about', $about);
+    $error1 = Validation::required($request->name, 'Name');
+    $error2 = Validation::required($request->email, 'Email');
+    $error3 = Validation::required($request->password, 'Password');
 
-    $error1 = Validation::required($name, 'Name');
-    $error2 = Validation::required($email, 'Email');
-    $error3 = Validation::required($password, 'Password');
+    $error4 = Validation::min($request->name, 4, 'Name');
+    $error5 = Validation::min($request->password, 4, 'Password');
+    $error6 = Validation::email($request->email);
+    $error7 = Validation::unique($request->email, 'email', 'tbl_users');
 
-    $error4 = Validation::min($name, 4, 'Name');
-    $error5 = Validation::min($password, 4, 'Password');
-    $error6 = Validation::email($email);
-    $error7 = Validation::unique($email, 'email', 'tbl_users');
-
-    $error8 = Validation::image($photo, 'photo');
-    $error9 = Validation::maxFileSize($photo, 1, 'photo');   
+    $error8 = Validation::image($request->photo, 'photo');
+    $error9 = Validation::maxFileSize($request->photo, 1, 'photo');   
 
     $er_array = array($error1, $error2, $error3, $error4, $error5, $error6, $error7, $error8, $error9);
     $error = Validation::error($er_array);
@@ -55,17 +41,23 @@
 		$options = [
 			    'cost' => 12,
 			];
-
 		$password = password_hash($password, PASSWORD_BCRYPT, $options);
     	//photo upload and unique filename 
-	    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
-	    $filename = microtime().".".$file_ext;
-	    $upload = move_uploaded_file($file_temp, $destination.$filename);
+    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
+		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
+		    $filename = microtime().".".$file_ext;
+		    $upload = move_uploaded_file($file_temp, $destination.$filename);
+    	}else{
+    		$filename = NULL;
+    	}
 
         $query = "INSERT INTO tbl_users(name, email, about, password, image) VALUES('$name', '$email', '$about', '$password', '$filename')";
         $insert = $db->insert($query);
     
         if ($insert) {
+        	foreach ($_POST as $key => $value) {
+        		Session::unsetSession($key);
+        	}
             Session::set('msg', 'User created successfully!');
             header("Location:../users.php");
         }else{
@@ -86,51 +78,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 	}else{
 		header("Location:../users.php");
 	}
-
-	$variable = ($_POST);
-	foreach ($variable as $key => $value) {
-		echo "field is ".$key." and value is ".$value."<br><br>";
-	}
-
+	$photo = $_FILES['photo'];
+    $destination = "../images/users/";
+	//sanitizing all input values within the global array $_POST
 	//user input validation
-    $image = $_FILES['photo'];
-    $name = $_POST['name'];
-    $name = Validation::sanitize($name);
+	$obj = new Request;
+	$request = (object)$obj->inputValidate($_POST);	
 
-    $email = $_POST['email'];
-    $email = Validation::sanitize($email);
-
-    $about = $_POST['about'];
-    $about = Validation::sanitize($about);
-
-    $password = $_POST['password'];
-    $password = Validation::sanitize($password);
-    echo $name;
-    echo $password;
-    echo $image['name'];
-    return;
-    $error1 = Validation::min($name, 4, 'Name');
-
+    $error1 = Validation::min($request->name, 4, 'Name');
     if(!empty($password)){
-	    $error2 = Validation::min($password, 4, 'Password');    	
+	    $error2 = Validation::min($request->password, 4, 'Password');    	
     }
 
-    $error3 = Validation::required($name, 'Name');
-    $error4 = Validation::required($email, 'Email');
-    $error5 = Validation::email($email);
-    $error6 = Validation::unique($email, 'email', 'tbl_users');
+    $error3 = Validation::required($request->name, 'Name');
+    $error4 = Validation::required($request->email, 'Email');
+    $error5 = Validation::email($request->email);
+    $error6 = Validation::unique($request->email, 'email', 'tbl_users');
+	$error7 = Validation::image($request->photo, 'photo');
+	$error8 = Validation::maxFileSize($request->photo, 1, 'photo'); 
+    //finding if there is any error
+    $er_array = array($error1, $error2, $error3, $error4, $error5, $error6, $error7, $error8);
+    $error = Validation::error($er_array);
 
-    if ($photo) {
-    	echo 'has photo';
-    	return;
-		$error8 = Validation::image($photo, 'photo');
-		$error9 = Validation::maxFileSize($photo, 1, 'photo'); 
-    }else{
-    	echo 'no photo';
-    	return;
-    }
-    
-    if($error1 || $error2 || $error3 || $error4 || $error5){
+    if($error){
     	header("Location:../user-edit.php?user_id=$user_id");
     	exit;
     }else{
@@ -142,13 +112,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 		    		$options = [
 						    'cost' => 12,
 						];
-
 					$password = password_hash($password, PASSWORD_BCRYPT, $options);
 			    }
 
+			    //photo upload and unique filename 
+		    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
+				    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
+				    $filename = microtime().".".$file_ext;
+				    $upload = move_uploaded_file($file_temp, $destination.$filename);
+		    	}else{
+		    		$filename = $user->image;
+		    	}
+
 		        $query = "UPDATE tbl_users
 		        SET
-		        name='$name', email='$email', about='$about', password='$password'
+		        name='$name', email='$email', about='$about', password='$password', image='$filename'
 		        WHERE 
 		        id=$user->id";
 
