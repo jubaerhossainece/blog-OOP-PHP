@@ -52,6 +52,13 @@
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
                                  <h4 class="text-center">Login to your account</h4>
+                                 <?php 
+                                 if(Session::get('login')){ 
+                                    echo 'session set'; 
+                                }else{ 
+                                    echo 'not set'; 
+                                } 
+                                    ?>
         
                                 <form class="mt-5 mb-5 login-input" method="POST" action="controllers/LoginController.php">
                                     <div class="form-group mb-4">

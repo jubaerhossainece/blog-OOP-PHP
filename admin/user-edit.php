@@ -124,7 +124,7 @@
 
                                       <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" name="password" class="form-control" id="password">
+                                        <input type="password" name="password" class="form-control" id="password" value="">
                                         <?php
                                             if(Session::get('error-password')){
                                             ?>

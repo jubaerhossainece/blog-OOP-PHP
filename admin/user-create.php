@@ -55,8 +55,7 @@
                                         <div class="text-danger mt-2">
                                             <strong>                                               
                                                 <?php 
-                                                 echo Session::get('error-name');
-                                                 Session::unsetSession('error-name');
+                                                 Session::error('name');
                                                  ?>
                                             </strong>
                                         </div>
@@ -74,8 +73,7 @@
                                         <div class="text-danger mt-2">
                                             <strong>                                               
                                                 <?php 
-                                                 echo Session::get('error-email');
-                                                 Session::unsetSession('error-email');
+                                                 Session::error('email');
                                                  ?>
                                             </strong>
                                         </div>
@@ -93,10 +91,7 @@
                                       <div class="text-danger mt-2">
                                           <strong>                            
                                               <?php 
-                                                if (Session::get('error-photo')) {
-                                                    echo Session::get('error-photo');
-                                                    Session::unsetSession('error-photo');
-                                                }
+                                                Session::error('photo');
                                                ?>  
                                           </strong>
                                       </div>
@@ -116,8 +111,7 @@
                                         <div class="text-danger mt-2">
                                             <strong>                                               
                                                 <?php 
-                                                 echo Session::get('error-password');
-                                                 Session::unsetSession('error-password');
+                                                 Session::error('password');
                                                  ?>
                                             </strong>
                                         </div>
@@ -152,6 +146,7 @@
         Session::unsetSession('email');
         Session::unsetSession('photo');
         Session::unsetSession('about');
+        Session::unsetSession('password');
      ?>
     <?php 
         include "includes/footer.php";

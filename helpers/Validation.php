@@ -9,7 +9,7 @@
 		*Determine if there is any error in the array
 		*
 		* @param  array  $errors
-    * @return true
+    * @return bool
 		*/
 		public static function error($errors){
 			if (in_array(true, $errors)) {

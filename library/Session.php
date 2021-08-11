@@ -54,14 +54,49 @@ class Session{
 	}
 
 	/**
-	*Unset all sessions created
-	*
+	*Unset sessions created
+	* @param  array  $errors
+  * @return bool
 	*/
 	public static function unsetSession($key){
 		if (isset($_SESSION[$key])) {
 			unset($_SESSION[$key]);
+			return true;
 		}else{
 			return false;
+		}
+	}
+
+	/**
+	* 
+	*Unset sessions created
+	* @param  array  $errors
+  * @return bool
+	*/
+	public static function error($key){
+		$key= "error-".$key;
+		if (isset($_SESSION[$key])) {
+			echo self::get($key);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+	/**
+	* 
+	*Unset sessions for $_POST array
+	*/
+	public static function unsetOld(){
+		$auth_array = self::get('auth-keys');
+		$session_keys = array();
+		foreach ($_SESSION as $key => $value) {
+			$session_keys[] = $key;
+		}
+		$array_offset = array_diff($session_keys, $auth_array);
+		foreach ($array_offset as $value) {
+			self::unsetSession($value);
 		}
 	}
 }

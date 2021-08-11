@@ -85,8 +85,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 	$request = $obj->inputValidate($_POST);
 
     $error1 = Validation::min($request->name, 4, 'Name');
-    if(!empty($password)){
-	    $error2 = Validation::min($request->password, 4, 'Password');    	
+    if(!empty($request->password)){
+	    $error2 = Validation::min($request->password, 4, 'Password');  
     }
 
     $error3 = Validation::required($request->name, 'Name');

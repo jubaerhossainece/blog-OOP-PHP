@@ -183,8 +183,9 @@
                         </li>
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
-                                <span class="activity active"></span>
+                                <!-- <span class="activity active"></span> -->
                                 <img src="assets/library/images/user/1.png" height="40" width="40" alt="">
+                                <strong><?php echo Session::get('auth-name'); ?></strong>
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">

@@ -24,11 +24,16 @@
             $user = $result->fetch_object();
             if (password_verify($password, $user->password)) {
                 Session::set('login', true);
+                $auth_keys = ['login', 'auth-keys'];
+                foreach ($user as $key => $value) {
+                    if($key != 'password'){
+                        $key = 'auth-'.$key;
+                        array_push($auth_keys, $key);
+                        Session::set($key, $value);                        
+                    }
+                }
 
-                Session::set('auth_id', $user->id);
-                Session::set('auth_email', $user->email);
-                Session::set('auth_name', $user->name);
-                Session::set('auth_about', $user->about);
+                Session::set('auth-keys', $auth_keys);
                 header("Location:../index.php");
             }else{
                 Session::set('error-password', 'Password did not match!');
