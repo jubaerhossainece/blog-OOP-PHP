@@ -51,16 +51,16 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
-                                 <h4 class="text-center">Login to your account</h4>
-                                 <?php 
-                                 if(Session::get('login')){ 
-                                    echo 'session set'; 
-                                }else{ 
-                                    echo 'not set'; 
-                                } 
-                                    ?>
+                                 <h4 class="text-center mb-3">Login to your account</h4>
+                                    <?php if(Session::get('logout-message')){ ?>
+                                    <div class="alert alert-success" role="alert">
+                                      <?php  
+                                        echo Session::get('logout-message'); 
+                                        ?>
+                                    </div>
+                                    <?php } ?>
         
-                                <form class="mt-5 mb-5 login-input" method="POST" action="controllers/LoginController.php">
+                                <form class="mt mb-5 login-input" method="POST" action="controllers/LoginController.php">
                                     <div class="form-group mb-4">
                                         <input type="email" name="email" class="form-control" placeholder="Email" value="<?php if(Session::get('email')){ echo  Session::get('email'); } ?>">
                                         <?php 
@@ -114,5 +114,6 @@
     <script src="assets/library/js/settings.js"></script>
     <script src="assets/library/js/gleek.js"></script>
     <script src="assets/library/js/styleSwitcher.js"></script>
+    <?php session_destroy() ?>
 </body>
 </html>

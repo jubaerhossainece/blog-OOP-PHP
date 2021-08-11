@@ -49,7 +49,9 @@ class Session{
 	*
 	*/
 	public static function destroy(){
-		session_destroy();
+		session_destroy();			
+		self::init();
+		self::set('logout-message', 'You are logged out now!');
 		header("Location:login.php");
 	}
 
