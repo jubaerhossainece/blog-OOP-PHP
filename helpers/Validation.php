@@ -78,10 +78,15 @@
 		* @param  string  $field
     * @return bool
 		*/
-		public static function unique($data, $field, $table){
+		public static function unique($data, $field, $table, $id=null){
 			$db = new Database;
-			$query = "SELECT * FROM ".$table." WHERE ".$field."='".$data."';";
-			$result = $db->select($query);
+			if($id ===null){
+				$query = "SELECT * FROM ".$table." WHERE ".$field."='".$data."';";
+				$result = $db->select($query);				
+			}else{			
+				$query = "SELECT * FROM ".$table." WHERE ".$field."='".$data."' AND id!='".$id."';";
+				$result = $db->select($query);
+			}
 
 			//set session message
 			$field = strtolower($field);

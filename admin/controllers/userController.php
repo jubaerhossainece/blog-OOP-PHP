@@ -14,8 +14,7 @@
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'insert'){
 	//user input validation
 	$obj = new Request;
-	$request = (object)$obj->inputValidate($_POST);	
-
+	$request = $obj->inputValidate($_POST);	
     $photo = $_FILES['photo'];
     $destination = "../images/users/";
 
@@ -41,17 +40,17 @@
 		$options = [
 			    'cost' => 12,
 			];
-		$password = password_hash($password, PASSWORD_BCRYPT, $options);
+		$password = password_hash($request->password, PASSWORD_BCRYPT, $options);
     	//photo upload and unique filename 
     	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
 		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
 		    $filename = microtime().".".$file_ext;
-		    $upload = move_uploaded_file($file_temp, $destination.$filename);
+		    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
     	}else{
     		$filename = NULL;
     	}
 
-        $query = "INSERT INTO tbl_users(name, email, about, password, image) VALUES('$name', '$email', '$about', '$password', '$filename')";
+        $query = "INSERT INTO tbl_users(name, email, about, password, image) VALUES('$request->name', '$request->email', '$request->about', '$password', '$filename')";
         $insert = $db->insert($query);
     
         if ($insert) {
@@ -83,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 	//sanitizing all input values within the global array $_POST
 	//user input validation
 	$obj = new Request;
-	$request = (object)$obj->inputValidate($_POST);	
+	$request = $obj->inputValidate($_POST);
 
     $error1 = Validation::min($request->name, 4, 'Name');
     if(!empty($password)){
@@ -93,7 +92,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
     $error3 = Validation::required($request->name, 'Name');
     $error4 = Validation::required($request->email, 'Email');
     $error5 = Validation::email($request->email);
-    $error6 = Validation::unique($request->email, 'email', 'tbl_users');
+    $error6 = Validation::unique($request->email, 'email', 'tbl_users', $user_id);
 	$error7 = Validation::image($request->photo, 'photo');
 	$error8 = Validation::maxFileSize($request->photo, 1, 'photo'); 
     //finding if there is any error
@@ -112,21 +111,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 		    		$options = [
 						    'cost' => 12,
 						];
-					$password = password_hash($password, PASSWORD_BCRYPT, $options);
+					$password = password_hash($request->password, PASSWORD_BCRYPT, $options);
 			    }
 
 			    //photo upload and unique filename 
 		    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
 				    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
 				    $filename = microtime().".".$file_ext;
-				    $upload = move_uploaded_file($file_temp, $destination.$filename);
+				    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
+				    unlink($destination.$user->image);
 		    	}else{
 		    		$filename = $user->image;
 		    	}
 
 		        $query = "UPDATE tbl_users
 		        SET
-		        name='$name', email='$email', about='$about', password='$password', image='$filename'
+		        name='$request->name', email='$request->email', about='$request->about', password='$password', image='$filename'
 		        WHERE 
 		        id=$user->id";
 
@@ -146,7 +146,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 	    	header("Location:../users.php");
 	    	exit;
 	    }   
-
     } 
 }
 

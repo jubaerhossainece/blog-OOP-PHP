@@ -7,10 +7,10 @@
 
 		public function inputValidate($request){
 			foreach ($request as $key => $value) {
-				Validation::sanitize($value);
+				$this->request[$key] = Validation::sanitize($value);
 			  Session::set($key, $value);
 			}
-			return $this->request;
+			return (object)$this->request;
 		}
 
 	}
