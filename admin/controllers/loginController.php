@@ -1,4 +1,5 @@
 <?php 
+    ob_start();
     include '../../config/Config.php';
     include "../../library/Session.php";
     include "../../library/Database.php";
@@ -10,7 +11,9 @@
     //logout section
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'logout') {
         Session::unsetSession('login');
-        header('Location:../index.php');        
+        header('Location:../index.php');
+        ob_end_flush();
+        exit;        
     }
 
     //login section
@@ -27,6 +30,8 @@
             Session::set('error-email', 'Your email address did not match our record!');
             Session::set('email', $email);
             header('Location:../login.php');
+            ob_end_flush();
+            exit;
         }else{
             $user = $result->fetch_object();
             if (password_verify($password, $user->password)) {
@@ -42,12 +47,17 @@
 
                 Session::set('auth-keys', $auth_keys);
                 header("Location:../index.php");
+                ob_end_flush();
+                exit;
             }else{
                 Session::set('error-password', 'Password did not match!');
                 Session::set('email', $email);
                 header("Location:../login.php");
+                ob_end_flush();
+                exit;
             }
 
         }
     }
+    ob_end_flush();
  ?>

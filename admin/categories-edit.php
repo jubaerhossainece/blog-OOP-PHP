@@ -10,8 +10,6 @@
         exit;
     }
  ?>
-
-        
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -29,10 +27,10 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <?php 
-            if($categories){
-                while($category = $categories->fetch_object()){
-                    ?>
+<?php 
+    if($categories){
+        while($category = $categories->fetch_object()){
+            ?>
         <div class="content-body">
             <div class="container-fluid mt-3">
                 <div class="row">
@@ -77,13 +75,13 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        <?php
-                }
-            }else{
-                echo "<script> location.href='categories.php'; </script>";
-                exit;
-            }
-         ?>
+<?php
+        }
+    }else{
+        echo "<script> location.href='categories.php'; </script>";
+        exit;
+    }
+ ?>
         
     </div>
     <!--**********************************

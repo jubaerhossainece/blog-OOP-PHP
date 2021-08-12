@@ -4,7 +4,11 @@
  <?php 
     if(isset($_GET['post_id'])){
         $post_id = $_GET['post_id'];
-        $cat_query = "SELECT * FROM tbl_categories WHERE id='".$post_id."'";
+        //fetch post from table
+        $post_query = "SELECT * FROM tbl_posts WHERE id='".$post_id."'";
+        $posts = $db->select($post_query);
+        //fetch categories from table
+        $cat_query = "SELECT * FROM tbl_categories";
         $categories = $db->select($cat_query);
     }else{
         echo "<script> location.href='posts.php'; </script>";
@@ -30,11 +34,10 @@
             Content body start
         ***********************************-->
 <?php 
-    if ($categories) {
-        while($category = $categories->fetch_object()){
+    if ($posts) {
+        while($post = $posts->fetch_object()){
         ?>
         <div class="content-body">
-
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-md-12">                    
@@ -57,10 +60,10 @@
                                      <?php    
                                     } 
                                  ?>
-                                <form action="controllers/PostController.php?action=update&post_id=<?php  ?>" method="POST" enctype="multipart/form-data">
+                                <form action="controllers/PostController.php?action=update&post_id=<?php echo $post->id; ?>" method="POST" enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input type="text" name="title" class="form-control" id="title" value="<?php Session::old('title') ?>">
+                                    <input type="text" name="title" class="form-control" id="title" value="<?php echo $post->title ?>">
                                         <div class="text-danger mt-2">
                                             <strong>                                               
                                                 <?php 
@@ -76,11 +79,9 @@
                                         <option value="">Select a category</option>
                                         <?php
                                         if ($categories) {
-                                            
                                             while ($category = $categories->fetch_object()) {
-                                        
                                          ?>
-                                            <option value="<?php echo $category->id ?>" <?php if(Session::get('category') === $category->id){ echo 'selected'; } ?> ><?php echo $category->name ?></option>
+                                            <option value="<?php echo $category->id ?>" <?php if($post->category_id === $category->id){ echo 'selected'; } ?> ><?php echo $category->name ?></option>
                                          <?php
                                              } 
                                              } 
@@ -112,12 +113,12 @@
 
                                   <div class="form-group">
                                     <label for="tag">Tags</label>
-                                    <input name="tag" class="form-control" rows="5" id="tag" value="<?php Session::old('tags') ?>">
+                                    <input name="tag" class="form-control" rows="5" id="tag" value="<?php echo $post->tags ?>">
                                   </div>
 
                                   <div class="form-group">
                                     <label for="body">Body</label>
-                                    <textarea name="body" class="form-control" rows="5" id="body"><?php Session::old('body') ?></textarea>
+                                    <textarea name="body" class="form-control" rows="5" id="body"><?php echo  $post->body ?></textarea>
                                     <div class="text-danger mt-2">
                                         <strong>                                               
                                             <?php 
@@ -126,7 +127,7 @@
                                         </strong>
                                     </div>
                                   </div>
-                                  <button type="submit" class="btn btn-primary">Create post</button>
+                                  <button type="submit" class="btn btn-primary">Update post</button>
                                 </form>
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 <?php 
+	ob_start();
 	include '../../config/Config.php';
 	include '../../library/Database.php';
 	include '../../library/Session.php';
@@ -36,7 +37,8 @@
 
 	    if ($error){
 	        header("Location:../user-create.php");
-	        exit;
+            ob_end_flush();
+            exit;
 	    }else{
 			$options = [
 				    'cost' => 12,
@@ -60,9 +62,13 @@
 	        	}
 	            Session::set('msg', 'User created successfully!');
 	            header("Location:../users.php");
+                ob_end_flush();
+                exit;
 	        }else{
 	            Session::set('failure', 'User data insertion failed!');
 	            header("Location:../users-create.php");
+                ob_end_flush();
+                exit;
 	        }
 	    }
  	}
@@ -72,13 +78,23 @@
 
 //updateing user data in database
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
-	if ( $_GET['action'] === 'update') {
+	if ($_GET['action'] === 'update') {
 		if(isset($_GET['user_id'])){
 			$user_id = $_GET['user_id'];
 			$query = "SELECT * FROM tbl_users WHERE id=$user_id";
 			$users = $db->select($query);
+			if(!$users){
+				echo 'no user';
+				header("Location:../users.php");
+	            ob_end_flush();
+	            exit;
+			}else{
+				$user = $users->fetch_object();
+			}
 		}else{
 			header("Location:../users.php");
+            ob_end_flush();
+            exit;
 		}
 		$photo = $_FILES['photo'];
 	    $destination = "../images/users/";
@@ -90,6 +106,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
 	    $error1 = Validation::min($request->name, 4, 'Name');
 	    if(!empty($request->password)){
 		    $error2 = Validation::min($request->password, 4, 'Password');  
+	    }else{
+	    	$error2 = false;
 	    }
 
 	    $error3 = Validation::required($request->name, 'Name');
@@ -104,51 +122,46 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
 
 	    if($error){
 	    	header("Location:../user-edit.php?user_id=$user_id");
-	    	exit;
+            ob_end_flush();
+            exit;
 	    }else{
-		    if($users){
-		    	while ($user = $users->fetch_object()) {
-				    if(empty($password)){
-				        $password = $user->password;
-				    }else{
-			    		$options = [
-							    'cost' => 12,
-							];
-						$password = password_hash($request->password, PASSWORD_BCRYPT, $options);
-				    }
+		    if(empty($request->password)){
+		        $password = $user->password;
+		    }else{
+	    		$options = [
+					    'cost' => 12,
+					];
+				$password = password_hash($request->password, PASSWORD_BCRYPT, $options);
+		    }
 
-				    //photo upload and unique filename 
-			    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
-					    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
-					    $filename = microtime().".".$file_ext;
-					    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
-					    unlink($destination.$user->image);
-			    	}else{
-			    		$filename = $user->image;
-			    	}
+		    //photo upload and unique filename 
+	    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
+			    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
+			    $filename = microtime().".".$file_ext;
+			    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
+			    unlink($destination.$user->image);
+	    	}else{
+	    		$filename = $user->image;
+	    	}
 
-			        $query = "UPDATE tbl_users
-			        SET
-			        name='$request->name', email='$request->email', about='$request->about', password='$password', image='$filename'
-			        WHERE 
-			        id=$user->id";
+	        $query = "UPDATE tbl_users
+	        SET
+	        name='$request->name', email='$request->email', about='$request->about', password='$password', image='$filename'
+	        WHERE 
+	        id=$user->id";
 
-			        $update = $db->update($query);
-			        if ($update) {
-			            Session::set('msg', 'User information updated successfully!');
-			            header("Location:../users.php"); 
-			            exit;
-			        }else{
-			            Session::set('failure', 'User data update failed!');
-			            header("Location:../users-edit.php?user_id=$user->id");
-			            exit;
-			        }
-				    }	
-		    	}else{
-		    	Session::set('msg', 'No data found!');
-		    	header("Location:../users.php");
-		    	exit;
-		    }   
+	        $update = $db->update($query);
+	        if ($update) {
+	            Session::set('msg', 'User information updated successfully!');
+	            header("Location:../users.php"); 
+	            ob_end_flush();
+	            exit;
+	        }else{
+	            Session::set('failure', 'User data update failed!');
+	            header("Location:../users-edit.php?user_id=$user->id");
+	            ob_end_flush();
+	            exit;
+	        }   
 	    }
 	} 
 }
@@ -162,10 +175,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
 			if($delete_user){
 				Session::set('msg', 'User profile has been deleted from database!');
 				header("Location:../users.php");
+	            ob_end_flush();
+	            exit;
 			}else{
 				Session::set('msg', 'User can not be deleted!');
 				header("Location:../users.php");
+	            ob_end_flush();
+	            exit;
 			}
 		}
     }
+    ob_end_flush();
   ?>

@@ -1,4 +1,5 @@
 <?php 
+    ob_start();
 	include '../../config/Config.php';
 	include '../../library/Database.php';
 	include '../../library/Session.php';
@@ -22,15 +23,21 @@
             $error = Validation::error($er_array);
             if($error){
                 header("Location:../categories-create.php");
+                ob_end_flush();
+                exit;
             }else{
                 $query = "INSERT INTO tbl_categories(name) VALUES('$request->name')";
                 $insert = $db->insert($query);
                 if ($insert) {
                     Session::set('msg', 'Category insertion successful!');
                     header("Location:../categories.php");
+                    ob_end_flush();
+                    exit;
                 }else{
                     Session::set('msg', 'Category insertion failed!');
                     header("Location:../categories-create.php");
+                    ob_end_flush();
+                    exit;
                 }
             }
         }
@@ -42,31 +49,49 @@
         if ($_GET['action'] === 'update') {
         	if(isset($_GET['cat_id'])){
         		$cat_id = $_GET['cat_id'];
-        		//category input validation
-                $obj = new Request;
-                $request = $obj->inputValidate($_POST);
-                $error1 = Validation::required($request->name, 'name');
-                $error2 = Validation::unique($request->name, 'name', 'tbl_categories', $cat_id);
-                $er_array = array($error1, $error2);
-                $error = Validation::error($er_array);
+        		$cat_query = "SELECT * FROM  tbl_categories WHERE id=$cat_id";
+                $categories = $db->select($cat_query);
+                if(!categories){
+                    header("Location:../categories.php");
+                    ob_end_flush();
+                    exit;
+                }
+        	}else{
+                header("Location:../categories.php");
+                ob_end_flush();
+                exit;
+            }
 
-        		if($error){
-        			header("Location:../categories-edit.php?category_id=$cat_id");
-        		}else{
-    	    		$query = "UPDATE tbl_categories
-    	    		SET 
-    	    		name='$request->name' 
-    	    		WHERE id = $cat_id";
-    	    		$update = $db->update($query);
-        			if($update){
-        				Session::set('msg', 'Category updated successfully!');
-        				header("Location:../categories.php");
-        			}else{
-                        Session::set('msg', 'Category update failed!');
-                        header("Location:../categories-edit.php?category_id=$cat_id");
-        			}
-        		}
-        	}
+            //category input validation
+            $obj = new Request;
+            $request = $obj->inputValidate($_POST);
+            $error1 = Validation::required($request->name, 'name');
+            $error2 = Validation::unique($request->name, 'name', 'tbl_categories', $cat_id);
+            $er_array = array($error1, $error2);
+            $error = Validation::error($er_array);
+
+            if($error){
+                header("Location:../categories-edit.php?category_id=$cat_id");
+                ob_end_flush();
+                exit;
+            }else{
+                $query = "UPDATE tbl_categories
+                SET 
+                name='$request->name' 
+                WHERE id = $cat_id";
+                $update = $db->update($query);
+                if($update){
+                    Session::set('msg', 'Category updated successfully!');
+                    header("Location:../categories.php");
+                    ob_end_flush();
+                    exit;
+                }else{
+                    Session::set('msg', 'Category update failed!');
+                    header("Location:../categories-edit.php?category_id=$cat_id");
+                    ob_end_flush();
+                    exit;
+                }
+            }
         }
     }
 
@@ -81,11 +106,16 @@
 				if($delete_cat){
 					Session::set('msg', 'Category deleted from database!');
 					header("Location:../categories.php");
+                    ob_end_flush();
+                    exit;
 				}else{
 					Session::set('msg', 'Category can not be deleted!');
 					header("Location:../categories.php");
+                    ob_end_flush();
+                    exit;
 				}
 			}
         }
     }
+    ob_end_flush();
   ?>
