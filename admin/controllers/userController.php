@@ -170,9 +170,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
     if(isset($_GET['action']) && $_GET['action'] == 'delete'){
     	if (isset($_GET['user_id'])) {
 			$user_id = $_GET['user_id'];
+			$select_query = "SELECT * FROM tbl_users WHERE id=$user_id";
+			$users = $db->select($select_query);
+			$user = $users->fetch_object();
 			$query = "DELETE FROM tbl_users WHERE id=$user_id";
 			$delete_user = $db->delete($query);
 			if($delete_user){
+	    		$destination = "../images/users/";
+				if($user->image){
+					unlink($destination.$user->image);
+				}
 				Session::set('msg', 'User profile has been deleted from database!');
 				header("Location:../users.php");
 	            ob_end_flush();
