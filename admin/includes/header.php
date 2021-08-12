@@ -203,7 +203,11 @@
                                         <li>
                                             <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
                                         </li>
-                                        <li><a href="?action=logout"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                        <li>
+                                            <form action="Controllers/LoginController.php?action=logout" method="POST" id="logout-form" class="d-none">
+
+                                            </form>
+                                            <a href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -108,7 +108,7 @@
                                       <div class="text-danger mt-2">
                                           <strong>                            
                                               <?php 
-                                                if (Session::get('error-photo')) {
+                                                if (Session::error('error-photo')) {
                                                     echo Session::get('error-photo');
                                                     Session::unsetSession('error-photo');
                                                 }

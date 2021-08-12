@@ -4,10 +4,17 @@
     include "../../library/Database.php";
     include "../../helpers/Validation.php";
 
-    Session::init();
+    Session::checkSession();
  ?>
 <?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    //logout section
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'logout') {
+        Session::unsetSession('login');
+        header('Location:../index.php');        
+    }
+
+    //login section
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'login'){
         $db = new Database;
         $email = Validation::sanitize($_POST['email']);
         $password = $_POST['password'];

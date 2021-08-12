@@ -53,14 +53,14 @@
                             <div class="card-body pt-5">
                                  <h4 class="text-center mb-3">Login to your account</h4>
                                     <?php if(Session::get('logout-message')){ ?>
-                                    <div class="alert alert-success" role="alert">
-                                      <?php  
-                                        echo Session::get('logout-message'); 
-                                        ?>
-                                    </div>
+                                        <div class="alert alert-success" role="alert">
+                                          <?php  
+                                            echo Session::get('logout-message'); 
+                                            ?>
+                                        </div>
                                     <?php } ?>
         
-                                <form class="mt mb-5 login-input" method="POST" action="controllers/LoginController.php">
+                                <form class="mt mb-5 login-input" method="POST" action="controllers/LoginController.php?action=login">
                                     <div class="form-group mb-4">
                                         <input type="email" name="email" class="form-control" placeholder="Email" value="<?php if(Session::get('email')){ echo  Session::get('email'); } ?>">
                                         <?php 
@@ -69,8 +69,7 @@
                                             <div class="text-danger mt-2">
                                                 <strong>                                 
                                                     <?php 
-                                                     echo Session::get('error-email');
-                                                     Session::unsetSession('error-email');
+                                                     Session::error('email');
                                                      ?>
                                                 </strong>
                                             </div>
@@ -86,8 +85,7 @@
                                             <div class="text-danger mt-2">
                                                 <strong>                                 
                                                     <?php 
-                                                     echo Session::get('error-password');
-                                                     Session::unsetSession('error-password');
+                                                     Session::error('password');
                                                      ?>
                                                 </strong>
                                             </div>

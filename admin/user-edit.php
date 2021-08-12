@@ -63,37 +63,29 @@
                                       <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" name="name" class="form-control" id="name" value="<?php echo $user->name ?>">
-                                        <?php
-                                            if(Session::get('error-name')){
-                                            ?>
+                                        
                                             <div class="text-danger mt-2">
                                                 <strong>                                               
                                                     <?php 
-                                                     echo Session::get('error-name');
-                                                     Session::unsetSession('error-name');
+                                                     Session::error('name');
                                                      ?>
                                                 </strong>  
                                             </div>
-                                            <?php } ?>  
+                                            
                                       </div>
 
                                       <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" name="email" class="form-control" id="email" value="<?php echo $user->email ?>">
-                                        <?php
-                                            if(Session::get('error-email')){
-                                            ?>
+                                        
                                             <div class="text-danger mt-2">
                                                 <strong>                                               
                                                     <?php 
-                                                     echo Session::get('error-email');
-                                                     Session::unsetSession('error-email');
+                                                     Session::error('email');
                                                      ?>
                                                 </strong>
                                             </div>
-                                        <?php  
-                                            }   
-                                         ?>
+                                        
                                       </div>
                                       
                                       <div class="form-group">
@@ -108,10 +100,7 @@
                                           <div class="text-danger mt-2">
                                               <strong>                            
                                                   <?php 
-                                                    if (Session::get('error-photo')) {
-                                                        echo Session::get('error-photo');
-                                                        Session::unsetSession('error-photo');
-                                                    }
+                                                    Session::error('photo');
                                                    ?>  
                                               </strong>
                                           </div>
@@ -131,8 +120,7 @@
                                             <div class="text-danger mt-2">
                                                 <strong>                                               
                                                     <?php 
-                                                     echo Session::get('error-password');
-                                                     Session::unsetSession('error-password');
+                                                     Session::error('password');
                                                      ?>
                                                 </strong>
                                             </div>

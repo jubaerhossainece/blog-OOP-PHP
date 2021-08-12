@@ -14,6 +14,8 @@
 		public static function error($errors){
 			if (in_array(true, $errors)) {
      	return true;
+     }else{
+     	return false;
      }
 		}
 

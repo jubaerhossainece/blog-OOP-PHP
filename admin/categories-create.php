@@ -49,18 +49,11 @@
                                   <div class="form-group">
                                     <label for="name">Category Name:</label>
                                     <input type="text" name="name" class="form-control" id="name">
-                                    <?php
-                                        if(Session::get('empty')){
-                                        ?>
-                                        <div class="text-danger mt-2">
-                                            <?php 
-                                             echo Session::get('empty');
-                                             Session::unsetSession('empty');
-                                             ?>
-                                        </div>
-                                    <?php  
-                                        }   
-                                     ?>
+                                    <div class="text-danger mt-2">
+                                        <?php 
+                                             Session::error('name')
+                                         ?>
+                                    </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary">Create</button>
                                 </form>
