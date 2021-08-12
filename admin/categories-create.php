@@ -35,7 +35,8 @@
                                     if(Session::get('msg')){
                                         ?>
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <?php echo Session::get('msg'); 
+                                            <?php echo 
+                                            Session::get('msg'); 
                                             Session::unsetSession('msg');
                                             ?>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -2,7 +2,7 @@
 	include '../../config/Config.php';
 	include '../../library/Database.php';
 	include '../../library/Session.php';
-	include "../../helpers/Validation.php";
+	include '../../helpers/Request.php';
 
 	Session::checkSession();
 	$db = new Database;
@@ -11,35 +11,35 @@
 <?php 
  //inserting category in database
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'insert'){
- 	$author_id = Session::get('auth_id');
-	//user input validation
-    $title = $_POST['title'];
-    $title = Validation::sanitize($title);
+ 	$author_id = Session::get('auth-id');
+	//post input validation
+	$req = new Request;
+	$request = $req->inputValidate($_POST);
+	$photo = $_FILES['photo'];
+	$destination = "../images/posts/";
 
-    $category = $_POST['category'];
-    $category = Validation::sanitize($category);
+    $error1 = Validation::required($request->title, 'Title');
+    $error2 = Validation::required($request->body, 'Body');
+    $error3 = Validation::required($request->category, 'Category');
+    $error4 = Validation::min($request->title, 5, 'Title');
+    $error5 = Validation::image($photo, 'photo');
+	$error6 = Validation::maxFileSize($photo, 1, 'photo'); 
+    $er_array = array($error1, $error2, $error3, $error4, $error5, $error6);
+    $error = Validation::error($er_array);
 
-    $body = $_POST['body'];
-    $body = Validation::sanitize($body);
-
-    $photo = $_POST['photo'];
-    $photo = Validation::sanitize($photo);
-
-    $error1 = Validation::required($title, 'Title');
-    $error2 = Validation::required($body, 'Body');
-    $error3 = Validation::required($category, 'Category');
-
-    $error4 = Validation::min($title, 5, 'Title');
-
-    if($nameLen || $passwordLen){
-    	header("Location:../user-create.php");
-    	exit;
-    }
-
-    if ($error1 || $error2 || $error3 || $error4){
-        header("Location:../user-create.php");
+    if ($error){
+        header("Location:../post-create.php");
     }else{
-        $query = "INSERT INTO tbl_posts(title, category_id, body, image, author_id, tags) VALUES('$title', '$category_id', '$body', '$image', '$author_id', '$tags')";
+    	//photo upload and unique filename 
+    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
+		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
+		    $filename = microtime().".".$file_ext;
+		    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
+    	}else{
+    		$filename = NULL;
+    	}
+
+        $query = "INSERT INTO tbl_posts(title, category_id, body, image, author_id, tags) VALUES('$request->title', '$request->category', '$request->body', '$filename', '$author_id', '$request->tags')";
         $insert = $db->insert($query);
         if ($insert) {
             Session::set('msg', 'Post created successfully!');

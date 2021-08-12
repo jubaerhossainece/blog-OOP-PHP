@@ -49,21 +49,14 @@
                                 <form action="controllers/PostController.php?action=insert" method="POST" enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input type="text" name="title" class="form-control" id="title">
-                                    <?php
-                                        if(Session::get('error-title')){
-                                        ?>
+                                    <input type="text" name="title" class="form-control" id="title" value="<?php Session::old('title') ?>">
                                         <div class="text-danger mt-2">
                                             <strong>                                               
                                                 <?php 
-                                                 echo Session::get('error-title');
-                                                 Session::unsetSession('error-title');
+                                                 Session::error('title')
                                                  ?>
                                             </strong>
                                         </div>
-                                    <?php  
-                                        }   
-                                     ?>
                                   </div>
 
                                   <div class="form-group">
@@ -76,27 +69,19 @@
                                             while ($category = $categories->fetch_object()) {
                                         
                                          ?>
-                                            <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
+                                            <option value="<?php echo $category->id ?>" <?php if(Session::get('category') === $category->id){ echo 'selected'; } ?> ><?php echo $category->name ?></option>
                                          <?php
                                              } 
                                              } 
                                           ?>   
                                     </select>
-
-                                    <?php
-                                        if(Session::get('error-category')){
-                                        ?>
-                                        <div class="text-danger mt-2">
-                                            <strong>                                               
-                                                <?php 
-                                                 echo Session::get('error-category');
-                                                 Session::unsetSession('error-category');
-                                                 ?>
-                                            </strong>
-                                        </div>
-                                    <?php  
-                                        }   
-                                     ?>
+                                    <div class="text-danger mt-2">
+                                        <strong>                                               
+                                            <?php 
+                                             Session::error('category')
+                                             ?>
+                                        </strong>
+                                    </div>
                                   </div>
                                       
                                   <div class="form-group">
@@ -108,10 +93,7 @@
                                       <div class="text-danger mt-2">
                                           <strong>                            
                                               <?php 
-                                                if (Session::error('error-photo')) {
-                                                    echo Session::get('error-photo');
-                                                    Session::unsetSession('error-photo');
-                                                }
+                                                Session::error('photo')
                                                ?>  
                                           </strong>
                                       </div>
@@ -119,28 +101,20 @@
 
                                   <div class="form-group">
                                     <label for="tag">Tags</label>
-                                    <input name="tag" class="form-control" rows="5" id="tag">
+                                    <input name="tag" class="form-control" rows="5" id="tag" value="<?php Session::old('tags') ?>">
                                   </div>
 
                                   <div class="form-group">
                                     <label for="body">Body</label>
-                                    <textarea name="body" class="form-control" rows="5" id="body"></textarea>
-                                    <?php
-                                        if(Session::get('error-body')){
-                                        ?>
-                                        <div class="text-danger mt-2">
-                                            <strong>                                               
-                                                <?php 
-                                                 echo Session::get('error-body');
-                                                 Session::unsetSession('error-body');
-                                                 ?>
-                                            </strong>
-                                        </div>
-                                    <?php  
-                                        }   
-                                     ?>
+                                    <textarea name="body" class="form-control" rows="5" id="body"><?php Session::old('body') ?></textarea>
+                                    <div class="text-danger mt-2">
+                                        <strong>                                               
+                                            <?php 
+                                             Session::error('body')
+                                             ?>
+                                        </strong>
+                                    </div>
                                   </div>
-
                                   <button type="submit" class="btn btn-primary">Create post</button>
                                 </form>
                             </div>

@@ -115,14 +115,13 @@
 		public static function image($file, $field){
 			$type = array('jpg', 'jpeg', 'png', 'gif');
 			$filename = $file['name'];
-			$extension = pathinfo($filename, PATHINFO_EXTENSION);
+			$extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
 			//set message for warning 
 			$field = strtolower($field);
 			$error = "error-".$field;
 			$field = ucfirst($field);
 			$message = "This file is not an image. Please upload an image file.";
-
 			//check file extension is in the extension type array
 			if(in_array($extension, $type)){
 				return false;

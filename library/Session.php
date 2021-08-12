@@ -72,11 +72,26 @@ class Session{
 	/**
 	* 
 	*Unset sessions created
-	* @param  array  $errors
+	* @param  array  $key
   * @return bool
 	*/
 	public static function error($key){
 		$key= "error-".$key;
+		if (isset($_SESSION[$key])) {
+			echo self::get($key);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	* 
+	*Showing sessions for input field
+	* @param  array  $key
+  * @return bool
+	*/
+	public static function old($key){
 		if (isset($_SESSION[$key])) {
 			echo self::get($key);
 			return true;

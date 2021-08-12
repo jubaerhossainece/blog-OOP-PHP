@@ -48,7 +48,7 @@
                                 <form action="controllers/UserController.php?action=insert" method="POST" enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control" id="name" value="<?php if(Session::get('name')){ echo Session::get('name'); } ?>">
+                                    <input type="text" name="name" class="form-control" id="name" value="<?php Session::old('name') ?>">
                                     <?php
                                         if(Session::get('error-name')){
                                         ?>
@@ -66,7 +66,7 @@
 
                                   <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email" class="form-control" id="email" value="<?php if(Session::get('email')){ echo Session::get('email'); } ?>">
+                                    <input type="email" name="email" class="form-control" id="email" value="<?php Session::old('email') ?>">
                                     <?php
                                         if(Session::get('error-email')){
                                         ?>
@@ -99,12 +99,12 @@
 
                                   <div class="form-group">
                                     <label for="about">About</label>
-                                    <textarea class="form-control" rows="5" name="about" id="about"><?php if(Session::get('about')){ echo Session::get('about'); } ?></textarea>
+                                    <textarea class="form-control" rows="5" name="about" id="about"><?php Session::old('about') ?></textarea>
                                   </div>
 
                                   <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" id="password">
+                                    <input type="password" name="password" class="form-control" id="password" value="">
                                     <?php
                                         if(Session::get('error-password')){
                                         ?>

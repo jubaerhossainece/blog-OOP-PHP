@@ -84,7 +84,11 @@
                                         <td class="text-center"><?php echo $category->name ?></td>
                                         <td class="text-center">
                                             <a href="categories-edit.php?category_id=<?php echo $category->id ?>" class="btn btn-success">Edit</a>
-                                            <a href="controllers/CategoryController.php?action=delete&category_id=<?php echo $category->id ?>" class="btn btn-danger">Delete</a>
+                                            <a href="" onclick="event.preventDefault(); document.getElementById('delete-id-<?php echo $category->id ?>').submit();" class="btn btn-danger">Delete</a>
+                                            <form action="controllers/CategoryController.php" method="POST" id="delete-id-<?php echo $category->id; ?>" class="d-none">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="category_id" value="<?php echo $category->id ?>">
+                                            </form>
                                         </td>
                                       </tr>
                                       <?php 

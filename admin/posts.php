@@ -50,6 +50,20 @@
                                 <a href="post-create.php" class="btn btn-primary">Add post</a>
                             </div>
                             <div class="card-body">
+                                <?php 
+                                    if (Session::get('msg')) {
+                                        ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?php echo Session::get('msg'); 
+                                            Session::unsetSession('msg');
+                                            ?>
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                <?php        
+                                    }
+                                 ?>
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>

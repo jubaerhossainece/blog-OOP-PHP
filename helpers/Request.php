@@ -1,6 +1,6 @@
 <?php 
-	
 	include "Validation.php";
+	
 	class Request 
 	{
 		public $request;
