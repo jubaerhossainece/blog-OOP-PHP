@@ -7,6 +7,9 @@
         $user_id = $_GET['user_id'];
         $query = "SELECT * FROM tbl_users WHERE id=$user_id";
         $users = $db->select($query);
+    }else{
+        echo "<script> location.href='users.php'; </script>";
+        exit;
     }
   ?>
 
@@ -28,8 +31,11 @@
         <!--**********************************
             Content body start
         ***********************************-->
+        <?php 
+        if($users){
+            while($user = $users->fetch_object()){
+         ?>
         <div class="content-body">
-
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-md-12">                    
@@ -52,9 +58,6 @@
                                      <?php    
                                     } 
                                  
-
-                                    if(mysqli_num_rows($users) > 0){
-                                        while($user = $users->fetch_object()){
                                   ?>
                                     <form action="controllers/UserController.php?action=update&user_id=<?php echo $user->id ?>" method="POST" enctype="multipart/form-data">
                                         <div class="form-group">
@@ -130,13 +133,6 @@
                                       </div>
                                       <button type="submit" class="btn btn-primary">Update user</button>
                                     </form>
-                                <?php 
-                                    }
-                                    }else{
-                                    echo "<div class='text-center'>No user data found!</div>";
-                                 }
-                                 ?>
-                                   
                             </div>
                         </div>
                     </div>
@@ -147,7 +143,13 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        
+        <?php 
+            }
+            }else{
+                echo "<script> location.href='users.php'; </script>";
+                exit;
+         }
+         ?>
         
     </div>
     <!--**********************************

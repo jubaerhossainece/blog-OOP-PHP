@@ -1,18 +1,4 @@
-<?php 
-    include "includes/header.php";
- ?>        
- <?php 
-    if(isset($_GET['post_id'])){
-        $post_id = $_GET['post_id'];
-        $cat_query = "SELECT * FROM tbl_categories WHERE id='".$post_id."'";
-        $categories = $db->select($cat_query);
-    }else{
-        echo "<script> location.href='posts.php'; </script>";
-        exit;
-
-    }
-?>
-        <!--**********************************
+  <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
 
@@ -29,10 +15,7 @@
         <!--**********************************
             Content body start
         ***********************************-->
-<?php 
-    if ($categories) {
-        while($category = $categories->fetch_object()){
-        ?>
+
         <div class="content-body">
 
             <div class="container-fluid mt-3">
@@ -138,14 +121,7 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        
-    <?php 
-    }
-        }else{
-            echo "<script> location.href='posts.php'; </script>";
-            exit;
-        }
-     ?>
+  
     </div>
     <!--**********************************
         Main wrapper end
@@ -162,3 +138,10 @@
             $(this).next('label').text($(this).val());
         })
      </script>
+
+    <?php 
+        }
+        }else{
+            header("Location:posts.php");
+        }
+     ?>

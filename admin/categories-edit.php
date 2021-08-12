@@ -4,7 +4,10 @@
     if(isset($_GET['category_id'])){
         $cat_id = $_GET['category_id'];
         $query = "SELECT * FROM tbl_categories WHERE id = $cat_id";
-        $category = $db->select($query)->fetch_object();
+        $categories = $db->select($query);
+    }else{
+        echo "<script> location.href='categories.php'; </script>";
+        exit;
     }
  ?>
 
@@ -26,8 +29,11 @@
         <!--**********************************
             Content body start
         ***********************************-->
+        <?php 
+            if($categories){
+                while($category = $categories->fetch_object()){
+                    ?>
         <div class="content-body">
-
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-md-12">                    
@@ -71,7 +77,13 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        
+        <?php
+                }
+            }else{
+                echo "<script> location.href='categories.php'; </script>";
+                exit;
+            }
+         ?>
         
     </div>
     <!--**********************************
