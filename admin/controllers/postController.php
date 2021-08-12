@@ -65,6 +65,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 		$post_id = $_GET['post_id'];
 		$post_query = "SELECT * FROM tbl_posts WHERE id='".$post_id."'";
 		$posts = $db->select($post_query);
+		if (!$posts) {
+			header('Location:../posts.php');
+	        ob_end_flush();
+	        exit;
+		}else{
+			$post = $posts->fetch_object();
+		}
 	}else{
 		header('Location:../posts.php');
         ob_end_flush();
@@ -97,13 +104,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
 		    $filename = microtime().".".$file_ext;
 		    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
+		    unlink($destination.$post->image);
     	}else{
-    		$filename = NULL;
+    		$filename = $post->image;
     	}
 
-        $query = "INSERT INTO tbl_posts(title, category_id, body, image, author_id, tags) VALUES('$request->title', '$request->category', '$request->body', '$filename', '$author_id', '$request->tags')";
-        $insert = $db->insert($query);
-        if ($insert) {
+        $query = "UPDATE tbl_posts
+        		SET	
+		        title='$request->title', category_id='$request->category', body='$request->body', image='$filename', author_id='$author_id', tags='$request->tags'
+		        WHERE 
+		        id=$post->id";
+        $update = $db->update($query);
+        if ($update) {
             Session::set('msg', 'Post created successfully!');
             header("Location:../posts.php");
             ob_end_flush();
