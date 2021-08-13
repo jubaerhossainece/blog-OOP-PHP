@@ -47,7 +47,7 @@
 	    	//photo upload and unique filename 
 	    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
 			    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
-			    $filename = microtime().".".$file_ext;
+				$filename = uniqid().".".$file_ext;
 			    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
 	    	}else{
 	    		$filename = NULL;
@@ -137,7 +137,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
 		    //photo upload and unique filename 
 	    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
 			    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
-			    $filename = microtime().".".$file_ext;
+			    $filename = uniqid().".".$file_ext;
 			    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
 			    unlink($destination.$user->image);
 	    	}else{

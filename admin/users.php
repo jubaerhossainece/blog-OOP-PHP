@@ -87,7 +87,8 @@
                                         <td class="text-center"><?php echo $user->name ?></td>
                                         <td class="text-center"><?php echo $user->email ?></td>
                                         <td class="text-center">
-                                            <a href="user-edit.php?user_id=<?php echo $user->id ?>" class="btn btn-success">Edit</a>
+                                            <a href="user-show.php?user_id=<?php echo $user->id ?>" class="btn btn-success">Show</a>
+                                            <a href="user-edit.php?user_id=<?php echo $user->id ?>" class="btn btn-primary">Edit</a>
                                             <a href="controllers/UserController.php?action=delete&user_id=<?php echo $user->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>

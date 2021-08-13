@@ -22,7 +22,7 @@
 				$user_id = $post->author_id;
 				$query = "SELECT * FROM tbl_users WHERE id = $user_id";
 				$user = $db->select($query)->fetch_object();
-				$related_post_query = "SELECT * FROM tbl_posts WHERE category_id = $post->category_id LIMIT 6";
+				$related_post_query = "SELECT * FROM tbl_posts WHERE category_id = $post->category_id AND id!=$post->id LIMIT 6";
 				$related_posts = $db->select($related_post_query);
 		 ?> 
 		 <!-- END COLORLIB-ASIDE -->
@@ -33,11 +33,12 @@
 	    			<div class="col-lg-9 px-md-5">
 	    				<div class="row pt-md-4">
 	    					<div class="post-container pt-4">
-		    					<h1 class="mb-3"><?php echo $post->title ?></h1>
-		    					<p>Published at - <?php echo Format::formatDate($post->created_at) ?></p>
+		    					<h1 class="mb-2"><?php echo $post->title ?></h1>
+		    					<p class="mb-1">Published at - <?php echo Format::formatDate($post->created_at) ?></p>
+		    					<p class="border-bottom"></p>
 		    					<div class="post-body">
 			              <img src="admin/images/posts/<?php echo $post->image ?>" alt="" class="post-img img-fluid">		    							
-	    						  <p><?php echo $post->body ?></p>		    									            
+	    						  <p class="mt-3"><?php echo $post->body ?></p>		    									            
 		    					</div>			            
 	    					</div>
 		           
@@ -50,32 +51,34 @@
 		            
 
 		            <!-- releted post section below here -->
-		            <?php
-		            if($related_posts){
-		            ?>
+		            
 		            <div class="container releted-post p-4 mb-4 bg-light">
 		            	<div class="post-header border-bottom mb-3">
 		            		<h2>Releted posts</h2>		            		
 		            	</div>
-		            	<div class="releted-post-box row">
-		            	<?php 
-		            	while ($related_post = $related_posts->fetch_object()) {
-		            		if($post->id != $related_post->id){
-		            		?>	            		
+		            	<div class="related-post-box row">
+		            		<?php
+				            if($related_posts){
+			            	while ($related_post = $related_posts->fetch_object()) {
+			            		?>	            		
 			              <div class="bio col-md-4">
 			              	<a href="post.php?post_id=<?php echo $related_post->id ?>">
 			                <img src="admin/images/posts/<?php echo $related_post->image ?>" alt="Image placeholder" class="related-post-img img-fluid mb-4 bordered"></a>
 			              </div>
 			             <?php
-			           		}
-			             } 
+			             }
+		            	}else{
+		            		?>
+		            		<div class="bio">
+			              	<h4 class="text-danger">No related post to show!</h4>
+			              </div>
+			              <?php
+		            			} 
 			              ?> 
 		            	</div>
 		            </div>
-		            <?php 
-
-		            	}
-		            ?>
+		       
+		            <!-- end of related posts -->
 
 		            <!-- post author section -->
 		            <div class="about-author p-4 bg-light">

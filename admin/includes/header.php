@@ -79,7 +79,6 @@
         ***********************************-->
         <div class="header">    
             <div class="header-content clearfix">
-                
                 <div class="nav-control">
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
@@ -184,8 +183,8 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <!-- <span class="activity active"></span> -->
-                                <img src="assets/library/images/user/1.png" height="40" width="40" alt="">
-                                <strong><?php echo Session::get('auth-name'); ?></strong>
+                                <img src="images/users/<?php echo  Session::get('auth-image'); ?>" height="40" width="40" alt="">
+                                
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">

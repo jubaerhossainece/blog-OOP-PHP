@@ -40,7 +40,6 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-md-12">                    
@@ -85,6 +84,7 @@
                                         <td class="text-center"><?php echo $post->title ?></td>
                                         <td class="text-center"><?php echo Format::textShorten($post->body,100) ?></td>
                                         <td class="text-center">
+                                            <a href="post-show.php?post_id=<?php echo $post->id ?>" class="btn btn-primary mb-2">Show</a>
                                             <a href="post-edit.php?post_id=<?php echo $post->id ?>" class="btn btn-success mb-2">Edit</a>
                                             <a href="controllers/PostController.php?action=delete&post_id=<?php echo $post->id ?>" class="btn btn-danger">Delete</a>
                                         </td>

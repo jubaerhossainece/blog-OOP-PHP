@@ -13,7 +13,6 @@
     }else{
         echo "<script> location.href='posts.php'; </script>";
         exit;
-
     }
 ?>
         <!--**********************************

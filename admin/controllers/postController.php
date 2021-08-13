@@ -18,7 +18,6 @@
 	$request = $req->inputValidate($_POST);
 	$photo = $_FILES['photo'];
 	$destination = "../images/posts/";
-
     $error1 = Validation::required($request->title, 'Title');
     $error2 = Validation::required($request->body, 'Body');
     $error3 = Validation::required($request->category, 'Category');
@@ -36,7 +35,7 @@
     	//photo upload and unique filename 
     	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
 		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
-		    $filename = microtime().".".$file_ext;
+			$filename = uniqid().".".$file_ext;
 		    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
     	}else{
     		$filename = NULL;
@@ -102,7 +101,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
     	//photo upload and unique filename 
     	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
 		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
-		    $filename = microtime().".".$file_ext;
+		    $filename = uniqid().".".$file_ext;
 		    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
 		    unlink($destination.$post->image);
     	}else{

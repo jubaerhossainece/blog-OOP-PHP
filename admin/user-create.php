@@ -142,13 +142,6 @@
         Scripts
     ***********************************-->
     <?php 
-        Session::unsetSession('name');
-        Session::unsetSession('email');
-        Session::unsetSession('photo');
-        Session::unsetSession('about');
-        Session::unsetSession('password');
-     ?>
-    <?php 
         include "includes/footer.php";
      ?>
 
