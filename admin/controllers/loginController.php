@@ -5,13 +5,15 @@
     include "../../library/Database.php";
     include "../../helpers/Validation.php";
 
-    Session::checkSession();
+    Session::init();
  ?>
 <?php
     //logout section
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'logout') {
-        Session::unsetSession('login');
-        header('Location:../index.php');
+        session_destroy();
+        Session::init();    
+        Session::set('logout-message', 'You are logged out now!');
+        header("Location:../login.php");
         ob_end_flush();
         exit;        
     }

@@ -2,14 +2,11 @@
     include '../library/Session.php';
     include '../config/Config.php';
     include '../helpers/Format.php';
+    include '../helpers/Request.php';
     include '../library/Database.php';
     $db = new Database;
-
+    $obj = new Request;
     Session::checkSession();
-
-    if(isset($_GET['action']) && $_GET['action'] == 'logout'){
-        Session::destroy();
-    }
  ?>
 <!DOCTYPE html>
 <html lang="en">

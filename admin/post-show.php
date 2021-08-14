@@ -46,7 +46,7 @@
 					    				<div class="row">
 					    					<div class="post-container">
 						    					<h1 class="mb-2"><?php echo $post->title ?></h1>
-						    					<p class="mb-2">Posted on - <?php echo Format::formatDate($post->created_at) ?><i class="fas fa-user mr-1 ml-2"></i> by - <a href="" class="text-primary"><?php echo $user->name ?></a></p>
+						    					<p class="mb-2">Posted on - <?php echo Format::formatDate($post->created_at) ?><i class="fas fa-user mr-1 ml-2"></i> by - <a href="user-show.php?user_id=<?php echo $user->id ?>" class="text-primary"><?php echo $user->name ?></a></p>
 						    					<p class="border-bottom"></p>
 						    					<p></p>
 						    					<div class="post-body">

@@ -11,11 +11,12 @@
 ?>
 
 <?php 
- //inserting user data in database
- if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
- 	if ( $_GET['action'] === 'insert') {
+ //inserting user data in database 
+ $obj = new Request;
+ $req = $obj->inputValidate($_GET);
+ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
+ 	if ( $req->action === 'insert') {
 		//user input validation
-		$obj = new Request;
 		$request = $obj->inputValidate($_POST);	
 	    $photo = $_FILES['photo'];
 	    $destination = "../images/users/";
@@ -77,10 +78,10 @@
 
 
 //updateing user data in database
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
-	if ($_GET['action'] === 'update') {
-		if(isset($_GET['user_id'])){
-			$user_id = $_GET['user_id'];
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
+	if ($req->action === 'update') {
+		if(isset($req->user_id)){
+			$user_id = $req->user_id;
 			$query = "SELECT * FROM tbl_users WHERE id=$user_id";
 			$users = $db->select($query);
 			if(!$users){
@@ -167,9 +168,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
 }
 
     //deleting user data from database
-    if(isset($_GET['action']) && $_GET['action'] == 'delete'){
-    	if (isset($_GET['user_id'])) {
-			$user_id = $_GET['user_id'];
+    if(isset($req->action) && $req->action == 'delete'){
+    	if (isset($req->user_id)) {
+			$user_id = $req->user_id;
 			$select_query = "SELECT * FROM tbl_users WHERE id=$user_id";
 			$users = $db->select($select_query);
 			$user = $users->fetch_object();

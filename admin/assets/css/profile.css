@@ -1,3 +1,7 @@
+h1, h2, h3, h4, h5, h6{
+    color: #5b637b;
+}
+
 .padding {
     padding: 3rem !important
 }
@@ -38,6 +42,20 @@
 .profile-photo{
     width: 3rem;
     height: 3rem;
+}
+
+.user-photo-section {
+    height: 10rem;
+    width: 10rem;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.user-photo-section img {
+    height: 10rem;
+    width: 10rem;
+    border: 3px solid;
+    border-radius: 8px;
 }
 
 .card-block {

@@ -5,12 +5,15 @@
 
  <!-- fetching user data from database -->
  <?php 
-    if(isset($_GET['user_id'])){
-        $user_id = $_GET['user_id'];
+    $req = $obj->inputValidate($_GET);
+    if(isset($req->action)){
+        $user_id = $req->action;
         $query = "SELECT * FROM tbl_users where id=$user_id";
         $user = $db->select($query);
         if ($user) {
             $user = $user->fetch_object();
+            $query = "SELECT * FROM tbl_posts WHERE author_id=$user->id ORDER BY created_at LIMIT 3";
+            $posts = $db->select($query);
         }else{
             echo "<script> location.href='users.php'; </script>";
             exit;
@@ -50,27 +53,31 @@
                                 <div class="row m-l-0 m-r-0">
                                     <div class="col-sm-4 bg-c-lite-green user-profile">
                                         <div class="card-block text-center text-white">
-                                            <div class="circle-cropper" style="background-image: url(<?php $user->image ? echo '/images/users/'.$user->image : echo 'assets/images/avatar-4.png' ?>)">
+                                            <div class="user-photo-section">
+                                                <img src="images/users/<?php echo $user->image ? $user->image : 'avatar.jpg' ?>" alt="">
                                             </div>
                                             <h6 class="f-w-600"></h6>
-                                            <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                            <p class="mb-1">Web Designer</p> 
+                                            <a href="user-edit.php?user_id=<?php echo $user->id ?>" class="btn">
+                                                <i class="fas fa-edit text-white"></i>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="card-block">
-                                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                            <h3 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h3>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Name</p>
-                                                    <h6 class="text-muted f-w-400"><?php echo $user->name ?></h6>
+                                                    <h5 class="m-b-10 f-w-600">Name</h5>
+                                                    <h6 class=".text-secondary f-w-400"><?php echo $user->name ?></h6>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Email</p>
-                                                    <h6 class="text-muted f-w-400"><?php echo $user->email ?></h6>
+                                                    <h5 class="m-b-10 f-w-600">Email</h5>
+                                                    <h6 class=".text-secondary f-w-400"><?php echo $user->email ?></h6>
                                                 </div>
-                                                <div class="col-sm-12">
-                                                    <p class="m-b-10 f-w-600">About</p>
-                                                    <h6 class="text-muted f-w-400"><?php echo $user->about ?></h6>
+                                                <div class="col-sm-12 mt-5">
+                                                    <h5 class="m-b-10 f-w-600">About</h5>
+                                                    <h6 class=".text-secondary f-w-400"><?php echo $user->about ?></h6>
                                                 </div>
                                             </div>
 
@@ -84,19 +91,42 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="page-content page-container" id="page-content">                        
+                        <div class="page-content page-container" id="page-content">
                             <div class="card">
                                 <div class="card-body">
-                                    <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Posts</h6>
+                                    <h3 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Posts</h3>
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Recent</p>
-                                            <h6 class="text-muted f-w-400">Sam Disuja</h6>
+                                <?php 
+                                    if($posts){
+                                        $i=1;
+                                        while ($post = $posts->fetch_object()) {
+                                 ?>
+                                        <div class="col-12 mb-4">
+                                            <h5 class="mb-3">
+                                                <a href="post-show.php?post_id=<?php echo $post->id ?>" class="">
+                                                <?php echo $i++.") "; echo $post->title ?>
+                                                </a> 
+                                            </h5>
+                                            <?php if($post->image){ ?>
+                                                <a href="post-show.php?post_id=<?php echo $post->id ?>">
+                                                <img src="images/posts/<?php echo $post->image ?>" class="img-fluid" alt="">
+                                                </a>
+                                            <?php } ?>
                                         </div>
-                                        <div class="col-sm-6">
+                                <?php 
+                                    }
+                                }else{
+                                ?> 
+                                    <div class="">
+                                        <h4 class="text-center text-danger">Has no posts!</h4>
+                                    </div>  
+                                <?php    
+                                } 
+                                 ?>        
+                                        <!-- <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Most Viewed</p>
-                                            <h6 class="text-muted f-w-400">Dinoter husainm</h6>
-                                        </div>
+                                            <h6 class=".text-secondary f-w-400">Dinoter husainm</h6>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

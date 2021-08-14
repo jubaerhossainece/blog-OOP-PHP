@@ -39,7 +39,7 @@ class Session{
 	*/
 	public static function checkSession(){
 		self::init();
-		if(self::get('login') == false){
+		if(self::get('login') === false){
 			self::destroy();
 		}
 	}
@@ -50,8 +50,6 @@ class Session{
 	*/
 	public static function destroy(){
 		session_destroy();
-    self::init();
-    self::set('logout-message', 'You are logged out now!');
     header("Location:login.php");
 	}
 
