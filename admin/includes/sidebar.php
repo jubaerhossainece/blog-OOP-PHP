@@ -14,19 +14,22 @@
             
             <li>
                 <a href="users.php">
-                    <i class="fas fa-users"></i><span>Users</span>
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Users</span>
                 </a>
             </li>
 
             <li>
                 <a href="categories.php">
-                    <i class="fas fa-layer-group"></i><span>Categories</span>
+                    <i class="fas fa-layer-group"></i>
+                    <span class="nav-text">Categories</span>
                 </a>
             </li>
 
             <li>
                 <a href="posts.php">
-                    <i class="fas fa-blog"></i><span>Posts</span>
+                    <i class="fas fa-blog"></i>
+                    <span class="nav-text">Posts</span>
                 </a>
             </li>
             

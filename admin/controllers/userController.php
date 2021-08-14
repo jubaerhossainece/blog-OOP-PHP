@@ -147,7 +147,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
 
 	        $query = "UPDATE tbl_users
 	        SET
-	        name='$request->name', email='$request->email', about='$request->about', password='$password', image='$filename'
+	        name='$request->name', 
+	        email='$request->email', 
+	        about='$request->about', 
+	        password='$password', 
+	        image='$filename'
 	        WHERE 
 	        id=$user->id";
 

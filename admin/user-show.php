@@ -6,8 +6,8 @@
  <!-- fetching user data from database -->
  <?php 
     $req = $obj->inputValidate($_GET);
-    if(isset($req->action)){
-        $user_id = $req->action;
+    if(isset($req->user_id)){
+        $user_id = $req->user_id;
         $query = "SELECT * FROM tbl_users where id=$user_id";
         $user = $db->select($query);
         if ($user) {
@@ -18,7 +18,7 @@
             echo "<script> location.href='users.php'; </script>";
             exit;
         }
-    }else{
+     }else{
         echo "<script> location.href='users.php'; </script>";
         exit;
     }
@@ -54,7 +54,7 @@
                                     <div class="col-sm-4 bg-c-lite-green user-profile">
                                         <div class="card-block text-center text-white">
                                             <div class="user-photo-section">
-                                                <img src="images/users/<?php echo $user->image ? $user->image : 'avatar.jpg' ?>" alt="">
+                                                <img src="images/users/<?php echo $user->image ? $user->image : 'avatar.png' ?>" alt="">
                                             </div>
                                             <h6 class="f-w-600"></h6>
                                             <p class="mb-1">Web Designer</p> 

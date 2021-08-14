@@ -7,11 +7,13 @@
 
 	Session::checkSession();
 	$db = new Database;
+	 $obj = new Request;
+	 $req = $obj->inputValidate($_GET);
 ?>
 
 <?php 
  //inserting post in database
- if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'insert'){
+ if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action === 'insert'){
  	$author_id = Session::get('auth-id');
 	//post input validation
 	$req = new Request;
@@ -59,7 +61,7 @@
 
 
 //updateing post data in database
-if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action == 'update'){
 	if (isset($_GET['post_id'])) {
 		$post_id = $_GET['post_id'];
 		$post_query = "SELECT * FROM tbl_posts WHERE id='".$post_id."'";
@@ -110,7 +112,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
 
         $query = "UPDATE tbl_posts
         		SET	
-		        title='$request->title', category_id='$request->category', body='$request->body', image='$filename', author_id='$author_id', tags='$request->tags'
+		        title='$request->title', 
+		        category_id='$request->category', 
+		        body='$request->body', 
+		        image='$filename', 
+		        author_id='$author_id', 
+		        tags='$request->tags'
 		        WHERE 
 		        id=$post->id";
         $update = $db->update($query);
@@ -129,7 +136,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['action'] == 'update'){
    }
 
    //deleting post data from database
-    if(isset($_GET['action']) && $_GET['action'] == 'delete'){
+    if(isset($_GET['action']) && $req->action == 'delete'){
     	if (isset($_GET['post_id'])) {
 			$post_id = $_GET['post_id'];
 			$select_query = "SELECT * FROM tbl_posts WHERE id=$post_id";

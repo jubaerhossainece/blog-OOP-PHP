@@ -1,7 +1,38 @@
 /*custom css for admin page. example : position:  fixed*/
+p{
+    margin-bottom: 0;
+}
+
 .header {
     position: fixed;
     z-index: 2000;
+}
+
+/*header dropdown*/
+
+.header-right .icons .dropdown-user-img img {
+    height: 55px;
+    width: 55px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 11px 0px rgba(0,0,0, 0.19);
+}
+
+.header-right .icons .dropdown-user-img{
+    height: 55px;
+    width: 55px;
+}
+
+.user-name{
+    padding: 5px 0;
+    margin-top: 10px;
+}
+
+.user-name p{
+    color: #656d7d;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 0;
 }
 
 .menu-toggle .nk-sidebar{

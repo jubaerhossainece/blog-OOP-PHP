@@ -8,12 +8,14 @@
 
 	Session::checkSession();
 	$db = new Database;
+     $obj = new Request;
+     $req = $obj->inputValidate($_GET);
  ?>
 
 <?php 
      //inserting category in database
-     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
-        if ($_GET['action'] === 'insert') {
+     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
+        if ($req->action === 'insert') {
             //category input validation
             $obj = new Request;
             $request = $obj->inputValidate($_POST);
@@ -45,8 +47,8 @@
 
 
     //updateing category name in database
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])){
-        if ($_GET['action'] === 'update') {
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
+        if ($req->action === 'update') {
         	if(isset($_GET['cat_id'])){
         		$cat_id = $_GET['cat_id'];
         		$cat_query = "SELECT * FROM  tbl_categories WHERE id=$cat_id";
