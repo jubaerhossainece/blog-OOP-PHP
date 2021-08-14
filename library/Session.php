@@ -34,13 +34,24 @@ class Session{
 	}
 
 	/**
-	*Determine if a session is initialised
+	*Determine if a user is logged out
 	*
 	*/
 	public static function checkSession(){
 		self::init();
 		if(self::get('login') === false){
 			self::destroy();
+		}
+	}
+
+	/**
+	*check if a user is logged in
+	*
+	*/
+	public static function checkLogin(){
+		self::init();
+		if(self::get('login') === true){
+			header("Location: index.php");
 		}
 	}
 

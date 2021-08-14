@@ -1,16 +1,11 @@
 <?php 
     include '../library/Session.php';
-    Session::init();
+    Session::checkLogin();
 
     include '../config/Config.php';
     include '../library/Database.php';
     include '../helpers/Format.php';
     $db = new Database;
- ?>
-<?php 
-    if(Session::get('login') == true){
-        header("Location:index.php");
-    }
  ?>
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -52,10 +47,12 @@
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
                                  <h4 class="text-center mb-3">Login to your account</h4>
+                                 <?php echo Session::get('auth-name') ?>
                                     <?php if(Session::get('logout-message')){ ?>
-                                        <div class="alert alert-success" role="alert">
+                                        <div class="alert alert-success text-center" role="alert">
                                           <?php  
                                             echo Session::get('logout-message'); 
+                                            Session::unsetSession('logout-message');
                                             ?>
                                         </div>
                                     <?php } ?>
@@ -112,6 +109,5 @@
     <script src="assets/library/js/settings.js"></script>
     <script src="assets/library/js/gleek.js"></script>
     <script src="assets/library/js/styleSwitcher.js"></script>
-    <?php session_destroy() ?>
 </body>
 </html>

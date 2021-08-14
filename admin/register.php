@@ -2,12 +2,7 @@
     include "../config/Config.php";
     include '../library/Database.php';
     include "../library/Session.php";
-    Session::init();
- ?>
-<?php 
-    if(Session::get('login')){
-        header("Location:index.php");
-    }
+    Session::checkLogin();
  ?>
 <!DOCTYPE html>
 <html class="h-100" lang="en">
