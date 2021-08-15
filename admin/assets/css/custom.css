@@ -2,14 +2,26 @@
 p{
     margin-bottom: 0;
 }
+/*css for header*/
+.header{
+    box-shadow: 0 0 50px 0 #dedcf7;
+}
+/*end of header css*/
+
+/*css for sidebar*/
+.nk-sidebar {
+    position: fixed;
+    border-right: 1px solid #e6e4ec;
+    box-shadow: 0 0 50px 0 #dedcf7;
+}
+/*end of sidebar css*/
 
 .header {
     position: fixed;
-    z-index: 2000;
+    z-index: ;
 }
 
 /*header dropdown*/
-
 .header-right .icons .dropdown-user-img img {
     height: 55px;
     width: 55px;
@@ -34,6 +46,7 @@ p{
     font-weight: 600;
     line-height: 0;
 }
+/*end of header dropdown css*/
 
 .menu-toggle .nk-sidebar{
     position: fixed !important;
@@ -41,7 +54,7 @@ p{
 
 .nav-header{
     position: fixed !important;
-    z-index: 10;
+    z-index: 100;
 }
 
 [data-sidebar-style="overlay"] .nav-header{
