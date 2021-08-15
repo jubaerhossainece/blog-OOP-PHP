@@ -32,6 +32,13 @@
                     <span class="nav-text">Posts</span>
                 </a>
             </li>
+
+            <li>
+                <a href="others.php">
+                    <i class="fas fa-blog"></i>
+                    <span class="nav-text">Others</span>
+                </a>
+            </li>
             
             <li class="nav-label">Apps</li>
             <li>

@@ -3,13 +3,13 @@
     
  ?>
  <?php 
-    $req = $obj->inputValidate($_GET);
-    if(isset($req->user_id)){
-        $user_id = $req->user_id;
-        $query = "SELECT * FROM tbl_users WHERE id=$user_id";
-        $users = $db->select($query);
+ $request = $obj->inputValidate($_GET);
+    if(isset($request->other_id)){
+        $other_id = $request->other_id;
+        $query = "SELECT * FROM tbl_others WHERE id=$other_id";
+        $others = $db->select($query);
     }else{
-        echo "<script> location.href='users.php'; </script>";
+        echo "<script> location.href='others.php'; </script>";
         exit;
     }
   ?>
@@ -33,8 +33,8 @@
             Content body start
         ***********************************-->
         <?php 
-        if($users){
-            while($user = $users->fetch_object()){
+        if($others){
+            while($other = $others->fetch_object()){
          ?>
         <div class="content-body">
             <div class="container-fluid mt-3">
@@ -42,7 +42,7 @@
                     <div class="col-md-12">                    
                         <div class="card">
                             <div class="card-header page-header">
-                                <h3>Update user information</h3>
+                                <h3>Update information</h3>
                             </div>
                             <div class="card-body">
                                 <?php
@@ -60,18 +60,15 @@
                                     } 
                                  
                                   ?>
-                                    <form action="controllers/UserController.php?action=update&user_id=<?php echo $user->id ?>" method="POST" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <input type="hidden" name="user_id" value="<?php echo  $user_id ?>">
-                                        </div>
+                                    <form action="controllers/OtherController.php?action=update&other_id=<?php echo $other->id ?>" method="POST" enctype="multipart/form-data">
                                       <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" name="name" class="form-control" id="name" value="<?php echo $user->name ?>">
+                                        <label for="title">Title</label>
+                                        <input type="text" name="title" class="form-control" id="title" value="<?php echo $other->title ?>">
                                         
                                             <div class="text-danger mt-2">
                                                 <strong>                                               
                                                     <?php 
-                                                     Session::error('name');
+                                                     Session::error('title');
                                                      ?>
                                                 </strong>  
                                             </div>
@@ -79,55 +76,50 @@
                                       </div>
 
                                       <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" id="email" value="<?php echo $user->email ?>">
+                                        <label for="slogan">Slogan</label>
+                                        <input type="text" name="slogan" class="form-control" id="slogan" value="<?php echo $other->slogan ?>">
                                         
                                             <div class="text-danger mt-2">
                                                 <strong>                                               
                                                     <?php 
-                                                     Session::error('email');
+                                                     Session::error('slogan');
                                                      ?>
                                                 </strong>
                                             </div>
                                         
                                       </div>
+
+                                      <div class="form-group">
+                                        <label for="copyright">Copyright</label>
+                                        <input type="text" name="copyright" class="form-control" id="copyright" value="<?php echo $other->copyright ?>">
+                                        <div class="text-danger mt-2">
+                                            <strong>                                               
+                                                <?php 
+                                                 Session::error('copyright');
+                                                 ?>
+                                            </strong>
+                                        </div>
+                                        
+                                      </div>
                                       
                                       <div class="form-group">
-                                          <label for="photo">Profile photo</label>
+                                          <label for="logo">Logo</label>
                                           <div class="custom-file">
-                                            <input type="file" name="photo" class="custom-file-input" id="photo">
-                                            <label class="custom-file-label" for="customFile"><?php if ($user->image) {
-                                                echo $user->image;
+                                            <input type="file" name="logo" class="custom-file-input" id="logo">
+                                            <label class="custom-file-label" for="customFile"><?php if ($other->logo) {
+                                                echo $other->logo;
                                             }else{ echo 'Choose file'; } ?></label>
                                           </div>
 
                                           <div class="text-danger mt-2">
                                               <strong>                            
                                                   <?php 
-                                                    Session::error('photo');
+                                                    Session::error('logo');
                                                    ?>  
                                               </strong>
                                           </div>
                                       </div>
-
-                                      <div class="form-group">
-                                        <label for="about">About</label>
-                                        <textarea class="form-control" rows="5" name="about" id="about"><?php echo $user->about ?></textarea>
-                                      </div>
-
-                                      <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" class="form-control" id="password" value="">
-                                        
-                                        <div class="text-danger mt-2">
-                                            <strong>                                               
-                                                <?php 
-                                                 Session::error('password');
-                                                 ?>
-                                            </strong>
-                                        </div>
-                                      </div>
-                                      <button type="submit" class="btn btn-primary">Update user</button>
+                                      <button type="submit" class="btn btn-primary">Update information</button>
                                     </form>
                             </div>
                         </div>
@@ -142,7 +134,7 @@
         <?php 
             }
             }else{
-                echo "<script> location.href='users.php'; </script>";
+                echo "<script> location.href='others.php'; </script>";
                 exit;
          }
          ?>
@@ -160,7 +152,7 @@
      ?>
 
     <script>
-        $('#photo').change(function(){
+        $('#logo').change(function(){
             $(this).next('label').text($(this).val());
         })
      </script>

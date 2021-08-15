@@ -85,7 +85,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
 			$query = "SELECT * FROM tbl_users WHERE id=$user_id";
 			$users = $db->select($query);
 			if(!$users){
-				echo 'no user';
 				header("Location:../users.php");
 	            ob_end_flush();
 	            exit;

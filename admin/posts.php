@@ -52,7 +52,7 @@
                                 <?php 
                                     if (Session::get('msg')) {
                                         ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                                             <?php echo Session::get('msg'); 
                                             Session::unsetSession('msg');
                                             ?>

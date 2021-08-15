@@ -2,8 +2,9 @@
     include "includes/header.php";
  ?>        
  <?php 
-    if(isset($_GET['post_id'])){
-        $post_id = $_GET['post_id'];
+ $req = $obj->inputValidate($_GET);
+    if(isset($req->post_id)){
+        $post_id = $req->post_id;
         //fetch post from table
         $post_query = "SELECT * FROM tbl_posts WHERE id='".$post_id."'";
         $posts = $db->select($post_query);
