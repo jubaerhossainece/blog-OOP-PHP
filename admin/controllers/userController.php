@@ -17,26 +17,18 @@
  if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
  	if ( $req->action === 'insert') {
 		//user input validation
-		$request = $obj->inputValidate($_POST);	
-	    $photo = $_FILES['photo'];
+		$array = array_merge($_POST, $_FILES);
+		$request = $obj->inputValidate($array);
 	    $destination = "../images/users/";
 
-	    $error1 = Validation::required($request->name, 'Name');
-	    $error2 = Validation::required($request->email, 'Email');
-	    $error3 = Validation::required($request->password, 'Password');
+	    $validation = $obj->validate($request, [
+	    	'name' => ['required', 'min:4'],
+	    	'email' => ['required', 'email', 'unique:tbl_users'],
+	    	'password' => ['required', 'min:4'],
+	    	'photo' => ['image', 'maxFileSize:1']
+	    ]);
 
-	    $error4 = Validation::min($request->name, 4, 'Name');
-	    $error5 = Validation::min($request->password, 4, 'Password');
-	    $error6 = Validation::email($request->email);
-	    $error7 = Validation::unique($request->email, 'email', 'tbl_users');
-
-	    $error8 = Validation::image($photo, 'photo');
-	    $error9 = Validation::maxFileSize($photo, 1, 'photo');   
-
-	    $er_array = array($error1, $error2, $error3, $error4, $error5, $error6, $error7, $error8, $error9);
-	    $error = Validation::error($er_array);
-
-	    if ($error){
+	    if ($validation){
 	        header("Location:../user-create.php");
             ob_end_flush();
             exit;
@@ -46,10 +38,10 @@
 				];
 			$password = password_hash($request->password, PASSWORD_BCRYPT, $options);
 	    	//photo upload and unique filename 
-	    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
-			    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
+	    	if ($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== '') {
+			    $file_ext = pathinfo($request->photo['name'], PATHINFO_EXTENSION);
 				$filename = uniqid().".".$file_ext;
-			    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
+			    $upload = move_uploaded_file($request->photo['tmp_name'], $destination.$filename);
 	    	}else{
 	    		$filename = NULL;
 	    	}
@@ -96,31 +88,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
             ob_end_flush();
             exit;
 		}
-		$photo = $_FILES['photo'];
 	    $destination = "../images/users/";
 		//sanitizing all input values within the global array $_POST
 		//user input validation
+		$array = array_merge($_POST, $_FILES);
 		$obj = new Request;
-		$request = $obj->inputValidate($_POST);
+		$request = $obj->inputValidate($array);
 
-	    $error1 = Validation::min($request->name, 4, 'Name');
-	    if(!empty($request->password)){
-		    $error2 = Validation::min($request->password, 4, 'Password');  
-	    }else{
-	    	$error2 = false;
-	    }
+		$validation = $obj->validate($request, [
+			'name' => ['required', 'min:4'],
+			'password' => ['min:4'],
+			'email' => ['required', 'email', 'unique:tbl_users,'.$user->id],
+			'photo' => ['image', 'maxFileSize:1']
+		]);
 
-	    $error3 = Validation::required($request->name, 'Name');
-	    $error4 = Validation::required($request->email, 'Email');
-	    $error5 = Validation::email($request->email);
-	    $error6 = Validation::unique($request->email, 'email', 'tbl_users', $user_id);
-		$error7 = Validation::image($photo, 'photo');
-		$error8 = Validation::maxFileSize($photo, 1, 'photo'); 
-	    //finding if there is any error
-	    $er_array = array($error1, $error2, $error3, $error4, $error5, $error6, $error7, $error8);
-	    $error = Validation::error($er_array);
-
-	    if($error){
+	    if($validation){
 	    	header("Location:../user-edit.php?user_id=$user_id");
             ob_end_flush();
             exit;
@@ -135,10 +117,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
 		    }
 
 		    //photo upload and unique filename 
-	    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
-			    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
+	    	if ($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== '') {
+			    $file_ext = pathinfo($request->photo['name'], PATHINFO_EXTENSION);
 			    $filename = uniqid().".".$file_ext;
-			    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
+			    $upload = move_uploaded_file($request->photo['tmp_name'], $destination.$filename);
 			    unlink($destination.$user->image);
 	    	}else{
 	    		$filename = $user->image;

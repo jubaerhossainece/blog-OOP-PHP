@@ -28,9 +28,11 @@
 		*/
 		public static function sanitize($data){
 			$db = new Database;
-			$data = trim($data);
-			$data = stripcslashes($data);
-			$data = mysqli_real_escape_string($db->link, $data);
+			if (!gettype($data) === 'array') {
+				$data = trim($data);				
+				$data = stripcslashes($data);
+				$data = mysqli_real_escape_string($db->link, $data);
+			}
 			return $data;
 		}
 
@@ -62,7 +64,7 @@
 		* @param  string  $email
     * @return bool
 		*/
-		public static function email($email){
+		public static function email($email, $field){
 			if(!empty($email)){
 				if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 		    	Session::set('error-email', 'Please enter a valid email address.');
@@ -73,6 +75,7 @@
 			}
 		}
 
+
 		/**
 		*chech if input value is unique in database
 		*
@@ -82,7 +85,7 @@
 		*/
 		public static function unique($data, $field, $table, $id=null){
 			$db = new Database;
-			if($id ===null){
+			if($id === null){
 				$query = "SELECT * FROM ".$table." WHERE ".$field."='".$data."';";
 				$result = $db->select($query);				
 			}else{			
@@ -133,6 +136,7 @@
 			}
 		}
 
+
 		/**
 		*Determine if file size is within a max filesize(MegaByte)
 		*
@@ -141,7 +145,7 @@
 		* @param  string $field
     * @return bool
 		*/
-		public static function maxFileSize($file, $length, $field){
+		public static function maxFileSize($file, $field, $length){
 			$filesize = $file['size'];
 			$sizeLimit = $length*1024*1024;
 
@@ -173,7 +177,7 @@
 		* @param  string $field
     * @return bool
 		*/
-		public static function min($data, $length, $field){
+		public static function min($data, $field, $length){
 			$string = strlen($data);
 			$field = strtolower($field);
 			$error = "error-".$field;

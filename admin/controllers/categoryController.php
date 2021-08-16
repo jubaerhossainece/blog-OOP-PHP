@@ -19,6 +19,13 @@
             //category input validation
             $obj = new Request;
             $request = $obj->inputValidate($_POST);
+            
+            $validate = $obj->validate($request, [
+                'name' => ['min:9', 'required']
+            ]);
+
+            var_dump($validate); return;
+
             $error1 = Validation::required($request->name, 'name');
             $error2 = Validation::unique($request->name, 'name', 'tbl_categories');
             $er_array = array($error1, $error2);

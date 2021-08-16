@@ -2,6 +2,25 @@
 p{
     margin-bottom: 0;
 }
+
+/*few reset css for this projectstheme default style*/
+.dropdown-menu{
+    border:  none;
+}
+
+.dropdown-content-body ul > li{
+    padding: 0 !important;
+}
+
+.dropdown-profile li a {
+    display: block;
+    padding: 10px;
+}
+
+.dropdown-profile li a:hover {
+    background-color: #7571f9;
+}
+/*end of reset css*/
 /*css for header*/
 .header{
     box-shadow: 0 0 50px 0 #dedcf7;
