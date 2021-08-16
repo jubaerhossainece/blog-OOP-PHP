@@ -19,18 +19,12 @@
             //category input validation
             $obj = new Request;
             $request = $obj->inputValidate($_POST);
-            
-            $validate = $obj->validate($request, [
-                'name' => ['min:9', 'required']
+
+            $validation = $obj->validate($request, [
+                'name' => ['min:3', 'required', 'unique:tbl_categories']
             ]);
 
-            var_dump($validate); return;
-
-            $error1 = Validation::required($request->name, 'name');
-            $error2 = Validation::unique($request->name, 'name', 'tbl_categories');
-            $er_array = array($error1, $error2);
-            $error = Validation::error($er_array);
-            if($error){
+            if($validation){
                 header("Location:../categories-create.php");
                 ob_end_flush();
                 exit;
@@ -64,6 +58,8 @@
                     header("Location:../categories.php");
                     ob_end_flush();
                     exit;
+                }else{
+                    $category = $categories->fetch_object();
                 }
         	}else{
                 header("Location:../categories.php");
@@ -74,20 +70,21 @@
             //category input validation
             $obj = new Request;
             $request = $obj->inputValidate($_POST);
-            $error1 = Validation::required($request->name, 'name');
-            $error2 = Validation::unique($request->name, 'name', 'tbl_categories', $cat_id);
-            $er_array = array($error1, $error2);
-            $error = Validation::error($er_array);
+            
+            $validation = $obj->validate($request, [
+                'name' => ['min:3', 'required', 'unique:tbl_categories,'.$category->id]
+            ]);
 
-            if($error){
+            if($validation){
                 header("Location:../categories-edit.php?category_id=$cat_id");
                 ob_end_flush();
                 exit;
             }else{
                 $query = "UPDATE tbl_categories
-                SET 
-                name='$request->name' 
-                WHERE id = $cat_id";
+                          SET 
+                          name='$request->name' 
+                          WHERE id = $cat_id";
+
                 $update = $db->update($query);
                 if($update){
                     Session::set('msg', 'Category updated successfully!');

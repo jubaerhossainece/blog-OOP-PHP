@@ -16,36 +16,42 @@
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action === 'insert'){
  	$author_id = Session::get('auth-id');
 	//post input validation
+	$array = array_merge($_POST, $_FILES);
 	$req = new Request;
-	$request = $req->inputValidate($_POST);
-	$photo = $_FILES['photo'];
-	$destination = "../images/posts/";
-    $error1 = Validation::required($request->title, 'Title');
-    $error2 = Validation::required($request->body, 'Body');
-    $error3 = Validation::required($request->category, 'Category');
-    $error4 = Validation::min($request->title, 5, 'Title');
-    $error5 = Validation::image($photo, 'photo');
-	$error6 = Validation::maxFileSize($photo, 1, 'photo'); 
-    $er_array = array($error1, $error2, $error3, $error4, $error5, $error6);
-    $error = Validation::error($er_array);
+	$request = $req->inputValidate($array);
 
-    if ($error){
+	$validation = $req->validate($request, [
+		'title' => ['required', 'min:5'],
+		'body' => ['required'],
+		'category' => ['required'],
+		'photo' => ['image', 'maxFileSize:1']
+	]);
+	$destination = "../images/posts/";
+
+
+    if ($validation){
         header("Location:../post-create.php");
         ob_end_flush();
         exit;
     }else{
     	//photo upload and unique filename 
-    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
-		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
-			$filename = uniqid().".".$file_ext;
-		    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
+    	
+    	//photo upload and unique filename 
+    	if ($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== '') {
+		    $file_ext = pathinfo($request->photo['name'], PATHINFO_EXTENSION);
+		    $filename = uniqid().".".$file_ext;
     	}else{
     		$filename = NULL;
     	}
 
         $query = "INSERT INTO tbl_posts(title, category_id, body, image, author_id, tags) VALUES('$request->title', '$request->category', '$request->body', '$filename', '$author_id', '$request->tags')";
         $insert = $db->insert($query);
+
         if ($insert) {
+        	if ($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== '') {
+			    $upload = move_uploaded_file($request->photo['tmp_name'], $destination.$filename);
+        	}
+
             Session::set('msg', 'Post created successfully!');
             header("Location:../posts.php");
             ob_end_flush();
@@ -79,49 +85,51 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action == 'update'){
         exit;
 	}
 
-	$author_id = Session::get('auth-id');
 	//post input validation
+	$array = array_merge($_POST, $_FILES);
 	$req = new Request;
-	$request = $req->inputValidate($_POST);
-	$photo = $_FILES['photo'];
+	$request = $req->inputValidate($array);
+
+	$validation = $req->validate($request, [
+		'title' => ['required', 'min:5'],
+		'body' => ['required'],
+		'category' => ['required'],
+		'photo' => ['image', 'maxFileSize:1']
+	]);
+
 	$destination = "../images/posts/";
 
-    $error1 = Validation::required($request->title, 'Title');
-    $error2 = Validation::required($request->body, 'Body');
-    $error3 = Validation::required($request->category, 'Category');
-    $error4 = Validation::min($request->title, 5, 'Title');
-    $error5 = Validation::image($photo, 'photo');
-	$error6 = Validation::maxFileSize($photo, 1, 'photo'); 
-    $er_array = array($error1, $error2, $error3, $error4, $error5, $error6);
-    $error = Validation::error($er_array);
-
-    if ($error){
+    if ($validation){
         header("Location:../post-create.php");
         ob_end_flush();
         exit;
     }else{
     	//photo upload and unique filename 
-    	if ($photo['size'] !== 0 && $photo['tmp_name'] !== '') {
-		    $file_ext = pathinfo($photo['name'], PATHINFO_EXTENSION);
+    	if ($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== '') {
+		    $file_ext = pathinfo($request->photo['name'], PATHINFO_EXTENSION);
 		    $filename = uniqid().".".$file_ext;
-		    $upload = move_uploaded_file($photo['tmp_name'], $destination.$filename);
-		    unlink($destination.$post->image);
     	}else{
     		$filename = $post->image;
     	}
-
         $query = "UPDATE tbl_posts
         		SET	
 		        title='$request->title', 
 		        category_id='$request->category', 
 		        body='$request->body', 
 		        image='$filename', 
-		        author_id='$author_id', 
+		        author_id='$post->author_id', 
 		        tags='$request->tags'
 		        WHERE 
 		        id=$post->id";
+		       
         $update = $db->update($query);
+
         if ($update) {
+        	if($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== ''){    		
+			    $upload = move_uploaded_file($request->photo['tmp_name'], $destination.$filename);
+			    unlink($destination.$post->image);
+        	}
+
             Session::set('msg', 'Post has been updated successfully!');
             header("Location:../posts.php");
             ob_end_flush();

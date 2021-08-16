@@ -15,12 +15,36 @@ p{
 .dropdown-profile li a {
     display: block;
     padding: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 .dropdown-profile li a:hover {
     background-color: #7571f9;
 }
+
+.dropdown-profile li a span {
+    transition: all .3s;
+    color: #696a75;
+}
+
+.dropdown-profile li a:hover span {
+    transition: all .3s;
+    color: white;
+}
+
+.dropdown-profile li a i {
+    transition: all .3s;
+    color: #696a75;
+}
+
+.dropdown-profile li a:hover i {
+    transition: all .3s;
+    color: white;
+}
+
 /*end of reset css*/
+
+
 /*css for header*/
 .header{
     box-shadow: 0 0 50px 0 #dedcf7;

@@ -100,7 +100,9 @@
                                       <label for="photo">Photo</label>
                                       <div class="custom-file">
                                         <input type="file" name="photo" class="custom-file-input" id="photo">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                        <label class="custom-file-label" for="customFile"><?php if ($post->image) {
+                                                echo $post->image;
+                                            }else{ echo 'Choose file'; } ?></label>
                                       </div>
                                       <div class="text-danger mt-2">
                                           <strong>                            
@@ -112,8 +114,8 @@
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="tag">Tags</label>
-                                    <input name="tag" class="form-control" rows="5" id="tag" value="<?php echo $post->tags ?>">
+                                    <label for="tags">Tags</label>
+                                    <input name="tags" class="form-control" rows="5" id="tags" value="<?php echo $post->tags ?>">
                                   </div>
 
                                   <div class="form-group">

@@ -118,7 +118,7 @@
                                 }else{
                                 ?> 
                                     <div class="">
-                                        <h4 class="text-center text-danger">Has no posts!</h4>
+                                        <h4 class="text-center pl-3"><?php echo $user->name ?>, has no post!</h4>
                                     </div>  
                                 <?php    
                                 } 

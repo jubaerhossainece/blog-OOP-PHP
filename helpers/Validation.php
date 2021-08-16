@@ -28,12 +28,14 @@
 		*/
 		public static function sanitize($data){
 			$db = new Database;
-			if (!gettype($data) === 'array') {
+			if (gettype($data) === 'array') {
+				return $data;
+			}else{
 				$data = trim($data);				
 				$data = stripcslashes($data);
 				$data = mysqli_real_escape_string($db->link, $data);
+				return $data;
 			}
-			return $data;
 		}
 
 

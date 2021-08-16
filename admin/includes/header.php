@@ -195,23 +195,25 @@
                                     </div>
                                     <ul>
                                         <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                            <a href="app-profile.html"> <i class="fas fa-user"></i> <span>Profile</span></a>
                                         </li>
                                         <li>
                                             <a href="javascript:void()">
-                                                <i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill gradient-1">3</div>
+                                                <i class="fas fa-envelope"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill gradient-1">3</div>
                                             </a>
                                         </li>
                                         
                                         <hr class="my-2">
                                         <li>
-                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
+                                            <a href="page-lock.html"><i class="fas fa-unlock-alt"></i> <span>Change Password</span></a>
                                         </li>
                                         <li>
+                                            <a href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+                                            
                                             <form action="Controllers/LoginController.php?action=logout" method="POST" id="logout-form" class="d-none">
 
                                             </form>
-                                            <a href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

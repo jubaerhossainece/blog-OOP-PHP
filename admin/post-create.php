@@ -100,8 +100,8 @@
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="tag">Tags</label>
-                                    <input name="tag" class="form-control" rows="5" id="tag" value="<?php Session::old('tags') ?>">
+                                    <label for="tags">Tags</label>
+                                    <input name="tags" class="form-control" rows="5" id="tags" value="<?php Session::old('tags') ?>">
                                   </div>
 
                                   <div class="form-group">

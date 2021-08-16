@@ -56,6 +56,7 @@ h1, h2, h3, h4, h5, h6{
     width: 10rem;
     border: 3px solid;
     border-radius: 8px;
+    background-color: white;
 }
 
 .card-block {
