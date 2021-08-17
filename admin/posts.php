@@ -17,7 +17,7 @@
 
     $from = ($page-1) * $per_page;
 
-    $query = "SELECT * FROM tbl_posts LIMIT $from, $per_page";
+    $query = "SELECT * FROM tbl_posts  LIMIT $from, $per_page";
     $posts = $db->select($query);
  ?>
 
@@ -48,6 +48,12 @@
                                 <h3>Posts Page</h3>
                                 <a href="post-create.php" class="btn btn-primary">Add post</a>
                             </div>
+
+
+                            <?php 
+                                if($posts){
+                             ?>
+
                             <div class="card-body">
                                 <?php 
                                     if (Session::get('msg')) {
@@ -73,12 +79,10 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                    <?php 
-                                        if(mysqli_num_rows($posts) > 0){
-                                            
-                                            while ($post = $posts->fetch_object()) {
-                                            $from++;
-                                     ?>
+                                      <?php 
+                                        while ($post = $posts->fetch_object()) {
+                                        $from++; 
+                                    ?>  
                                       <tr>
                                         <td class="text-center"><?php echo $from ?></td>
                                         <td class="text-center"><?php echo $post->title ?></td>
@@ -89,14 +93,14 @@
                                             <a href="controllers/PostController.php?action=delete&post_id=<?php echo $post->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>
-                                      <?php 
-                                                }
-                                            }else{
-                                                echo "<div class='text-center'>No users found</div>";
-                                            }
+
+                                      <?php
+                                        } 
                                        ?>
+                                       
                                     </tbody>
                                   </table>
+
                             </div>
                             <div class="card-footer">
                                 <?php 
@@ -104,6 +108,13 @@
                                     include "includes/pagination.php";
                                  ?>
                             </div>
+
+
+                      <?php 
+                            }else{
+                                echo "<div class='card-body text-center'>No posts found</div>";
+                            }
+                       ?>
                         </div>
                     </div>
                 </div>

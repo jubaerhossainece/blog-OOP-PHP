@@ -3,6 +3,15 @@ p{
     margin-bottom: 0;
 }
 
+[data-sibebarbg="color_1"] .nk-sidebar .metismenu {
+    border-right: 1px solid #eaecf1;
+}
+
+.nk-sidebar .metismenu > li > a.active {
+    border-left: 3px solid #4540f7;
+    background: #4540f730;
+}
+
 /*few reset css for this projectstheme default style*/
 .dropdown-menu{
     border:  none;

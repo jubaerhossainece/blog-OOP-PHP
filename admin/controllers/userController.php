@@ -59,7 +59,7 @@
                 exit;
 	        }else{
 	            Session::set('failure', 'User data insertion failed!');
-	            header("Location:../users-create.php");
+	            header("Location:../user-create.php");
                 ob_end_flush();
                 exit;
 	        }

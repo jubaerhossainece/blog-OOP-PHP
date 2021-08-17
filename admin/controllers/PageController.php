@@ -14,29 +14,25 @@
 <?php 
  //inserting post in database
  if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action === 'insert'){
- 	$author_id = Session::get('auth-id');
 	//post input validation
 	$array = array_merge($_POST, $_FILES);
 	$req = new Request;
 	$request = $req->inputValidate($array);
 
 	$validation = $req->validate($request, [
-		'title' => ['required', 'min:5'],
+		'name' => ['required'],
 		'body' => ['required'],
-		'category' => ['required'],
 		'photo' => ['image', 'maxFileSize:1']
 	]);
 
-	$destination = "../images/posts/";
+	$destination = "../images/pages/";
 
 
     if ($validation){
-        header("Location:../post-create.php");
+        header("Location:../page-create.php");
         ob_end_flush();
         exit;
     }else{
-    	//photo upload and unique filename 
-    	
     	//photo upload and unique filename 
     	if ($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== '') {
 		    $file_ext = pathinfo($request->photo['name'], PATHINFO_EXTENSION);
@@ -45,7 +41,7 @@
     		$filename = NULL;
     	}
 
-        $query = "INSERT INTO tbl_posts(title, category_id, body, image, author_id, tags) VALUES('$request->title', '$request->category', '$request->body', '$filename', '$author_id', '$tags')";
+        $query = "INSERT INTO tbl_pages(name, body, image) VALUES('$request->name', '$request->body', '$filename')";
         $insert = $db->insert($query);
 
         if ($insert) {
@@ -53,13 +49,13 @@
 			    $upload = move_uploaded_file($request->photo['tmp_name'], $destination.$filename);
         	}
 
-            Session::set('msg', 'Post created successfully!');
-            header("Location:../posts.php");
+            Session::set('msg', 'Page created successfully!');
+            header("Location:../pages.php");
             ob_end_flush();
             exit;
         }else{
-            Session::set('failure', 'Post data insertion failed!');
-            header("Location:../post-create.php");
+            Session::set('failure', 'Page data insertion failed!');
+            header("Location:../page-create.php");
             ob_end_flush();
             exit;
         }
@@ -69,19 +65,20 @@
 
 //updateing post data in database
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action == 'update'){
-	if (isset($req->post_id)) {
-		$post_id = $req->post_id;
-		$post_query = "SELECT * FROM tbl_posts WHERE id='".$post_id."'";
-		$posts = $db->select($post_query);
-		if (!$posts) {
-			header('Location:../posts.php');
+	if (isset($req->page_id)) {
+		$page_id = $req->page_id;
+		$page_query = "SELECT * FROM tbl_pages WHERE id='".$page_id."'";
+
+		$pages = $db->select($page_query);
+		if (!$pages) {
+			header('Location:../pages.php');
 	        ob_end_flush();
 	        exit;
 		}else{
-			$post = $posts->fetch_object();
+			$page = $pages->fetch_object();
 		}
 	}else{
-		header('Location:../posts.php');
+		header('Location:../pages.php');
         ob_end_flush();
         exit;
 	}
@@ -92,15 +89,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action == 'update'){
 	$request = $req->inputValidate($array);
 
 	$validation = $req->validate($request, [
-		'title' => ['required', 'min:5'],
+		'name' => ['required'],
 		'body' => ['required'],
-		'category' => ['required'],
 		'photo' => ['image', 'maxFileSize:1']
 	]);
 
-	$destination = "../images/posts/";
+	$destination = "../images/pages/";
+
     if ($validation){
-        header("Location:../post-edit.php?post_id=$post_id");
+        header("Location:../page-edit.php?page_id=$page_id");
         ob_end_flush();
         exit;
     }else{
@@ -109,34 +106,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action == 'update'){
 		    $file_ext = pathinfo($request->photo['name'], PATHINFO_EXTENSION);
 		    $filename = uniqid().".".$file_ext;
     	}else{
-    		$filename = $post->image;
+    		$filename = $page->image;
     	}
-        $query = "UPDATE tbl_posts
+        $query = "UPDATE tbl_pages
         		SET	
-		        title='$request->title', 
-		        category_id='$request->category', 
+		        name='$request->name', 
 		        body='$request->body', 
-		        image='$filename', 
-		        author_id='$post->author_id', 
-		        tags='$request->tags'
+		        image='$filename'
 		        WHERE 
-		        id=$post->id";
+		        id=$page->id";
 		       
         $update = $db->update($query);
 
         if ($update) {
         	if($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== ''){    		
 			    $upload = move_uploaded_file($request->photo['tmp_name'], $destination.$filename);
-			    unlink($destination.$post->image);
+			    unlink($destination.$page->image);
         	}
 
-            Session::set('msg', 'Post has been updated successfully!');
-            header("Location:../posts.php");
+            Session::set('msg', 'Page has been updated successfully!');
+            header("Location:../pages.php");
             ob_end_flush();
             exit;
         }else{
-            Session::set('failure', 'Post data update failed!');
-            header("Location:../post-create.php");
+            Session::set('failure', 'Page data update failed!');
+            header("Location:../page-edit.php?page_id=$page_id");
             ob_end_flush();
             exit;
         }
@@ -144,26 +138,33 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $req->action == 'update'){
    }
 
    //deleting post data from database
-    if(isset($_GET['action']) && $req->action == 'delete'){
-    	if (isset($req->post_id)) {
-			$post_id = $req->post_id;
-			$select_query = "SELECT * FROM tbl_posts WHERE id=$post_id";
-			$posts = $db->select($select_query);
-			$post = $posts->fetch_object();
-			$query = "DELETE FROM tbl_posts WHERE id=$post_id";
+    if(isset($req->action) && $req->action == 'delete'){
+    	if (isset($req->page_id)) {
+			$page_id = $req->page_id;
+			$select_query = "SELECT * FROM tbl_pages WHERE id=$page_id";
+			$pages = $db->select($select_query);
+			if ($pages) {
+				$page = $pages->fetch_object();
+			}else{
+				header("Location:../pages.php");
+	            ob_end_flush();
+	            exit;
+			}
+
+			$query = "DELETE FROM tbl_pages WHERE id=$page_id";
 			$deleted = $db->delete($query);
 			if($deleted){
-			    $destination = "../images/posts/";
-				if($post->image){
-					unlink($destination.$post->image);
+			    $destination = "../images/pages/";
+				if($page->image){
+					unlink($destination.$page->image);
 				}
 				Session::set('msg', 'Post has been deleted from database!');
-				header("Location:../posts.php");
+				header("Location:../pages.php");
 	            ob_end_flush();
 	            exit;
 			}else{
 				Session::set('msg', 'Post can not be deleted!');
-				header("Location:../posts.php");
+				header("Location:../pages.php");
 	            ob_end_flush();
 	            exit;
 			}

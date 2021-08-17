@@ -1,24 +1,8 @@
 <?php 
     include "includes/header.php";
 
-    /*pagination detail goes below*/ 
-    $per_page = 2;
-
-    $query = "SELECT COUNT(id) as total FROM tbl_users";
-    $result = $db->select($query)->fetch_object();
-    $total_pages = ceil($result->total/$per_page); 
-    $page_url = "users.php?";
-
-    if(isset($_GET['page'])){
-        $page = $_GET['page'];
-    }else{
-        $page = 1;
-    }
-
-    $from = ($page-1) * $per_page;
-
-    $query = "SELECT * FROM tbl_users LIMIT $from, $per_page";
-    $users = $db->select($query);
+    $query = "SELECT * FROM tbl_pages";
+    $pages = $db->select($query);
  ?>
 
         
@@ -40,22 +24,15 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-md-12">                    
                         <div class="card">
                             <div class="card-header page-header">
-                                <h3>Users Page</h3>
-                                <a href="user-create.php" class="btn btn-primary">Add user</a>
+                                <h3>Pages</h3>
+                                <a href="page-create.php" class="btn btn-primary">Create Page</a>
                             </div>
-
-                            <?php
-                                if($users){ 
-                             ?>
-
                             <div class="card-body">
-
                                 <?php 
                                     if (Session::get('msg')) {
                                         ?>
@@ -72,46 +49,48 @@
                                  ?>
 
 
+                            <?php 
+                                if($pages){
+                             ?>
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>
                                         <th class="text-center">Serial</th>
                                         <th class="text-center">Name</th>
-                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Body</th>
                                         <th class="text-center">Action</th>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                    <?php 
-                                        while ($user = $users->fetch_object()) {
-                                        $from++;
-                                     ?>
+                                <?php 
+                            
+                                while ($page = $pages->fetch_object()) {
+                                $i = 1;
+
+                                 ?>
                                       <tr>
-                                        <td class="text-center"><?php echo $from ?></td>
-                                        <td class="text-center"><?php echo $user->name ?></td>
-                                        <td class="text-center"><?php echo $user->email ?></td>
+                                        <td class="text-center"><?php echo $i++ ?></td>
+                                        <td class="text-center"><?php echo $page->name ?></td>
+                                        <td class="text-center"><?php echo Format::textShorten($page->body,100) ?></td>
                                         <td class="text-center">
-                                            <a href="user-show.php?user_id=<?php echo $user->id ?>" class="btn btn-success">Show</a>
-                                            <a href="user-edit.php?user_id=<?php echo $user->id ?>" class="btn btn-primary">Edit</a>
-                                            <a href="controllers/UserController.php?action=delete&user_id=<?php echo $user->id ?>" class="btn btn-danger">Delete</a>
+                                            <a href="page-show.php?page_id=<?php echo $page->id ?>" class="btn btn-primary mb-2">Show</a>
+                                            <a href="page-edit.php?page_id=<?php echo $page->id ?>" class="btn btn-success mb-2">Edit</a>
+                                            <a href="controllers/PageController.php?action=delete&page_id=<?php echo $page->id ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                       </tr>
+                                      
                                       <?php 
-                                                }
-                                       ?>
+                                        } 
+                                        ?>
+
                                     </tbody>
                                   </table>
+                              <?php 
+                                    }else{
+                                        echo "<div class='text-center'>No page found!</div>";
+                                    }
+                               ?>
                             </div>
-                            <div class="card-footer">
-                                <?php 
-                                    include "includes/pagination.php";
-                                 ?>
-                            </div>
-                            <?php
-                            }else{
-                                echo "<div class='card-body text-center'>No users found</div>";
-                            } 
-                             ?>
                         </div>
                     </div>
                 </div>

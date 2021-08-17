@@ -28,17 +28,27 @@
 
             <li>
                 <a href="posts.php">
-                    <i class="fas fa-blog"></i>
+                    <i class="fas fa-clone"></i>
                     <span class="nav-text">Posts</span>
                 </a>
             </li>
 
+            <li class="nav-label">Settings</li>
             <li>
                 <a href="others.php">
                     <i class="fas fa-blog"></i>
                     <span class="nav-text">Others</span>
                 </a>
             </li>
+
+            <li>
+                <a href="pages.php">
+                    <i class="fas fa-pager"></i>
+                    <span class="nav-text">Pages</span>
+                </a>
+            </li>
+            
+            <li>
             
             <li class="nav-label">Apps</li>
             <li>

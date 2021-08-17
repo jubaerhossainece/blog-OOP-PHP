@@ -50,18 +50,30 @@
 						    					<p class="border-bottom"></p>
 						    					<p></p>
 						    					<div class="post-body">
-							              <img src="images/posts/<?php echo $post->image ?>" alt="" class="post-img img-fluid">
+							              		<?php if ($post->image) {
+							              		 ?><img src="images/posts/<?php echo $post->image ?>" alt="" class="post-img img-fluid">
+							              		<?php } ?>
 					    						  <p class="mt-4"><?php echo $post->body ?></p>		    									            
-						    					</div>			            
+						    					</div>		            
 					    					</div>
-						           
-						            <div class="tag-widget post-tag-container mb-1 mt-1">
-						              <div class="tagcloud">
-						              	<?php echo $post->tags ?>
-						                <a href="#" class="tag-cloud-link">Life</a>
-						              </div>
-						            </div>
 							    		</div><!-- END-->
+							    	</div>
+
+							    	<div class="col-lg-3">
+							            <div class="tag-widget post-tag-container mb-1 mt-1">
+							            	<h3 class="mt-3">Tags</h3>
+								            <div class="tagcloud">
+								              	<?php
+								              	 if($post->tags!==''){
+								              	 $tags = explode(",", $post->tags);
+								              	 foreach ($tags as $tag) {
+								              	?>
+									                <a href="#" class="btn btn-primary p-2" class="tag-cloud-link">
+									              	<?php echo $tag ?>
+									              	</a>
+								            <?php }} ?>
+								            </div>
+							            </div>	
 							    	</div>
 					    		</div>
             		</div>
