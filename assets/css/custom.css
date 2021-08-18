@@ -8,6 +8,10 @@ input:focus, textarea:focus{
     outline: none !important;
 }
 
+.site-navigation, .trans-navigation {
+    padding: 6px 0px;
+}
+
 /*pagination css*/
 .page-item .page-link{
     color: #635CDB;
