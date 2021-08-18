@@ -34,9 +34,7 @@
         header("Location:../post-create.php");
         ob_end_flush();
         exit;
-    }else{
-    	//photo upload and unique filename 
-    	
+    }else{    	
     	//photo upload and unique filename 
     	if ($request->photo['size'] !== 0 && $request->photo['tmp_name'] !== '') {
 		    $file_ext = pathinfo($request->photo['name'], PATHINFO_EXTENSION);

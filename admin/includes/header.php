@@ -205,7 +205,7 @@
                                         
                                         <hr class="my-2">
                                         <li>
-                                            <a href="page-lock.html"><i class="fas fa-unlock-alt"></i> <span>Change Password</span></a>
+                                            <a href="verify-user.php"><i class="fas fa-unlock-alt"></i> <span>Change Password</span></a>
                                         </li>
                                         <li>
                                             <a href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>

@@ -47,6 +47,13 @@
                     <span class="nav-text">Pages</span>
                 </a>
             </li>
+
+            <li>
+                <a href="verify-user.php">
+                    <i class="fas fa-pager"></i>
+                    <span class="nav-text">Change Password</span>
+                </a>
+            </li>
             
             <li>
             

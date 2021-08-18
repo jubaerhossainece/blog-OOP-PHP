@@ -2,8 +2,11 @@
   include "config/config.php";
   include "library/Database.php";
   include "helpers/Format.php";
+  include 'library/Session.php';
+  include 'helpers/Request.php';
 
   $db = new Database;
+  $obj = new Request;
 ?>
 <!DOCTYPE html>
 <html lang="en">

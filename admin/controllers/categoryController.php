@@ -101,12 +101,14 @@
         }
     }
 
-
+    if (isset($_POST)) {
+        $req = $obj->inputValidate($_POST);
+    }
     //deleting category from database
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])){
-        if ($_POST['action'] === 'delete') {
-        	if (isset($_POST['category_id'])) {
-				$cat_id = $_POST['category_id'];
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($req->action)){
+        if ($req->action === 'delete') {
+        	if (isset($req->category_id)) {
+				$cat_id = $req->category_id;
 				$query = "DELETE FROM tbl_categories WHERE id=$cat_id";
 				$delete_cat = $db->delete($query);
 				if($delete_cat){
