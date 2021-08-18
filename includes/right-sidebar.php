@@ -1,83 +1,60 @@
-<div class="col-lg-3 sidebar ftco-animate bg-light pt-5">
-  <div class="sidebar-box pt-md-2">
-      <form action="search.php" method="GET"> 
-        <div class="form-group">
-          <input type="text" name="search" class="form-control" placeholder="Search here">
-          <button type="submit" class="btn btn-primary px-3 py-2 mt-2">Search</button>
-        </div>              
-    </form>
-  </div>
-  <div class="sidebar-box ftco-animate">
-  	<h3 class="sidebar-heading">Categories</h3>
-  	<?php
-  		$query = "SELECT * FROM tbl_categories";
-  		$categories = $db->select($query);
-  
-      if($categories){
-        ?>
-      <ul class="categories">
-        <?php
-        	while($category = $categories->fetch_object()){
-        		$query = "SELECT COUNT(*) as id FROM tbl_posts WHERE category_id = $category->id";
-        		$count = $db->select($query)->fetch_object();
-        	?>
-          <li><a href="posts.php?category_id=<?php echo $category->id ?>" > <?php echo $category->name; ?> <span>(<?php echo $count->id; ?>)</span></a></li>
-        <?php
-          } 
-        ?>
-      </ul>
-    <?php 
-      } 
-      ?>
-  </div>
-
-  <!-- <div class="sidebar-box ftco-animate">
-    <h3 class="sidebar-heading">Popular Articles</h3>
-    <div class="block-21 mb-4 d-flex">
-      <a class="blog-img mr-4" style="background-image: url(assets/images/image_1.jpg);"></a>
-      <div class="text">
-        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-        <div class="meta">
-          <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-          <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-          <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+ <div class="col-lg-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="sidebar-widget search">
+                <div class="form-group">
+                    <input type="text" placeholder="search" class="form-control">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="block-21 mb-4 d-flex">
-      <a class="blog-img mr-4" style="background-image: url(assets/images/image_2.jpg);"></a>
-      <div class="text">
-        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-        <div class="meta">
-          <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-          <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-          <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-        </div>
-      </div>
-    </div>
-    <div class="block-21 mb-4 d-flex">
-      <a class="blog-img mr-4" style="background-image: url(assets/images/image_3.jpg);"></a>
-      <div class="text">
-        <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-        <div class="meta">
-          <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-          <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-          <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
+        <div class="col-lg-12">
+            <div class="sidebar-widget about-bar">
+                <h5 class="mb-3">About us</h5>
+                <p>Nostrum ullam porro iusto. Fugit eveniet sapiente nobis nesciunt velit cum fuga doloremque dignissimos asperiores</p>
+            </div>
+        </div>
 
-  <div class="sidebar-box ftco-animate">
-  	<h3 class="sidebar-heading">Archives</h3>
-    <ul class="categories">
-    	<li><a href="#">December 2018 <span>(10)</span></a></li>
-      <li><a href="#">September 2018 <span>(6)</span></a></li>
-      <li><a href="#">August 2018 <span>(8)</span></a></li>
-      <li><a href="#">July 2018 <span>(2)</span></a></li>
-      <li><a href="#">June 2018 <span>(7)</span></a></li>
-      <li><a href="#">May 2018 <span>(5)</span></a></li>
-    </ul>
-  </div>
+        <div class="col-lg-12">
+            <div class="sidebar-widget category">              
+                <h5 class="mb-3">Category</h5>
+
+      <?php
+            $query = "SELECT * FROM tbl_categories";
+            $categories = $db->select($query);
+        
+            if($categories){
+              ?>
+            <ul class="list-styled">
+              <?php
+                while($category = $categories->fetch_object()){
+                  $query = "SELECT COUNT(*) as id FROM tbl_posts WHERE category_id = $category->id";
+                  $count = $db->select($query)->fetch_object();
+                ?>
+                <li><a href="posts.php?category_id=<?php echo $category->id ?>" > <?php echo $category->name; ?> <span>(<?php echo $count->id; ?>)</span></a></li>
+              <?php
+                } 
+              ?>
+            </ul>
+          <?php 
+            } 
+            ?>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="sidebar-widget tag">
+                <a href="#">web</a>
+                <a href="#">development</a>
+                <a href="#">seo</a>
+                <a href="#">marketing</a>
+                <a href="#">branding</a>
+                <a href="#">web deisgn</a>
+                <a href="#">Tutorial</a>
+                <a href="#">Tips</a>
+                <a href="#">Design trend</a>
+            </div>
+        </div>
+    </div>
 </div>

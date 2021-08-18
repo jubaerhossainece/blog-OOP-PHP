@@ -8,6 +8,17 @@ input:focus, textarea:focus{
     outline: none !important;
 }
 
+/*pagination css*/
+.page-item .page-link{
+    color: #635CDB;
+}
+
+.page-item.active .page-link{
+    background-color: #635CDB;
+    color: white;
+    border: #635CDB;
+}
+
 .page-link:focus{
     box-shadow: 0 0 2px 0px #80bdff !important;
     border: 1px solid #1eafed !important;
@@ -16,17 +27,6 @@ input:focus, textarea:focus{
 
 .post-border-bottom{
 	border-bottom: 1px solid lightgrey;
-}
-
-@media (min-width: 992px){
-    #colorlib-aside {
-        width: 17%;
-    }
-
-    #colorlib-main {
-        width: 83%;
-    }
-
 }
 
 /*single post style*/

@@ -3,13 +3,10 @@
         <ul class="metismenu" id="menu">
             <li class="nav-label">Dashboard</li>
             <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                <a href="index.php">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Home</span> 
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="index.php">Home </a></li>
-                    <!-- <li><a href="./index-2.html">Home 2</a></li> -->
-                </ul>
             </li>
             
             <li>

@@ -1,177 +1,256 @@
-<?php 
-	include "includes/header.php";
+<?php   
+    include "includes/header.php"; 
  ?>
-  <body>
+<!--MAIN BANNER AREA START -->
+<div class="page-banner-area page-contact" id="page-banner">
+    <div class="overlay dark-overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 m-auto text-center col-sm-12 col-md-12">
+                <div class="banner-content content-padding">
+                    <h1 class="text-white">Blog Details</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, perferendis?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--MAIN HEADER AREA END -->
 
-	<div id="colorlib-page">
-		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-		<?php 
-			include "includes/left-sidebar.php";
+<section class="section blog-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="blog-post">
+                                <img src="images/blog/blog-lg.jpg" alt="" class="img-fluid">
+                                <div class="mt-4 mb-3 d-flex">
+                                    <div class="post-author mr-3">
+                                        <i class="fa fa-user"></i>
+                                        <span class="h6 text-uppercase">John mackel</span>
+                                    </div>
 
-			if(!isset($_GET['post_id']) || $_GET['post_id'] == NULL){
-				header("Location:404.php");
-			}else{
-				$id = $_GET['post_id'];
-			}
+                                    <div class="post-info">
+                                        <i class="fa fa-calendar-check"></i>
+                                        <span>19 jun 18</span>
+                                    </div>
+                                </div>
+                                
+                                <a href="#" class="h4 ">Grow your site with latest startegy</a>
+                                
+                                <p class="mt-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi, aliquid perspiciatis voluptate voluptatibus, dolorem laboriosam deleniti dolores reprehenderit nostrum odit, fuga iusto perferendis quas suscipit corporis obcaecati maxime provident cumque!</p>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veri.</p>
 
-			$query = "SELECT * FROM tbl_posts WHERE id = $id";
-			$post = $db->select($query);
-			
-	    if($post){    					
-	    	$post = $post->fetch_object();
-				$user_id = $post->author_id;
-				$query = "SELECT * FROM tbl_users WHERE id = $user_id";
-				$user = $db->select($query)->fetch_object();
-				$related_post_query = "SELECT * FROM tbl_posts WHERE category_id = $post->category_id AND id!=$post->id LIMIT 6";
-				$related_posts = $db->select($related_post_query);
-		 ?> 
-		 <!-- END COLORLIB-ASIDE -->
-		<div id="colorlib-main">
-			<section class="ftco-section ftco-no-pt ftco-no-pb">
-	    	<div class="container">
-	    		<div class="row d-flex">
-	    			<div class="col-lg-9 px-md-5">
-	    				<div class="row pt-md-4">
-	    					<div class="post-container pt-4">
-		    					<h1 class="mb-2"><?php echo $post->title ?></h1>
-		    					<p class="mb-1">Published at - <?php echo Format::formatDate($post->created_at) ?></p>
-		    					<p class="border-bottom"></p>
-		    					<div class="post-body">
-			              <img src="admin/images/posts/<?php echo $post->image ?>" alt="" class="post-img img-fluid">		    							
-	    						  <p class="mt-3"><?php echo $post->body ?></p>		    									            
-		    					</div>			            
-	    					</div>
-		           
-		            <div class="tag-widget post-tag-container mb-1 mt-1">
-		              <div class="tagcloud">
-		              	<?php echo $post->tags ?>
-		                <a href="#" class="tag-cloud-link">Life</a>
-		              </div>
-		            </div>
-		            
+                                <blockquote class="quote">
+                                    <i class="fa fa-quote-left"></i>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam nobis, molestias ipsam assumenda debitis quibusdam mollitia laudantium facere neque quas optio sequi eligendi recusandae, veritatis dicta asperiores ex fugiat quasi!
+                                </blockquote>
 
-		            <!-- releted post section below here -->
-		            
-		            <div class="container releted-post p-4 mb-4 bg-light">
-		            	<div class="post-header border-bottom mb-3">
-		            		<h2>Releted posts</h2>		            		
-		            	</div>
-		            	<div class="related-post-box row">
-		            		<?php
-				            if($related_posts){
-			            	while ($related_post = $related_posts->fetch_object()) {
-			            		?>	            		
-			              <div class="bio col-md-4">
-			              	<a href="post.php?post_id=<?php echo $related_post->id ?>">
-			                <img src="admin/images/posts/<?php echo $related_post->image ?>" alt="Image placeholder" class="related-post-img img-fluid mb-4 bordered"></a>
-			              </div>
-			             <?php
-			             }
-		            	}else{
-		            		?>
-		            		<div class="bio">
-			              	<h4 class="text-danger">No related post to show!</h4>
-			              </div>
-			              <?php
-		            			} 
-			              ?> 
-		            	</div>
-		            </div>
-		       
-		            <!-- end of related posts -->
-
-		            <!-- post author section -->
-		            <div class="about-author p-4 bg-light">
-		            	<div class="author-header border-bottom mb-3">
-		            		<h2>About author</h2>		            		
-		            	</div>
-		            	<div class="author-box row">	            		
-			              <div class="bio col-md-3">
-			                <img src="admin/images/users/<?php echo $user->image ?>" alt="Image placeholder" class="img-fluid mb-4">
-			              </div>
-			              <div class="desc col-md-9">
-			                <a href="user.php?user_id=<?php echo $user->id ?>" class="author-name"><h3 class=""><?php echo  $user->name ?></h3></a>
-			                <p><?php echo Format::textShorten($user->about, 200) ?></p>
-			              </div>
-		            	</div>
-		            </div>
-		            <!-- End post author -->
+                                <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                                <div class="mt-5 mb-3">
+                                    <h5 class="d-inline-block mr-3">Tags:</h5>
+                                    <ul class="list-inline d-inline-block">
+                                        <li class="list-inline-item"><a href="#">Agency</a>,</li>
+                                        <li class="list-inline-item"><a href="#">Marketing</a>,</li>
+                                        <li class="list-inline-item"><a href="#">Business</a></li>
+                                    </ul>
+                                </div>
+                                <div class="my-4">
+                                    <h5 class="d-inline-block mr-3">Share Now:</h5>
+                                    <ul class="list-inline d-inline-block">
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
 
 
-		            <!-- comment section starts here -->
-		            <div class="pt-3 mt-3">
-		              <h3 class="mb-3 font-weight-bold">6 Comments</h3>
-		              <ul class="comment-list">
-		                <li class="comment">
-		                  <div class="vcard bio">
-		                    <img src="admin/images/users/person_1.jpg" alt="Image placeholder">
-		                  </div>
-		                  <div class="comment-body">
-		                    <h3>John Doe</h3>
-		                    <div class="meta">October 03, 2018 at 2:21pm</div>
-		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-		                  </div>
-		                </li>
+                            <div class="comments my-4">
+                                <h3 class="mb-5">Comments :</h3>
 
-		                <li class="comment">
-		                  <div class="vcard bio">
-		                    <img src="admin/images/users/person_1.jpg" alt="Image placeholder">
-		                  </div>
-		                  <div class="comment-body">
-		                    <h3>John Doe</h3>
-		                    <div class="meta">October 03, 2018 at 2:21pm</div>
-		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-		                  </div>
-		                </li>
+                                <div class="media mb-4">
+                                    <img src="images/blog/2.jpg" alt="" class="img-fluid d-flex mr-4 rounded">
+                                    <div class="media-body">
+                                        <h5>John michele</h5>
+                                        <span class="text-muted">20 Jan 2018</span>
+                                        <p class="mt-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi laborum dolores quidem ea optio fuga nesciunt tempora, in tenetur iusto!</p>
 
-		                <li class="comment">
-		                  <div class="vcard bio">
-		                    <img src="admin/images/users/person_2.jpg" alt="Image placeholder">
-		                  </div>
-		                  <div class="comment-body">
-		                    <h3>John Doe</h3>
-		                    <div class="meta">October 03, 2018 at 2:21pm</div>
-		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-		                  </div>
-		                </li>
-		              </ul>
-		              <!-- END comment-list -->
-		              
-		              <!-- comment box section -->
-		              <div class="comment-form-wrap">
-		                <h3 class="">Leave a comment</h3>
-		                <form action="#" class="p-md-2 bg-light">
-		                  <div class="form-group">
-		                    <label for="message">Message</label>
-		                    <textarea name="" id="message" cols="30" rows="5" class="comment-box form-control"></textarea>
-		                  </div>
-		                  <div class="form-group">
-		                    <input type="submit" value="Post Comment" class=" btn py-2 px-4 btn-primary">
-		                  </div>
-		                </form>
-		              </div>
-		              <!-- End comment box -->
+                                        <a href="#" class="reply">Reply <i class="fa fa-reply"></i></a>
 
-		            </div>
-			    		</div><!-- END-->
-			    	</div>
+                                            <div class="media mt-5">
+                                                <img src="images/blog/2.jpg" alt="" class="img-fluid d-flex mr-4 rounded">
+                                                <div class="media-body">
+                                                    <h5>John michele</h5>
+                                                    <span class="text-muted">20 Jan 2018</span>
+                                                    <p class="mt-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi laborum dolores quidem ea optio fuga nesciunt tempora, in tenetur iusto!</p>
+            
+                                                    <a href="#" class="reply">Reply <i class="fa fa-reply"></i></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="media mb-4">
+                                    <img src="images/blog/2.jpg" alt="" class="img-fluid d-flex mr-4 rounded">
+                                    <div class="media-body">
+                                        <h5>John michele</h5>
+                                        <span class="text-muted">20 Jan 2018</span>
+                                        <p class="mt-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi laborum dolores quidem ea optio fuga nesciunt tempora, in tenetur iusto!</p>
 
-			    	<!-- right sidebar goes here -->
-			    	<?php include "includes/right-sidebar.php"; ?>
-	    			<!-- END COL -->
-	    		</div>
-	    	</div>
-	    </section>
-		</div><!-- END COLORLIB-MAIN -->
+                                        <a href="#" class="reply">Reply <i class="fa fa-reply"></i></a>
+                                    </div>
+                                </div>
+                            </div>
 
-		<?php
-		} else{
-			header("Location:404.php");
-		} 
-		 ?>
-	</div><!-- END COLORLIB-PAGE -->
+                            <div class="mt-5 mb-3">
+                                <h3 class="mt-5 mb-2">Leave a comment</h3>
+                                <p class="mb-4">We don't spam at your inbox.</p>
+                                <form action="#" class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-3">
+                                            <textarea cols="30" rows="6" class="form-control"  placeholder="Message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Name">
+                                        </div>
+                                    </div>
 
-  <?php include "includes/footer.php"; ?>
-    
-  </body>
-</html>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <input type="email" class="form-control" placeholder="Email">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <a href="#" class="btn btn-hero btn-circled">Send a message</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-4">
+                                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget search">
+                                <div class="form-group">
+                                    <input type="text" placeholder="search" class="form-control">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget about-bar">
+                                <h5 class="mb-3">About us</h5>
+                                <p>Nostrum ullam porro iusto. Fugit eveniet sapiente nobis nesciunt velit cum fuga doloremque dignissimos asperiores</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget category">
+                                <h5 class="mb-3">Category</h5>
+                                <ul class="list-styled">
+                                    <li>Marketing</li>
+                                    <li>Digiatl</li>
+                                    <li>SEO</li>
+                                    <li>Web Design</li>
+                                    <li>Development</li>
+                                    <li>video</li>
+                                    <li>audio</li>
+                                    <li>slider</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget tag">
+                                <a href="#">web</a>
+                                <a href="#">development</a>
+                                <a href="#">seo</a>
+                                <a href="#">marketing</a>
+                                <a href="#">branding</a>
+                                <a href="#">web deisgn</a>
+                                <a href="#">Tutorial</a>
+                                <a href="#">Tips</a>
+                                <a href="#">Design trend</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget download">
+                                <h5 class="mb-4">Download Files</h5>
+                                <a href="#"> <i class="fa fa-file-pdf"></i>Company Manual</a>
+                                <a href="#"> <i class="fa fa-file-pdf"></i>Company Profile</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+</section>
+
+<!--  FOOTER AREA START  -->
+<section id="footer" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-8 col-md-8">
+                <div class="footer-widget footer-link">
+                    <h4>We concern about you<br> to grow business rapidly.</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ipsam hic non sunt recusandae atque unde saepe nihil earum voluptatibus aliquid optio suscipit nobis quia excepturi vel quod, iure quae.</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-4 col-md-4">
+                <div class="footer-widget footer-link">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-6 col-md-6">
+                <div class="footer-widget footer-link">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Report Bug</a></li>
+                        <li><a href="#">License</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-md-6">
+                <div class="footer-widget footer-text">
+                    <h4>Our location</h4>
+                    <p class="mail"><span>Mail:</span> promdise@gmail.com</p>
+                    <p><span>Phone :</span>+202-277-3894</p>
+                    <p><span>Location:</span> 455 West Orchard Street Kings Mountain, NC 28086,NOC building</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer-copy">
+                    © 2018 Promodise inc. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--  FOOTER AREA END  -->
+<?php 
+    include "includes/footer.php";
+?>
