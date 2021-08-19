@@ -2,15 +2,32 @@ h1,h2,h3,h4,h5,h6{
     line-height: 1.2;
 }
 
+p {
+    line-height: 22px;
+    font-size: 15px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 input:focus, textarea:focus{
-    box-shadow: 0 0 2px 0px #80bdff !important;
-    border: 1px solid #80bdff !important;
+    box-shadow: 0 0 2px 0px #635CDB !important;
+    border: 1px solid #635CDB !important;
     outline: none !important;
 }
 
-.site-navigation, .trans-navigation {
-    padding: 6px 0px;
+/*navbar custom style*/
+.trans-navigation.header-white {
+    background: #111;
+    padding: 6px;
 }
+
+.site-navigation, .trans-navigation {
+    transition: all .5s ease-in-out;
+}
+/*navbar custom style end*/
 
 /*pagination css*/
 .page-item .page-link{
@@ -20,12 +37,12 @@ input:focus, textarea:focus{
 .page-item.active .page-link{
     background-color: #635CDB;
     color: white;
-    border: #635CDB;
+    border-color: #635CDB;
 }
 
 .page-link:focus{
-    box-shadow: 0 0 2px 0px #80bdff !important;
-    border: 1px solid #1eafed !important;
+    box-shadow: 0 0 2px 0px #635CDB !important;
+    border: 1px solid #635CDB !important;
     outline: none !important;
 }
 

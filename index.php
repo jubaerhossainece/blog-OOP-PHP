@@ -1,6 +1,7 @@
 <?php   
     include "includes/header.php"; 
  ?>
+
  <?php
     $per_page = 2;
     if(isset($_GET['page'])){
@@ -47,7 +48,7 @@
                         $q = "SELECT * FROM tbl_users WHERE id=$id LIMIT 1";
                         $user = $db->select($q)->fetch_object();                                    
                  ?>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 border-bottom mb-5">
                         <div class="blog-post">
                             <?php if($post->image){ ?>
                                 <img src="<?php echo 'admin/images/posts/'.$post->image ?>" alt="" class="img-fluid">
@@ -55,17 +56,17 @@
                             <div class="mt-4 mb-3 d-flex">
                                 <div class="post-author mr-3">
                                     <i class="fa fa-user"></i>
-                                    <a href=""><span class="h6 text-uppercase"><?php echo $user->name ?></span></a>
+                                    <a href="user.php?user_id=<?php echo $user->id ?>"><span class="text-secondary h6 text-uppercase"><?php echo $user->name ?></span></a>
                                 </div>
 
                                 <div class="post-info">
                                     <i class="fa fa-calendar-check"></i>
-                                    <span><?php echo Format::formatDate($post->created_at); ?></span>
+                                    <span class="text-secondary"><?php echo Format::formatDate($post->created_at); ?></span>
                                 </div>
                             </div>
                             <a href="blog-single.html" class="h4 "><?php echo $post->title; ?></a>
                             <p class="mt-3"><?php echo Format::textShorten($post->body, 300); ?></p>
-                            <a href="post.php?post_id=<?php echo $post->id ?>" class="btn btn-circled btn-hero">Read More <i class="fa fa-angle-right"></i></a>
+                            <a href="post.php?post_id=<?php echo $post->id ?>" class="mt-2 btn btn-circled btn-hero">Read More <i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
 

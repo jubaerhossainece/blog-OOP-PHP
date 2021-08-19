@@ -52,7 +52,7 @@
                             <div class="mt-4 mb-3 d-flex">
                                 <div class="post-author mr-3">
                                     <i class="fa fa-user"></i>
-                                    <span class="h6 text-uppercase"><?php echo $user->name ?></span>
+                                    <a href="user.php?user_id=<?php echo $user->id ?>"><span class="h6 text-uppercase"><?php echo $user->name ?></span></a>
                                 </div>
 
                                 <div class="post-info">

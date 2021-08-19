@@ -2,20 +2,28 @@
 	include "includes/header.php";
  ?>
 
-  <body>
-	<div id="colorlib-page">
-		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+ <!--MAIN BANNER AREA START -->
+<div class="page-banner-area page-contact" id="page-banner">
+    <div class="overlay dark-overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 m-auto text-center col-sm-12 col-md-12">
+                <div class="banner-content content-padding">
+                    <h1 class="text-white">Let's Connect with us</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, perferendis?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--MAIN HEADER AREA END -->
 
-		<?php 
-			include "includes/left-sidebar.php";
-		 ?>
-
-		<div id="colorlib-main">
-			<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
-	    	<div class="container-fluid px-0">
-	    		<div class="row d-flex">
-	    			<div class="col-md-6 d-flex">
-	    				<div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:url(assets/images/about.jpg);">
+<!--MAIN HEADER AREA END -->
+<section class="section blog-wrap ">
+    <div class="container">
+        <div class="row">
+          	<div class="col-md-6 d-flex">
+	    				<div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:url('assets/images/about/about-1.jpg');">
 	    				</div>
 	    			</div>
 	    			<div class="col-md-6 d-flex align-items-center">
@@ -24,16 +32,10 @@
 		            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
 	            </div>
 		        </div>
-	        </div>
-	    	</div>
-	    </section>
-		</div><!-- END COLORLIB-MAIN -->
-	</div><!-- END COLORLIB-PAGE -->
-
+        </div>   
+    </div>
+</section>
 
 <?php 
-	include "includes/footer.php";
- ?>
-    
-  </body>
-</html>
+    include "includes/footer.php";
+?>
