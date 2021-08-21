@@ -190,3 +190,10 @@ h1,h2,h3,h4,h5,h6{
     color: #463f3f;
     font-weight: 600;
 }
+
+/* mail-read page style */
+.read-content .media .rounded-circle {
+    border-radius: 50% !important;
+    height: 50px;
+    width: 50px;
+}

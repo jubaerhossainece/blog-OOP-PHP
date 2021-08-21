@@ -14,8 +14,8 @@
 			$query = "SELECT * FROM tbl_users WHERE id=$post->author_id";
 			$user = $db->select($query)->fetch_object();
 		}else{
-      echo "<script> location.href='posts.php'; </script>";
-      exit;
+			echo "<script> location.href='posts.php'; </script>";
+			exit;
 		}
  ?>
 

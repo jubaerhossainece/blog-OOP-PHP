@@ -41,8 +41,8 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="email-left-box"><a href="email-compose.html" class="btn btn-primary btn-block">Compose</a>
-                                    <div class="mail-list mt-4"><a href="email-inbox.html" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Inbox</b> <span class="badge badge-primary badge-sm float-right m-t-5"><?php echo $count->inbox ?></span> </a>
+                                <div class="email-left-box"><a href="mail-compose.php" class="btn btn-primary btn-block">Compose</a>
+                                    <div class="mail-list mt-4"><a href="mail-inbox.php" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Inbox</b> <span class="badge badge-primary badge-sm float-right m-t-5"><?php echo $count->inbox ?></span> </a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>Sent</a>  <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>Important <span class="badge badge-danger badge-sm float-right m-t-5">47</span> </a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Draft</a><a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>Trash</a>
                                     </div>
@@ -69,7 +69,7 @@
                                 while($mail = $mails->fetch_object()){
                                 ?>
                                         <div class="message <?php if(!$mail->is_seen){ echo 'unread'; } ?>">
-                                            <a href="email-read.html">
+                                            <a href="mail-read.php?mail_id=<?php echo $mail->id ?>">
                                                 <div class="col-mail col-mail-1">
                                                     <div class="email-checkbox">
                                                         <input type="checkbox" id="chk2">
