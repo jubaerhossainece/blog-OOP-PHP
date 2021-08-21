@@ -1,5 +1,6 @@
 <?php 
 	include "includes/header.php";
+    Session::init();
  ?>
 
 <!--MAIN BANNER AREA START -->
@@ -31,29 +32,64 @@
         </div>
         <div class="row">
             <div class="col-lg-7 col-sm-12">
-            
-                <form class="contact__form" method="post" action="mail.php">
-                    <!-- form message -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="alert alert-success contact__msg" style="display: none" role="alert">
-                                Your message was sent successfully.
-                            </div>
-                        </div>
+            <?php
+                if(Session::get('msg')){
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo 
+                            Session::get('msg'); 
+                            Session::unsetOld();
+                        ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+            <?php    
+                } 
+            ?>
+                <form class="contact__form" method="post" action="admin/controllers/ContactController.php?action=insert">
+                    <!-- form message -->
                     <!-- end message -->
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <input name="name" type="text" class="form-control" placeholder="Name" required>
+                            <input name="name" type="text" class="form-control" placeholder="Name" value="<?php Session::old('name') ?>">
+                            <div class="text-danger">
+                                <strong>                                               
+                                    <?php 
+                                        Session::error('name')
+                                    ?>
+                                </strong>
+                            </div>
                         </div>
                         <div class="col-md-6 form-group">
-                            <input name="email" type="email" class="form-control" placeholder="Email" required>
+                            <input name="email" type="email" class="form-control" placeholder="Email" value="<?php Session::old('email') ?>">
+                            <div class="text-danger">
+                                <strong>                                               
+                                    <?php 
+                                        Session::error('email')
+                                    ?>
+                                </strong>
+                            </div>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input name="subject" type="text" class="form-control" placeholder="Subject" required>
+                            <input name="subject" type="text" class="form-control" placeholder="Subject" value="<?php Session::old('subject') ?>">
+                            <div class="text-danger">
+                                <strong>                                               
+                                    <?php 
+                                        Session::error('subject')
+                                    ?>
+                                </strong>
+                            </div>
                         </div>
                         <div class="col-12 form-group">
-                            <textarea name="message" class="form-control" rows="6" placeholder="Message" required></textarea>
+                            <textarea name="message" class="form-control" rows="6" placeholder="Message"><?php Session::old('message') ?></textarea>
+                            <div class="text-danger">
+                                <strong>                                               
+                                    <?php 
+                                        Session::error('message')
+                                    ?>
+                                </strong>
+                            </div>
                         </div>
                         <div class="col-12 mt-4">
                             <input name="submit" type="submit" class=" btn btn-hero btn-circled" value="Send Message">
@@ -88,5 +124,6 @@
 </section>
 <!--  Google Map END  -->
 <?php 
+    Session::unsetOld();
 	include "includes/footer.php";
  ?>
