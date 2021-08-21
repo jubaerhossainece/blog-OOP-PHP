@@ -2,10 +2,12 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="sidebar-widget search">
-                <div class="form-group">
-                    <input type="text" placeholder="search" class="form-control">
-                    <i class="fa fa-search"></i>
-                </div>
+                <form action="search.php" method="GET">                
+                    <div class="form-group">
+                        <input type="text" placeholder="search" name="search" class="form-control">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </form>
             </div>
         </div>
 

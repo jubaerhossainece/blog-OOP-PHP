@@ -3,10 +3,11 @@
  ?>
 
  <?php 
-    if(!isset($_GET['post_id']) || $_GET['post_id'] == NULL){
+ $request = $obj->inputValidate($_GET);
+    if(!isset($request->post_id) || $request->post_id == NULL){
         header("Location:404.php");
     }else{
-        $id = $_GET['post_id'];
+        $id = $request->post_id;
     }
  ?> 
 <!--MAIN BANNER AREA START -->
@@ -76,10 +77,14 @@
                                 } 
                           ?>
 
+              <?php
+                    $comment_query = "SELECT * FROM tbl_comments WHERE post_id=$id";
+                    $comments = $db->select($comment_query);
+               ?>
+
 
                         <div class="comments my-4">
                             <h3 class="mb-5">Comments :</h3>
-
                             <div class="media mb-4">
                                 <img src="images/blog/2.jpg" alt="" class="img-fluid d-flex mr-4 rounded">
                                 <div class="media-body">

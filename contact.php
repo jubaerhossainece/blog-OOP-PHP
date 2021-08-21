@@ -31,6 +31,7 @@
         </div>
         <div class="row">
             <div class="col-lg-7 col-sm-12">
+            
                 <form class="contact__form" method="post" action="mail.php">
                     <!-- form message -->
                     <div class="row">

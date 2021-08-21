@@ -1,14 +1,17 @@
+
+
 <?php   
     include "includes/header.php"; 
  ?>
  <?php
-    $per_page = 2;
-    if(isset($_GET['category_id'])){
-        $cat_id = $_GET['category_id'];
-    }else{
-        header("Location:index.php");
-    }
 
+     if(isset($_GET['search'])){
+            $search = $_GET['search'];
+     }else{
+         header("Location:404.php");
+     }
+
+    $per_page = 2;
     if(isset($_GET['page'])){
         $page = $_GET['page'];
     }else{
@@ -17,7 +20,7 @@
 
     $from = ($page-1) * $per_page;
 
-    $query = "SELECT * FROM tbl_posts WHERE category_id = $cat_id LIMIT $from, $per_page";
+    $query = "SELECT * FROM tbl_posts WHERE title LIKE '%$search%' OR body LIKE '%$search%' LIMIT $from, $per_page";
     $posts = $db->select($query);
 ?>
   <body>
@@ -32,7 +35,8 @@
             <div class="container">
                 <div class="row d-flex">
                     <div class="col-xl-9 px-md-5">
-                    <?php if ($posts) {
+                    <?php 
+                        if ($posts) {
                         ?>
                         <div class="row pt-md-4">
 
@@ -61,7 +65,7 @@
 
                                 <div>
                                             <a href="post.php?post_id=<?php echo $post->id; ?>" class="img" style="background-image: url(admin/images/posts/<?php echo $post->image ?>)"></a>
-                                    <h3 class="mb-4 mt-4">
+                                    <h3 class="mt-4 mb-4">
                                         <a href="#"><?php echo $post->title ?></a></h3>
                                   <p class="mb-4">
                                     <?php echo Format::textShorten($post->body, 300) ?>
@@ -85,22 +89,21 @@
                         <div class="row pt-4">
                       <div class="col">
                         <?php
-                        $query = "SELECT * FROM tbl_posts WHERE category_id = $cat_id";
+                        $query = "SELECT * FROM tbl_posts WHERE title LIKE '%$search%' OR body LIKE '%$search%'";
                         $result = $db->select($query);
                         $total_rows = mysqli_num_rows($result);
                         $total_pages = ceil($total_rows/$per_page); 
-                        $page_url = "posts.php?category_id=".$cat_id."&";
-                        
+                        $page_url = "search.php?search=$search&";
                         include "includes/partials/pagination.php";
                          ?>
                           
                       </div>
                     </div>
 
-                    <?php 
+                        <?php 
                         
                             }else{
-                                echo "<div>No post found!</div>";
+                                echo "<div class='empty-box'>No post found!</div>";
                             }
                      ?>
                     </div>

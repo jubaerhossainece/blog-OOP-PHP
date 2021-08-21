@@ -6,7 +6,7 @@ class Format {
 	*Convert a date in a specified format
 	*
 	* @param  date  $data
-  * @return date
+  	* @return date
 	*/
 	public static function formatDate($date){
 		$object = new DateTime($date);
@@ -23,7 +23,7 @@ class Format {
 	* @param  string  $text
 	* @param  integer $limit
 	* @param  string $field
-  * @return string
+  	* @return string
 	*/
 	public static function textShorten($text, $limit = 200){
 		if(strlen($text) > $limit){
@@ -35,6 +35,41 @@ class Format {
 			return $text;
 		}
 	}
+
+
+	/**
+	*Get the title from url
+	*
+  	* @return string
+	*/
+	public static function title(){
+        $path = $_SERVER['SCRIPT_FILENAME'];
+        $title = basename($path, '.php');
+        $title = str_replace('-', ' ', $title);
+        if($title === 'index'){
+            $title = 'home';
+        }
+        return $title = ucfirst($title);
+    }
+
+	/**
+	*Get the title from url
+	*
+	* @param  string  $uri
+  	* @return bool
+	*/
+	public static function current_page($uri){
+		$path = $_SERVER['SCRIPT_NAME'];
+		$path = basename($path,".php");
+		$path = str_replace('/', '', $path);
+		$cur_url = strtolower($path);
+
+        if($uri === $cur_url){
+			return true;
+		}else{
+			return false;
+		}
+    }
 }
 ?>
 

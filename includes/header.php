@@ -8,6 +8,7 @@
   $db = new Database;
   $obj = new Request;
 ?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -19,7 +20,7 @@
     <meta name="keywords" content="marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company">
     <meta name="author" content="Themefisher.com">
 
-   <title>Promodise - seo and digital marketing solution </title>
+   <title><?php echo Format::title(); ?> page</title>
     <!-- bootstrap.min css -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css">
     <!-- Icofont Css -->
@@ -38,8 +39,6 @@
 
 
 <body data-spy="scroll" data-target=".fixed-top">
-
-
 <nav class="navbar navbar-expand-lg fixed-top trans-navigation">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -54,18 +53,18 @@
             <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                 <ul class="navbar-nav ">
                    <li class="nav-item dropdown">
-                        <a class="nav-link smoth-scroll" href="index.php">
+                        <a class="nav-link smoth-scroll <?php if(Format::current_page('index')){ echo 'active'; } ?>" href="index.php">
                             Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link smoth-scroll" href="about.php">About</a>
+                        <a class="nav-link smoth-scroll <?php if(Format::current_page('about')){ echo 'active'; } ?>" href="about.php">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link smoth-scroll" href="blog.php">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link smoth-scroll" href="contact.php">Contact</a>
+                        <a class="nav-link smoth-scroll <?php if(Format::current_page('contact')){ echo 'active'; } ?>" href="contact.php">Contact</a>
                     </li>
                 </ul>
             </div>

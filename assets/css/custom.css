@@ -18,6 +18,10 @@ input:focus, textarea:focus{
     outline: none !important;
 }
 
+a.nav-link.smoth-scroll.active{
+    color: #635CDB !important;
+}
+
 /*navbar custom style*/
 .trans-navigation.header-white {
     background: #111;
