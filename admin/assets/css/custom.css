@@ -146,10 +146,47 @@ h1,h2,h3,h4,h5,h6{
 /* card header end */
 
 /* mail inbox style */
+.message {
+    background-color: #f4f5fd;
+}
+
+.email-list .message:hover {
+    transition-duration: 0.2s;
+    box-shadow: 0 1px 12px 1px #cbc8f7;
+    z-index: 10;
+}
+
+.email-list .message .col-mail-2 .subject {
+    font-size: 15px;
+}
+
+.message.unread {
+    background-color: white;
+}
+
+.email-list .message.unread .col-mail-2 .subject {
+    color: black;
+    font-size: 15px;
+}
+
+.email-list .message .col-mail-2 .subject {
+    color:#8b8b94;
+}
+
 .dropdown-menu.show {
     box-shadow: 0 0 16px 0 #c9c7e8;
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
     background-color: #cccbff;
+}
+
+.email-list .message .col-mail-2 .subject {
+    right: 110px;
+ }
+
+ .dropdown-header {
+    font-size: 15px;
+    color: #463f3f;
+    font-weight: 600;
 }

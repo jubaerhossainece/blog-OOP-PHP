@@ -23,11 +23,15 @@ class Format {
   	* @return date
 	*/
 	public static function mailDate($date){
+		$current_year = date('Y');
 		$object = new DateTime($date);
-		$converted_date = $object->format('M d, Y ');
-		$converted_time = $object->format('h : i A');
-		$result = $converted_date.' at '.$converted_time;
-		return $result;
+		$year = $object->format('Y');
+		
+		if($year < $current_year){
+			return $converted_date = $object->format('d/m/y');
+		}elseif($year === $current_year){
+			return $converted_date = $object->format('M d');
+		}
 	}
 
 

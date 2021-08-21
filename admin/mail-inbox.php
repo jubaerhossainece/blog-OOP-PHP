@@ -4,6 +4,8 @@
  <?php 
     $mail_query = "SELECT * FROM tbl_contacts";
     $mails = $db->select($mail_query);
+    $total_unread = "SELECT COUNT(id) as inbox FROM tbl_contacts WHERE is_seen = false";
+    $count = $db->select($total_unread)->fetch_object();
   ?>
         <!--**********************************
             Header end ti-comment-alt
@@ -40,7 +42,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="email-left-box"><a href="email-compose.html" class="btn btn-primary btn-block">Compose</a>
-                                    <div class="mail-list mt-4"><a href="email-inbox.html" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Inbox</b> <span class="badge badge-primary badge-sm float-right m-t-5">198</span> </a>
+                                    <div class="mail-list mt-4"><a href="email-inbox.html" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Inbox</b> <span class="badge badge-primary badge-sm float-right m-t-5"><?php echo $count->inbox ?></span> </a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>Sent</a>  <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>Important <span class="badge badge-danger badge-sm float-right m-t-5">47</span> </a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Draft</a><a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>Trash</a>
                                     </div>
@@ -50,11 +52,11 @@
                                     </div>
                                 </div>
                                 <div class="email-right-box">
-                                    <div role="toolbar" class="toolbar">
+                                    <div role="toolbar" class="toolbar mb-3">
                                         <div class="btn-group">
                                             <button aria-expanded="false" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" type="button">More <span class="caret m-l-5"></span>
                                             </button>
-                                            <div class="dropdown-menu"><span class="dropdown-header">More Option :</span>  <a href="javascript: void(0);" class="dropdown-item">Mark as Unread</a>  <a href="javascript: void(0);" class="dropdown-item">Add to Tasks</a>  <a href="javascript: void(0);"
+                                            <div class="dropdown-menu"><span class="dropdown-header">More Option </span>  <a href="javascript: void(0);" class="dropdown-item">Mark as Unread</a>  <a href="javascript: void(0);" class="dropdown-item">Add to Tasks</a>  <a href="javascript: void(0);"
                                                 class="dropdown-item">Add Star</a>  <a href="javascript: void(0);" class="dropdown-item">Mute</a>
                                             </div>
                                         </div>
@@ -66,7 +68,7 @@
                             <?php
                                 while($mail = $mails->fetch_object()){
                                 ?>
-                                        <div class="message">
+                                        <div class="message <?php if(!$mail->is_seen){ echo 'unread'; } ?>">
                                             <a href="email-read.html">
                                                 <div class="col-mail col-mail-1">
                                                     <div class="email-checkbox">
@@ -75,8 +77,8 @@
                                                     </div><span class="star-toggle ti-star"></span>
                                                 </div>
                                                 <div class="col-mail col-mail-2">
-                                                    <div class="subject"><?php echo $mail->subject ?></div>
-                                                    <div class="date">11:49 am</div>
+                                                    <div class="subject"><?php echo $mail->subject.' - '.$mail->message; ?></div>
+                                                    <div class="date"><?php echo Format::mailDate($mail->created_at) ?></div>
                                                 </div>
                                             </a>
                                         </div>
