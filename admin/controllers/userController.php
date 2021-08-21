@@ -46,7 +46,10 @@
 	    		$filename = NULL;
 	    	}
 
-	        $query = "INSERT INTO tbl_users(name, email, about, password, image) VALUES('$request->name', '$request->email', '$request->about', '$password', '$filename')";
+			date_default_timezone_set("Asia/Dhaka");
+			$now = date('Y-m-d H:i:s');
+
+	        $query = "INSERT INTO tbl_users(name, email, about, password, image, created_at) VALUES('$request->name', '$request->email', '$request->about', '$password', '$filename', '$now')";
 	        $insert = $db->insert($query);
 	    
 	        if ($insert) {

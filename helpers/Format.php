@@ -16,6 +16,20 @@ class Format {
 		return $result;
 	}
 
+	/**
+	*Convert a date in a specified format for mail
+	*
+	* @param  date  $data
+  	* @return date
+	*/
+	public static function mailDate($date){
+		$object = new DateTime($date);
+		$converted_date = $object->format('M d, Y ');
+		$converted_time = $object->format('h : i A');
+		$result = $converted_date.' at '.$converted_time;
+		return $result;
+	}
+
 
 	/**
 	*Convert a date in a specified format

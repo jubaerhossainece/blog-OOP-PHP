@@ -32,7 +32,7 @@ if ($validation){
     ob_end_flush();
     exit;
 }else{
-    $query = "INSERT INTO tbl_contacts(name, email, subject, message) VALUES('$request->name', '$request->email', '$request->subject', '$request->message')";
+    $query = "INSERT INTO tbl_contacts(name, email, subject, message, is_seen) VALUES('$request->name', '$request->email', '$request->subject', '$request->message', false)";
     $insert = $db->insert($query);
 
     if ($insert) {
