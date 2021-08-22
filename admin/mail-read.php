@@ -69,16 +69,9 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="email-left-box"><a href="mail-compose.php" class="btn btn-primary btn-block">Compose</a>
-                                    <div class="mail-list mt-4"><a href="mail-inbox.php" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Inbox</b> <?php if($count->inbox > 0){ ?> <span class="badge badge-primary badge-sm float-right m-t-5"><?php echo $count->inbox ?></span> <?php } ?> </a>
-                                        <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>Sent</a>  <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>Important <span class="badge badge-danger badge-sm float-right m-t-5">47</span> </a>
-                                        <a href="#" class="list-group-item border-0 p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Draft</a><a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>Trash</a>
-                                    </div>
-                                    <h5 class="mt-5 m-b-10">Categories</h5>
-                                    <div class="list-group mail-list"><a href="#" class="list-group-item border-0"><span class="fa fa-briefcase f-s-14 mr-2"></span>Work</a>  <a href="#" class="list-group-item border-0"><span class="fa fa-sellsy f-s-14 mr-2"></span>Private</a>  <a href="#"
-                                        class="list-group-item border-0"><span class="fa fa-ticket f-s-14 mr-2"></span>Support</a>  <a href="#" class="list-group-item border-0"><span class="fa fa-tags f-s-14 mr-2"></span>Social</a>
-                                    </div>
-                                </div>
+            <?php
+                include "includes/mail-leftbar.php";
+             ?>
                                 <div class="email-right-box">
                                     <div class="toolbar" role="toolbar">
                                         <div class="btn-group m-b-20">

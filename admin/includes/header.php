@@ -8,6 +8,11 @@
     $obj = new Request;
     Session::checkSession();
  ?>
+
+ <?php 
+    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=false";
+    $result = $db->select($query)->fetch_object();
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,13 +103,13 @@
                     <ul class="clearfix">
                         <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
-                                <span class="badge badge-pill gradient-1">3</span>
+                                <span class="badge badge-pill gradient-1"><?php echo $result->total ?></span>
                             </a>
                             <div class="drop-down animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">3 New Messages</span>  
+                                    <span class=""><?php echo $result->total ?> New Messages</span>  
                                     <a href="javascript:void()" class="d-inline-block">
-                                        <span class="badge badge-pill gradient-1">3</span>
+                                        <span class="badge badge-pill gradient-1"><?php echo $result->total ?></span>
                                     </a>
                                 </div>
                                 <div class="dropdown-content-body">

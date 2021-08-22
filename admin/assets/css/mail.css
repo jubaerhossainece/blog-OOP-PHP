@@ -1,0 +1,68 @@
+/* mail inbox style */
+.message {
+    background-color: #f4f5ff;
+    border-bottom: 1px solid #eaebf7;
+}
+
+.message:first-child {
+    border-top: 1px solid #eaebf7;
+}
+
+.email-list .message:hover {
+    /* transition-duration: 0.2s; */
+    box-shadow: 0 1px 12px 1px #cbc8f7;
+    z-index: 10;
+    border-bottom: white;
+}
+
+.email-list .message .col-mail-2 .subject {
+    font-size: 14px;
+}
+
+.message.unread {
+    background-color: white;
+}
+
+.email-list .message.unread .col-mail-2 .subject {
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.email-list .message .col-mail-2 .subject {
+    color:#8b8b94;
+}
+
+span.star-toggle.ti-star.active {
+    color: #7571f9;
+}
+
+.dropdown-menu.show {
+    box-shadow: 0 0 16px 0 #c9c7e8;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #cccbff;
+}
+
+.email-list .message .col-mail-2 .subject {
+    right: 110px;
+ }
+
+ .dropdown-header {
+    font-size: 15px;
+    color: #463f3f;
+    font-weight: 600;
+}
+
+/* mail-read page style */
+.read-content .media .rounded-circle {
+    border-radius: 50% !important;
+    height: 50px;
+    width: 50px;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
