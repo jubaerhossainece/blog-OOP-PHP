@@ -6,7 +6,7 @@
     /*pagination detail goes below*/ 
     $per_page = 10;
 
-    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=false";
+    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=false AND deleted_at IS null";
     $result = $db->select($query)->fetch_object();
     $total_pages = ceil($result->total/$per_page); 
     $page_url = "mail-inbox.php?";
@@ -19,7 +19,7 @@
 
     $from = ($page-1) * $per_page;
 
-    $mail_query = "SELECT * FROM tbl_contacts WHERE is_important=false LIMIT $from, $per_page";
+    $mail_query = "SELECT * FROM tbl_contacts WHERE is_important=false AND deleted_at IS null LIMIT $from, $per_page";
     $mails = $db->select($mail_query);
 
 
@@ -83,12 +83,8 @@
                                                 <a href="javascript: void(0);" onclick="mark_star()" class="dropdown-item">Add Star</a>  
                                                 <!-- <a href="javascript: void(0);" class="dropdown-item">Mute</a> -->
                                             </div>
-                                            <div class="btn-group m-b-20">
-                                                <button type="button" class="btn btn-light"><i class="fa fa-archive"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-light"><i class="fa fa-exclamation-circle"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-light"><i class="fa fa-trash"></i>
+                                            <div class="btn-group ml-2 m-b-20">
+                                                <button type="button" onclick="make_trash()" class="rounded btn btn-light"><i class="fa fa-trash"></i>
                                                 </button>
                                             </div>
                                         </div>

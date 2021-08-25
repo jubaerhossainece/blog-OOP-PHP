@@ -1,11 +1,12 @@
 <?php 
     //total unseen messages
-    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=false AND is_seen=false";
-    $header_total_message = $db->select($query)->fetch_object();
+    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=false AND is_seen=false AND deleted_at IS null";
+    $inbox = $db->select($query)->fetch_object();
 
     //latest messages
     $query_unseen = "SELECT * FROM tbl_contacts WHERE is_important=false AND is_seen=false ORDER BY created_at DESC LIMIT 4";
     $header_mails = $db->select($query_unseen);
+
 ?>
 
 <body>
@@ -76,13 +77,13 @@
                     <ul class="clearfix">
                         <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
-                                <span class="badge badge-pill gradient-1"><?php echo $header_total_message->total ?></span>
+                                <span class="badge badge-pill gradient-1"><?php echo $inbox->total ?></span>
                             </a>
                             <div class="drop-down animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class=""><?php echo $header_total_message->total ?> New Messages</span>  
+                                    <span class=""><?php echo $inbox->total ?> New Messages</span>  
                                     <a href="javascript:void()" class="d-inline-block">
-                                        <span class="badge badge-pill gradient-1"><?php echo $header_total_message->total ?></span>
+                                        <span class="badge badge-pill gradient-1"><?php echo $inbox->total ?></span>
                                     </a>
                                 </div>
                                

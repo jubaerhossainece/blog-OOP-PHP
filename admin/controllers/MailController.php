@@ -108,4 +108,33 @@ if(isset($req->action_type) && $req->action_type == 'mark_as_starred'){
         exit;
     }             
 }
+
+
+$req = $obj->inputValidate($_POST);
+//send to trash(multiple mail)
+if(isset($req->action_type) && $req->action_type == 'mark_as_trashed'){
+ 
+    $mail_ids = explode(',', $req->mail_array[0]);
+    $now = new DateTime();
+
+    $now = $now->format('Y-m-d H:i:s');
+     $query = "UPDATE tbl_contacts
+                SET 
+                deleted_at='".$now."'
+                WHERE 
+                id IN (".implode(',', $mail_ids).")";
+                
+    $update = $db->update($query);
+
+    if($update){
+        header("Location:../mail-inbox.php");
+        ob_end_flush();
+        exit;
+    }else{
+        header("Location:../mail-inbox.php");
+        ob_end_flush();
+        exit;
+    }             
+}
+
  ?>

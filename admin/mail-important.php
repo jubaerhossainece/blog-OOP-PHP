@@ -6,7 +6,7 @@
     /*pagination detail goes below*/ 
     $per_page = 2;
 
-    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=true";
+    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=true AND deleted_at=null";
     $result = $db->select($query)->fetch_object();
     
     $total_pages = ceil($result->total/$per_page); 
@@ -20,7 +20,7 @@
 
     $from = ($page-1) * $per_page;
 
-    $mail_query = "SELECT * FROM tbl_contacts WHERE is_important=true LIMIT $from, $per_page";
+    $mail_query = "SELECT * FROM tbl_contacts WHERE is_important=true AND deleted_at=null LIMIT $from, $per_page";
     $mails = $db->select($mail_query);
 ?>
 

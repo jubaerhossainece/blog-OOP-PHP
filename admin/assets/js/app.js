@@ -46,3 +46,19 @@ function mark_star(){
     $('#action-form #action-type').val('mark_as_starred');
     $('#action-form').submit();
 }
+
+// send to trash box
+function make_trash(){
+    let values = [];
+
+    $('#mail-checkbox input[type="checkbox"]').each(function(){
+        let $this = $(this);
+        if ($this.is(':checked')) {
+            values.push($this.val());
+        }
+    });
+    
+    $('#mail-array').val(values);
+    $('#action-form #action-type').val('mark_as_trashed');
+    $('#action-form').submit();
+}

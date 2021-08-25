@@ -26,6 +26,13 @@ p{
     padding: 0px !important;
 }
 
+/* header dropdown animation */
+.animated {
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+}
 
 
 /* message dropdown at header */
