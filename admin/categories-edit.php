@@ -10,6 +10,12 @@
         exit;
     }
  ?>
+
+        
+<?php 
+    include "includes/header-nav.php";
+    
+ ?>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->

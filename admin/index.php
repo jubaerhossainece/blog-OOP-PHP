@@ -10,6 +10,12 @@
     $total_categories = $db->select($total_categories_query)->fetch_object();
  ?>
 
+
+       
+<?php 
+    include "includes/header-nav.php";
+    
+ ?>
         
         <!--**********************************
             Header end ti-comment-alt

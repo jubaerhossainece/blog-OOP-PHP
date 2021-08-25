@@ -17,6 +17,71 @@ class Format {
 	}
 
 	/**
+	*Convert a date in a human raedable format
+	*
+	* @param  date  $data
+  	* @return date
+	*/
+	public static function dateForHumans($date){
+		$object = new DateTime($date);
+		$now = new DateTime('now');
+		$now->setTimezone(new DateTimeZone('Asia/Dhaka'));
+		$now->format('Y-m-d H:i:s');
+		$object->format('Y-m-d H:i:s');
+		$date = $object->diff($now);
+		
+		if($date->y >0){
+			$time = $date->y;
+			if($time > 1){
+				$postfix = ' years ago';
+			}else{
+				$postfix = ' year ago';
+			}
+			return $data = $time.$postfix;
+		}elseif($date->m > 0){
+			$time = $date->m;
+			if($time > 1){
+				$postfix = ' months ago';
+			}else{
+				$postfix = ' month ago';
+			}
+			return $data = $time.$postfix;
+		}elseif($date->d > 0){
+			$time = $date->d;
+			if($time > 1){
+				$postfix = ' days ago';
+			}else{
+				$postfix = ' day ago';
+			}
+			return $data = $time.$postfix;
+		}elseif($date->h > 0){
+			$time = $date->h;
+			if($time > 1){
+				$postfix = ' hours ago';
+			}else{
+				$postfix = ' hour ago';
+			}
+			return $data = $time.$postfix;
+		}elseif($date->i > 0){
+			$time = $date->i;
+			if($time > 1){
+				$postfix = ' minutes ago';
+			}else{
+				$postfix = ' minute ago';
+			}
+			return $data = $time.$postfix;
+		}elseif($date->s > 0){
+			$time = $date->d;
+			if($time > 1){
+				$postfix = ' seconds ago';
+			}else{
+				$postfix = ' second ago';
+			}
+			return $data = $time.$postfix;
+		}
+	}
+
+	/**
 	*Convert a date in a specified format for mail
 	*
 	* @param  date  $data
@@ -69,6 +134,7 @@ class Format {
         }
         return $title = ucfirst($title);
     }
+
 
 	/**
 	*Get the title from url

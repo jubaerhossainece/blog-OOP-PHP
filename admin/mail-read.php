@@ -34,9 +34,15 @@
         exit;
     }
   ?>
+
+<?php 
+    include "includes/header-nav.php";
+    
+ ?>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
+        <link href="assets/css/mail.css" rel="stylesheet">
 
         <!--**********************************
             Sidebar start

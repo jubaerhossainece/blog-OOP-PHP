@@ -22,23 +22,42 @@ p{
     border:  none;
 }
 
+.dropdown-profile ul > li{
+    padding: 0px !important;
+}
+
+
+
 /* message dropdown at header */
+.dropdown-content-heading {
+    background: #fff;
+}
+
 .dropdown-content-body ul {
     padding: 0rem;
     background-color: #fff;
 }
 
 .dropdown-content-body ul > li{
-    padding: 0 !important;
+    padding: 12px 10px;
 }
 
-.dropdown-content-body ul > li.notification-unread{
+/* .dropdown-content-body ul > li.notification-unread{
     padding: 10px !important;
-}
+} */
 
-.dropdown-content-body ul > li.notification-unread:hover {
+.dropdown-content-body ul > li:hover {
     background-color: #eeeef7;
 }
+
+.notification-timestamp {
+    font-size: 0.725rem;
+    display: block;
+    margin-top: 0.5625rem;
+    font-weight: 300;
+    color: #7571f9;
+}
+/* end of message dropdown */
 
 .dropdown-profile li a {
     display: block;

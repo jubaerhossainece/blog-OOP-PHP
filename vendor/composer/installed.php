@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '9b70260f92bbaa509ce69f683ae46a36a904cdb3',
+    'reference' => 'b61a722136302ec503979710f9d5b0b2e68a4d7a',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '9b70260f92bbaa509ce69f683ae46a36a904cdb3',
+      'reference' => 'b61a722136302ec503979710f9d5b0b2e68a4d7a',
     ),
     'fzaninotto/faker' => 
     array (

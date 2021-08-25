@@ -11,7 +11,6 @@
 .email-list .message:hover {
     /* transition-duration: 0.2s; */
     box-shadow: 0 1px 12px 1px #cbc8f7;
-    z-index: 10;
     border-bottom: white;
 }
 
@@ -38,7 +37,7 @@ span.star-toggle.ti-star.active {
 }
 
 .dropdown-menu.show {
-    box-shadow: 0 0 16px 0 #c9c7e8;
+    box-shadow: 0 5px 16px 0 #c9c7e8;
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
@@ -65,4 +64,17 @@ span.star-toggle.ti-star.active {
 .disabled {
     pointer-events: none;
     cursor: default;
+}
+
+/* mail inbox and important box */
+.select-all-box{
+    display: flex;
+}
+
+.select-all-checkbox{
+    margin: 11px 10px 0 20px;
+}
+
+.select-all-box input[type="checkbox"]{
+    cursor: pointer;
 }

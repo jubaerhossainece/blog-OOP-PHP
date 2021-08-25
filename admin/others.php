@@ -6,6 +6,11 @@
     $others = $db->select($query);
  ?>
 
+
+<?php 
+    include "includes/header-nav.php";
+    
+ ?>
         
         <!--**********************************
             Header end ti-comment-alt

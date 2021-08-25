@@ -3,6 +3,11 @@
     
  ?>
 
+<?php 
+    include "includes/header-nav.php";
+    
+ ?>
+
  <!-- fetching user data from database -->
  <?php 
     $req = $obj->inputValidate($_GET);

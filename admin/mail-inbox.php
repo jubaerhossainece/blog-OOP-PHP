@@ -21,11 +21,20 @@
 
     $mail_query = "SELECT * FROM tbl_contacts WHERE is_important=false LIMIT $from, $per_page";
     $mails = $db->select($mail_query);
+
+
 ?>
 
+
+
+<?php 
+    include "includes/header-nav.php";
+    
+ ?>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
+        <link href="assets/css/mail.css" rel="stylesheet">
 
         <!--**********************************
             Sidebar start
@@ -33,6 +42,7 @@
         <?php 
             include "includes/sidebar.php";
          ?>
+         
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -42,14 +52,7 @@
         ***********************************-->
         <div class="content-body">
 
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Apps</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Email</a></li>
-                    </ol>
-                </div>
-            </div>
+            
             <!-- row -->
 
             <div class="container-fluid">
@@ -66,12 +69,27 @@
 
 
                                 <div class="email-right-box">
-                                    <div role="toolbar" class="toolbar mb-3">
+                                    <div role="toolbar" class="select-all-box toolbar mb-3">
+                                        <div class="select-all-checkbox">
+                                            <input type="checkbox" id="select-all" >
+                                            <label class="toggle" for="select-all"></label>
+                                        </div>
                                         <div class="btn-group">
                                             <button aria-expanded="false" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" type="button">More <span class="caret m-l-5"></span>
                                             </button>
-                                            <div class="dropdown-menu"><span class="dropdown-header">More Option </span>  <a href="javascript: void(0);" class="dropdown-item">Mark as Unread</a>  <a href="javascript: void(0);" class="dropdown-item">Add to Tasks</a>  <a href="javascript: void(0);"
-                                                class="dropdown-item">Add Star</a>  <a href="javascript: void(0);" class="dropdown-item">Mute</a>
+                                            <div class="dropdown-menu"><span class="dropdown-header">More Option </span>  
+                                                <a href="javascript: void(0);" onclick="mark_unread()" class="dropdown-item">Mark as Unread</a>  
+                                                <a href="javascript: void(0);" onclick="mark_read()" class="dropdown-item">Mark as read</a>  
+                                                <a href="javascript: void(0);" onclick="mark_star()" class="dropdown-item">Add Star</a>  
+                                                <!-- <a href="javascript: void(0);" class="dropdown-item">Mute</a> -->
+                                            </div>
+                                            <div class="btn-group m-b-20">
+                                                <button type="button" class="btn btn-light"><i class="fa fa-archive"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-light"><i class="fa fa-exclamation-circle"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-light"><i class="fa fa-trash"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -84,9 +102,9 @@
                                 ?>
                                         <div class="message <?php if(!$mail->is_seen){ echo 'unread'; } ?>">
                                             <div class="col-mail col-mail-1">
-                                                <div class="email-checkbox">
-                                                    <input type="checkbox" id="chk2">
-                                                    <label class="toggle" for="chk2"></label>
+                                                <div class="email-checkbox" id="mail-checkbox">
+                                                    <input type="checkbox" id="message-id-<?php echo $mail->id ?>" class="" value="<?php echo $mail->id?>">
+                                                    <label class="toggle" for="message-id-<?php echo $mail->id ?>"></label>
                                                 </div>
                                                 <a href="Controllers/MailController.php?star=<?php echo $mail->id ?>"><span class="star-toggle ti-star"></span></a>
                                             </div>
@@ -146,11 +164,17 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    <form action="controllers/MailController.php" method="POST" id="action-form" class="d-none">
+        <input type="hidden" name="mail_array[]" id="mail-array"></input>
+        <input type="hidden" name="action_type" id="action-type">
+    </form>
     <?php 
         include "includes/footer.php";
      ?>
      <script>
-        $('#photo').change(function(){
-            $(this).next('label').text($(this).val());
+        $('#select-all').click(function(){
+            $('#mail-checkbox input[type="checkbox"]').prop('checked', this.checked);
         })
+        
      </script>
+     <script src="assets/js/app.js"></script>

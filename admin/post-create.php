@@ -5,6 +5,12 @@
     $cat_query = "SELECT * FROM tbl_categories";
     $categories = $db->select($cat_query);
   ?>
+
+
+<?php 
+    include "includes/header-nav.php";
+    
+ ?>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
