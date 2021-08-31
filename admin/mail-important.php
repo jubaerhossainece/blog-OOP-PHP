@@ -79,7 +79,7 @@
                         if($mails){ 
                         ?>
                             <div class="email-list m-t-15">
-                            <?php Format::current_page('mail-trashed.php') ?>
+                            <?php Format::isUrl('mail-trashed.php') ?>
                     <?php
                         while($mail = $mails->fetch_object()){
                         ?>

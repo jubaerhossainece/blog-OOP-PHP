@@ -93,6 +93,7 @@
                                 if($mails){ 
                                 ?>
                                     <div class="email-list m-t-15">
+                                        <a href="<?php echo Session::get('back');?>" class="btn btn-success"> back</a>
                             <?php
                                 while($mail = $mails->fetch_object()){
                                 ?>

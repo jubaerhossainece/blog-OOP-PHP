@@ -11,8 +11,12 @@ function mark_read(){
     });
     
     $('#mail-array').val(values);
-    $('#action-form #action-type').val('mark_as_read');
-    $('#action-form').submit();
+    if(values == ''){
+        return false;
+    }else{
+        $('#action-form #action-type').val('mark_as_read');
+        $('#action-form').submit();
+    }
 }
 
 //mark as unread
@@ -27,8 +31,12 @@ function mark_unread(){
     });
     
     $('#mail-array').val(values);
-    $('#action-form #action-type').val('mark_as_unread');
-    $('#action-form').submit();
+    if(values == ''){
+        return false;
+    }else{
+        $('#action-form #action-type').val('mark_as_unread');
+        $('#action-form').submit();
+    }
 }
 
 //mark as starred
@@ -43,8 +51,12 @@ function mark_star(){
     });
     
     $('#mail-array').val(values);
-    $('#action-form #action-type').val('mark_as_starred');
-    $('#action-form').submit();
+    if(values == ''){
+        return false;
+    }else{
+        $('#action-form #action-type').val('mark_as_starred');
+        $('#action-form').submit();
+    }
 }
 
 // send to trash box
@@ -59,6 +71,10 @@ function make_trash(){
     });
     
     $('#mail-array').val(values);
-    $('#action-form #action-type').val('mark_as_trashed');
-    $('#action-form').submit();
+    if(values == ''){
+        return false;
+    }else{
+        $('#action-form #action-type').val('mark_as_trashed');
+        $('#action-form').submit();
+    }
 }

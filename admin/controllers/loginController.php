@@ -38,7 +38,7 @@
             $user = $result->fetch_object();
             if (password_verify($password, $user->password)) {
                 Session::set('login', true);
-                $auth_keys = ['login', 'auth-keys'];
+                $auth_keys = ['login', 'auth-keys',];
                 foreach ($user as $key => $value) {
                     if($key != 'password'){
                         $key = 'auth-'.$key;

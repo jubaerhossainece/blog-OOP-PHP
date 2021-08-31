@@ -5,21 +5,21 @@
             <li>
                 <a href="index.php">
                     <i class="fas fa-home"></i>
-                    <span class="nav-text <?php if(Format::current_page('index.php')){ echo 'active'; } ?>">Home</span> 
+                    <span class="nav-text <?php if(PageUrl::isUrl('index.php')){ echo 'active'; } ?>">Home</span> 
                 </a>
             </li>
             
             <li>
                 <a href="users.php">
                     <i class="fas fa-users"></i>
-                    <span class="nav-text <?php if(Format::current_page('users.php')){ echo 'active'; } ?>">Users</span>
+                    <span class="nav-text <?php if(PageUrl::isUrl('users.php')){ echo 'active'; } ?>">Users</span>
                 </a>
             </li>
 
             <li>
                 <a href="categories.php">
                     <i class="fas fa-layer-group"></i>
-                    <span class="nav-text <?php if(Format::current_page('categories.php')){ echo 'active'; } ?>">Categories</span>
+                    <span class="nav-text <?php if(PageUrl::isUrl('categories.php')){ echo 'active'; } ?>">Categories</span>
                 </a>
             </li>
 

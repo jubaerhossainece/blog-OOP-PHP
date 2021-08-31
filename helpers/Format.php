@@ -1,6 +1,7 @@
 <?php
 
-class Format {
+
+class Format{
 
 	/**
 	*Convert a date in a specified format
@@ -133,26 +134,6 @@ class Format {
             $title = 'home';
         }
         return $title = ucfirst($title);
-    }
-
-
-	/**
-	*Get the title from url
-	*
-	* @param  string  $uri
-  	* @return bool
-	*/
-	public static function current_page($uri){
-		$path = $_SERVER['SCRIPT_NAME'];
-		$path = basename($path,".php");
-		$path = str_replace('/', '', $path);
-		$cur_url = strtolower($path);
-		
-        if($uri === $cur_url){
-			return true;
-		}else{
-			return false;
-		}
     }
 }
 ?>

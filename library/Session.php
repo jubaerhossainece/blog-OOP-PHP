@@ -1,4 +1,5 @@
 <?php 
+// include '../helpers/PageUrl.php';
 
 class Session{
 	/**
@@ -124,7 +125,10 @@ class Session{
 		foreach ($array_offset as $value) {
 			self::unsetSession($value);
 		}
+
+		PageUrl::previous();
+		PageUrl::current_url();
 	}
 }
 
- ?>
+?>

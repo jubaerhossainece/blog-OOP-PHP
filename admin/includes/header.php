@@ -2,6 +2,7 @@
     include '../library/Session.php';
     include '../config/Config.php';
     include '../helpers/Format.php';
+    include '../helpers/PageUrl.php';
     include '../helpers/Request.php';
     include '../library/Database.php';
     $db = new Database;
