@@ -9,14 +9,14 @@
 		*Determine if there is any error in the array
 		*
 		* @param  array  $errors
-    * @return bool
+    	* @return bool
 		*/
 		public static function error($errors){
 			if (in_array(true, $errors)) {
-     	return true;
-     }else{
-     	return false;
-     }
+				return true;
+			}else{
+				return false;
+			}
 		}
 
 
@@ -24,7 +24,7 @@
 		*sanitize user input value
 		*
 		* @param  string  $data
-    * @return string
+    	* @return string
 		*/
 		public static function sanitize($data){
 			$db = new Database;
@@ -44,7 +44,7 @@
 		*
 		* @param  string  $data
 		* @param string $field
-    * @return bool
+    	* @return bool
 		*/
 		public static function required($data, $field){
 			$message = $field. " is required.";
@@ -64,7 +64,7 @@
 		*chech if input value is well formed email address
 		*
 		* @param  string  $email
-    * @return bool
+    	* @return bool
 		*/
 		public static function email($email, $field){
 			if(!empty($email)){
@@ -83,7 +83,7 @@
 		*
 		* @param  string  $data
 		* @param  string  $field
-    * @return bool
+    	* @return bool
 		*/
 		public static function unique($data, $field, $table, $id=null){
 			$db = new Database;
@@ -114,8 +114,8 @@
 		*determine if the file is an image
 		*
 		* @param  object|string  $file
-    * @param  string  $field
-    * @return bool
+    	* @param  string  $field
+    	* @return bool
 		*/
 		public static function image($file, $field){
 			$type = array('jpg', 'jpeg', 'png', 'gif');
@@ -145,7 +145,7 @@
 		* @param  file  $file
 		* @param  integer $length
 		* @param  string $field
-    * @return bool
+    	* @return bool
 		*/
 		public static function maxFileSize($file, $field, $length){
 			$filesize = $file['size'];
@@ -177,7 +177,7 @@
 		* @param  string  $data
 		* @param  integer $length
 		* @param  string $field
-    * @return bool
+    	* @return bool
 		*/
 		public static function min($data, $field, $length){
 			$string = strlen($data);

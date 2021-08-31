@@ -147,7 +147,7 @@ class Format {
 		$path = basename($path,".php");
 		$path = str_replace('/', '', $path);
 		$cur_url = strtolower($path);
-
+		
         if($uri === $cur_url){
 			return true;
 		}else{

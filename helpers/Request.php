@@ -10,7 +10,7 @@
 		*validate input value in the given array
 		*
 		* @param  array  $request
-    * @return object
+    	* @return object
 		*/
 		public function inputValidate($request){
 			foreach ($request as $key => $value) {
@@ -25,7 +25,7 @@
 		*
 		* @param  object  $data
 		* @param  array  $rules
-    * @return bool
+    	* @return bool
 		*/
 		public function validate($data, $rules = array()){
 			$validator = new Validation;
