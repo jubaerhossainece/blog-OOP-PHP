@@ -111,3 +111,6 @@
     <script src="assets/library/js/styleSwitcher.js"></script>
 </body>
 </html>
+<?php 
+  Session::unsetOld();
+?>

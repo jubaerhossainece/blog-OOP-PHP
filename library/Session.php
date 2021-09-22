@@ -121,9 +121,16 @@ class Session{
 		foreach ($_SESSION as $key => $value) {
 			$session_keys[] = $key;
 		}
-		$array_offset = array_diff($session_keys, $auth_array);
-		foreach ($array_offset as $value) {
-			self::unsetSession($value);
+		
+		if($auth_array){
+			$array_offset = array_diff($session_keys, $auth_array);
+			foreach($array_offset as $value){
+				self::unsetSession($value);
+			}
+		}else{
+			foreach ($_SESSION as $key => $value) {
+				self::unsetSession($key);
+			}
 		}
 
 		PageUrl::previous();

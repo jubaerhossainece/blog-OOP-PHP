@@ -1,5 +1,5 @@
 
-//mark as unread
+//mark as read
 function mark_read(){
     let values = [];
 
@@ -55,6 +55,26 @@ function mark_star(){
         return false;
     }else{
         $('#action-form #action-type').val('mark_as_starred');
+        $('#action-form').submit();
+    }
+}
+
+//mark as important
+function mark_important(){
+    let values = [];
+
+    $('#mail-checkbox input[type="checkbox"]').each(function(){
+        let $this = $(this);
+        if ($this.is(':checked')) {
+            values.push($this.val());
+        }
+    });
+    
+    $('#mail-array').val(values);
+    if(values == ''){
+        return false;
+    }else{
+        $('#action-form #action-type').val('mark_as_important');
         $('#action-form').submit();
     }
 }

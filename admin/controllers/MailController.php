@@ -17,6 +17,28 @@
 
 
 <?php 
+//make mail starred(single mail)
+if(isset($req->star) && $req->star !== '' && $req->star > 0){
+    $star_id = $req->star;
+    
+    $query = "UPDATE tbl_contacts
+                          SET 
+                          is_important=true
+                          WHERE 
+                          id=$star_id";
+                $update = $db->update($query);
+    if($update){
+        PageUrl::back();
+        ob_end_flush();
+        exit;
+    }else{
+        PageUrl::back();
+        ob_end_flush();
+        exit;
+    }        
+
+}
+
 //make mail important(single mail)
 if(isset($req->star) && $req->star !== '' && $req->star > 0){
     $star_id = $req->star;
@@ -40,7 +62,7 @@ if(isset($req->star) && $req->star !== '' && $req->star > 0){
 }
 
 //make mail unimportant(single mail)
-if(isset($req->unstar) && $req->star !== '' && $req->unstar > 0){
+if(isset($req->unstar) && $req->unstar !== '' && $req->unstar > 0){
     $unstar_id = $req->unstar;
 
     $query = "UPDATE tbl_contacts

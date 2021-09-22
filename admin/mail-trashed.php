@@ -87,13 +87,22 @@
                                                 <button type="button" onclick="make_trash()" class="rounded btn btn-light"><i class="fa fa-trash"></i>
                                                 </button>
                                             </div>
+
+                                            <div class="btn-group m-b-20">
+                                                <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-folder"></i>  <b class="caret m-l-5"></b>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="javascript: void(0);">Inbox</a>  
+                                                    <a class="dropdown-item" href="javascript: void(0);" onclick="mark_important()">Important</a>  
+                                                    <a class="dropdown-item" href="javascript: void(0);">Spam</a> 
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                             <?php
                                 if($mails){ 
                                 ?>
                                     <div class="email-list m-t-15">
-                                        <a href="<?php echo Session::get('back');?>" class="btn btn-success"> back</a>
                             <?php
                                 while($mail = $mails->fetch_object()){
                                 ?>

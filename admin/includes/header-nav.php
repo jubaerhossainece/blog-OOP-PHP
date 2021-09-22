@@ -1,12 +1,11 @@
 <?php 
     //total unseen messages
-    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_important=false AND is_seen=false AND deleted_at IS null";
+    $query = "SELECT COUNT(id) as total FROM tbl_contacts WHERE is_seen=false AND deleted_at IS null";
     $inbox = $db->select($query)->fetch_object();
 
     //latest messages
-    $query_unseen = "SELECT * FROM tbl_contacts WHERE is_important=false AND is_seen=false ORDER BY created_at DESC LIMIT 4";
+    $query_unseen = "SELECT * FROM tbl_contacts WHERE is_seen=false AND deleted_at IS null ORDER BY created_at DESC LIMIT 4";
     $header_mails = $db->select($query_unseen);
-
 ?>
 
 <body>
@@ -186,7 +185,7 @@
                                         </li>
                                         <li>
                                             <a href="mail-inbox.php">
-                                                <i class="fas fa-envelope"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill gradient-1"><?php echo $header_total_message->total ?></div>
+                                                <i class="fas fa-envelope"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill gradient-1"><?php echo $inbox->total ?></div>
                                             </a>
                                         </li>
                                         
