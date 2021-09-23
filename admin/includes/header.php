@@ -28,6 +28,5 @@
     <!-- Custom Stylesheet -->
     <link href="assets/library/css/style.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
-
 </head>
 
