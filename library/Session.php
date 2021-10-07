@@ -1,5 +1,5 @@
 <?php 
-// include '../helpers/PageUrl.php';
+include '../helpers/PageUrl.php';
 
 class Session{
 	/**
